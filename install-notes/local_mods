@@ -1,0 +1,11 @@
+The permission model is granular enough to mark thumnails as anonymous readable, and main images as not. However, there's no way to set it. yay. So, we modified "PolicySet.java" to support this. It lives in the root of ibss-assets, but it's also plugged into the source tree (dspace-6.2-src-release). To build, cd to dspace-6.2-src-release/dspace -api and do a "mvn package". The generated .jar file is softlinked into the main dspace/lib/*jar directory.
+
+There are two .sh files, one which revokes permissions for main imagey, and one which grants is for thumbnails. I haven't tested importing new content, so I don't know which we'll need. However, regenerating the thumbnails (which we had to do because we changed the sizes) removed all the permissions from them.
+
+ibss-assets@ibss-assets:~$ cat grant_thumbnail_access.sh
+#!/usr/bin/env bash
+/home/ibss-assets/dspace/bin/dspace dsrun org.dspace.authorize.PolicySet 3 c085390f-d646-4de6-b986-0c4b2fa5cbae 0 0 4cbd9b32-f844-42a4-8f59-c72606231ebd ADD null THUMBNAIL
+ibss-assets@ibss-assets:~$ cat restrict_main_image_access.sh
+#!/usr/bin/env bash
+/home/ibss-assets/dspace/bin/dspace dsrun org.dspace.authorize.PolicySet 3 c085390f-d646-4de6-b986-0c4b2fa5cbae 0 0 4cbd9b32-f844-42a4-8f59-c72606231ebd CLEAR null ORIGINAL
+

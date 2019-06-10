@@ -1,0 +1,824 @@
+    1  ping www.google.com
+    2  date
+    3  yum
+    4  apt-get
+    5  apt-get update
+    6  apt-get upgrade
+    7  exit
+    8  apt-get upgrade
+    9  reboot
+   10  vi /etc/network/interfaces
+   11  /etc/init.d/networking restart
+   12  ifconfig -a
+   13  reboot
+   14  ifconfig
+   15  apt-get update
+   16  ping www.google.com
+   17  vi /etc/network/interfaces
+   18  /etc/init.d/networking restart
+   19  ping www.google.com
+   20  vi /etc/network/interfaces
+   21  /etc/init.d/networking restart
+   22  ping www.google.com
+   23  apt-get update
+   24  apt-get upgrade
+   25  exit
+   26  apt-get
+   27  apt-get install
+   28  apt
+   29  apt update
+   30  apt upgrade
+   31  exit
+   32  apt-get openssh-server
+   33  apt-get install openssh-server
+   34  exit
+   35  pwd
+   36  ls *keytab
+   37  ls krb*
+   38  ls
+   39  cd /etc
+   40  ls
+   41  ktutil
+   42  net ads join -U jrussack
+   43  df -h
+   44  umount /home
+   45  which pip
+   46  cd /etc
+   47  ls
+   48  rm krb5.keytab
+   49  service sssd stop
+   50  ps -ef | grep sssd
+   51  ls /etc/krb5.keytab
+   52  passwd root
+   53  man userdel
+   54  userdel jrussack
+   55  kill -9 3045
+   56  exit
+   57  apt-get remove  libpam0g-dev
+   58  apt-get install libpam-script 
+   59  klist
+   60  kinit jrussack
+   61  klist
+   62  net ads join
+   63  apt-get install sssd-toold
+   64  cat /etc/ntp.conf 
+   65  umount /home
+   66  klist
+   67  net ads join
+   68  ps -ef | grep sssd
+   69  service sssd start
+   70  systemctl status
+   71  service ntp restart
+   72  net ads join -U jrussack
+   73  net ads join -U jrussack@calacademy.org
+   74  apt-get remove libpam-script
+   75  apt-get install libpam0g-dev
+   76  net ads join -U jrussack@calacademy.org
+   77  net ads join -U jrussack
+   78  apt-get remove libpam0g-dev
+   79  apt-get install libpam-script
+   80  net ads join -U jrussack
+   81  net ads join -U jrussack@caladacemy.org
+   82  hostname -f
+   83  hostname
+   84  nano /etc/hosts
+   85  ifconfig
+   86  cd /etc
+   87  cp hosts hosts.orig
+   88  nano hosts
+   89  hostname -f
+   90  hostname
+   91  hostname --fqdn
+   92  getaddrinfo
+   93  gethostname
+   94  hostname -F /etc/hostname 
+   95  hostname -f
+   96  cat /etc/hostname 
+   97  nano /etc/hostname
+   98  hostname -f
+   99  hostname -F /etc/hostname 
+  100  hostname -f
+  101  cat /etc/host
+  102  cat /etc/hostname 
+  103  nano /etc/hosts
+  104  nano /etc/hostname
+  105  nano /etc/hosts
+  106  hostname -f
+  107  hostname
+  108  cat hosts
+  109  diff hosts
+  110  diff hosts.orig hosts
+  111  cat hosts.orig 
+  112  cp hosts hosts.works
+  113  cp hosts.orig hosts
+  114  grep -r cur_hostname *
+  115  cat /etc/hosts
+  116  cp /etc/hosts.orig /etc/hosts
+  117  cat /etc/hosts.works 
+  118  cp hosts.orig hosts
+  119  cat hosts
+  120  hostname -f
+  121  hostname 
+  122  klist
+  123  net ads join -U jrussack
+  124  kinit jrussack
+  125  net ads join -U jrussack
+  126  sssd -i
+  127  getent passwd jrussack
+  128  klist -k
+  129  apt-get install sssd-ad
+  130  nano /etc/samba/smb.conf
+  131  cd /etc
+  132  cd samba
+  133  cp smb.conf smb.conf.orig
+  134  nano smb.conf
+  135  echo "" > smb.conf
+  136  nano smb.conf
+  137  server samba restart
+  138  service samba restart
+  139  kinit jrussack
+  140  net ads join -k
+  141  cat /etc/krb5.*
+  142  ls /etc/krb5.*
+  143  cat /etc/krb5.keytab 
+  144  sssd -i
+  145  service sssd start
+  146  ps -ef | grep sssd
+  147  mount /home
+  148  which realm
+  149  realm join calacademy.org
+  150  cd /etc
+  151  mv krb5.keytab krb5.keytab.samba
+  152  kadmin
+  153  realm join calacademy.org
+  154  jet ads join -U jrussack
+  155  net ads join -U jrussack
+  156  ls
+  157  service sssd stop
+  158  adduser russack
+  159  passwd russack
+  160  useradd russack
+  161  passwd russack
+  162  ls -l /etc/shadow
+  163  passwd root
+  164  passwd russack
+  165  man pwconv
+  166  mv shadow shadow.works
+  167  pwconv
+  168  passwd russack
+  169  grep russack passwd
+  170  df -h
+  171  ls /home/russack/
+  172  grep russack /etc/shadow
+  173  chmod 640 /etc/shadow
+  174  passwd russack
+  175  passwd -f russack
+  176  passwd -d russack
+  177  passwd russack
+  178  pam-auth-update
+  179  nano /etc/ssh/sshd_config
+  180  service restart ssshd
+  181  service sshd restart
+  182  exit
+  183  userdel jrussack
+  184  userdel russack
+  185  ls /home/
+  186  deluser jrussack
+  187  rm -rf /home/russack/
+  188  rm -rf /home/jrussack/
+  189  mount slevin
+  190  mount /home
+  191  df -h\
+  192  df -h
+  193  service sssd start
+  194  nano /etc/sudoers
+  195  ping slevin
+  196  nano /etc/fstab
+  197  exit
+  198  kinit
+  199  net ads join
+  200  net ads join -U jrussack
+  201  cd /etc
+  202  grep ibss-
+  203  grep ibss-images *
+  204  grep ibss-images * | grep -v dir
+  205  grep ibss-images * |& grep -v dir
+  206  service sssd restart
+  207  kinit
+  208  net ads join
+  209  histname
+  210  hostname
+  211  sudo hostname ibss-assets.calacademy.org
+  212  hostname
+  213  hostname -v
+  214  hostname -f
+  215  exit
+  216  kinit
+  217  net ads join -U jrussack
+  218  exit
+  219  kinit
+  220  kinit jrussack
+  221  ping 10.1.10.146
+  222  nano /etc/fstab
+  223  mount /home
+  224  exit
+  225  kinit -u jrussack
+  226  kinit jrussack
+  227  net ads join -U jrussack
+  228  ping slevin
+  229  ls /usr/share
+  230  ls /usr/share/libpam-script/
+  231  service named restart
+  232  service bind9 restart
+  233  ping slevin
+  234  mkdir /home/ibss-assets
+  235  chown -R ibss-assets /home/ibss-assets
+  236  ls -l /home
+  237  chgrp -R 'domain users' /home/ibss-assets
+  238  exit
+  239  sudo su - ibss-assets
+  240  exit
+  241  sudo -u postgres psql
+  242  paql
+  243  psql
+  244  sudo su - postgres
+  245  sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+  246  sudo su - postgres
+  247  service postgres restart
+  248  service postgresql restart
+  249  sudo su - postgres
+  250  sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+  251  service postgresql restart
+  252  sudo su - postgres
+  253  sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+  254  service postgresql restart
+  255  sudo su - postgres
+  256  sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+  257  service postgresql restart
+  258  sudo su - postgres
+  259  exit
+  260  apt-get install ant
+  261  mkdir /opt/tomcat
+  262  ls
+  263  cd /home/ibss-assets/
+  264  ls
+  265  tar xzvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+  266  tar xzvf apache-tomcat-9*tar.gz -C /opt/tomcat --strip-components=1
+  267  cd /opt/tomcat/
+  268  chgrp -R ibss-assets /opt/tomcat
+  269  ls /home/
+  270  ls -l /home/
+  271  chgrp -R 'domain users' /opt/tomcat
+  272  chowm -R 'ibss-assets' /opt/tomcat
+  273  chown -R 'ibss-assets' /opt/tomcat
+  274  ls -l | grep conf
+  275  update-java-alternatives -l
+  276  nano /etc/systemd/system/tomcat.service
+  277  systemctl daemon-reload
+  278  systemctl start tomcat
+  279  systemctl status tomcat.service
+  280  /opt/tomcat/bin/startup.sh
+  281  ps -ef | grep -i tomcat
+  282  /opt/tomcat/bin/shutdown.sh 
+  283  ps -ef | grep -i tomcat
+  284  nano /etc/systemd/system/tomcat.service
+  285  ls -l
+  286  nano /etc/systemd/system/tomcat.service
+  287  systemctl start tomcat
+  288  systemctl status tomcat.service
+  289  systemctl daemon-reload
+  290  systemctl start tomcat
+  291  systemctl status tomcat.service
+  292  nano /etc/systemd/system/tomcat.service
+  293  systemctl start tomcat
+  294  systemctl daemon-reload
+  295  ps -ef | grep -i tomcat
+  296  rm -rf /opt/tomcat/logs/
+  297  systemctl daemon-reload
+  298  systemctl start tomcat
+  299  systemctl status tomcat.service
+  300  su - ibss-assets
+  301  history
+  302  service tomcat start
+  303  cd /var/log
+  304  ls
+  305  ls -lath
+  306  tail -100 syslog
+  307  less /opt/tomcat/bin/startup.sh
+  308  nano /etc/fstab
+  309  nano /etc/systemd/system/tomcat.service
+  310  service tomcat start
+  311  tail -100 syslog
+  312  date
+  313  nano /etc/systemd/system/tomcat.service
+  314  nano /opt/tomcat/bin/startup.sh
+  315  grep -i group /opt/tomcat/bin/startup.sh
+  316  history | grep nano
+  317  nano /etc/systemd/system/tomcat.service
+  318  service tomcat start
+  319  systemctl daemon-reload
+  320  service tomcat start
+  321  history | grep syslog
+  322  tail -100 syslog
+  323  nano /etc/systemd/system/tomcat.service
+  324  systemctl daemon-reload
+  325  service tomcat start
+  326  nano /etc/systemd/system/tomcat.service
+  327  service tomcat start
+  328  systemctl daemon-reload
+  329  service tomcat start
+  330  tail -100 syslog
+  331  nano /etc/systemd/system/tomcat.service
+  332  systemctl daemon-reload
+  333  service tomcat start
+  334  ps -ef | grep -i tomcat
+  335  ls /opt/tomcat/logs/
+  336  ls -lath /opt/tomcat/logs/
+  337  service tomcat sttop
+  338  service tomcat stop
+  339  tail -100 syslog
+  340  nano /etc/systemd/system/tomcat.service
+  341  ls -l /home/
+  342  nano /etc/systemd/system/tomcat.service
+  343  service tomcat start
+  344  service tomcat sttop
+  345  service tomcat stop
+  346  service tomcat start
+  347  tail -100 syslog
+  348  ps -ef | grep -i java
+  349  service tomcat stop
+  350  ps -ef | grep -i java
+  351  service tomcat stop
+  352  service tomcat start
+  353  ufw allow 8080
+  354  tail -100 syslog
+  355  cd /opt/tomcat/logs/
+  356  ls
+  357  ls -l
+  358  cd ..
+  359  ls -l
+  360  cd work/
+  361  ls -l
+  362  chown -R ibss-assets Catalina/
+  363  chgrp -R "domain users" ./Catalina/
+  364  cd ..
+  365  chown -R "ibss-assets" *
+  366  chgrp -R "domain users" *
+  367  service tomcat stop
+  368  chown -R "ibss-assets" *
+  369  chgrp -R "domain users" *
+  370  ls -l
+  371  cd work/
+  372  ls
+  373  cd 
+  374  cd /opt/tomcat/
+  375  ls
+  376  ls -l
+  377  cd work
+  378  ls -l
+  379  cd Catalina/
+  380  ls
+  381  ls -l
+  382  service tomcat start
+  383  nano /opt/tomcat/conf/tomcat-users.xml
+  384  nano /opt/tomcat/webapps/manager/META-INF/context.xml
+  385  nano /opt/tomcat/webapps/host-manager/META-INF/context.xml
+  386  systemctl restart tomcat
+  387  apt-get install mvn
+  388  apt-get install maven
+  389  service tomcat restart
+  390  tail -100 /var/log/syslog
+  391  ps -ef | grep -i tomcat
+  392  cd ..
+  393  cd webapps/
+  394  ls
+  395  ls -l
+  396  date
+  397  cd ..
+  398  cd logs/
+  399  ls
+  400  ls -lath
+  401  date
+  402  tail -100 catalina.
+  403  tail -100 catalina.out 
+  404  service tomcat stop
+  405  cd ..
+  406  cd webapps/
+  407  ls
+  408  mv jspui/ jspui.old
+  409  mv xmlui/ xmlui.old
+  410  mv solr/ solr.old
+  411  ls -lath
+  412  rm -rf ./jspui  oai  rdf  rest  solr  sword  swordv2  xmlui
+  413  ls -l
+  414  ln -s /home/ibss-assets/dspace/webapps/* .
+  415  ls -l
+  416  service tomcat start
+  417  cd ROOT/
+  418  ls
+  419  mv index.jsp index.jsp.old
+  420  cd WEB-INF/
+  421  cat web.xml 
+  422  cd .. 
+  423  nano index.jsp
+  424  service tomcat restart
+  425  cd ..
+  426  grep -f "This is the default " *
+  427  grep -r "This is the default " *
+  428  cd ..
+  429  ls
+  430  cd conf/
+  431  ls
+  432  nano server.xml 
+  433  cp server.xml server.xml.orig
+  434  ls -l server.xml*
+  435  nano server.xml
+  436  service tomcat restart
+  437  grep -i context *
+  438  nano web.xml 
+  439  ps -ef | grep -i tomcat
+  440  nano web.xml 
+  441  ls
+  442  nano server.xml
+  443  service tomcat restart
+  444  cd ..
+  445  cd webapps/
+  446  ls
+  447  rm -rf *.old
+  448  ls
+  449  ls -lath
+  450  cd ROOT/
+  451  ls
+  452  ls -l
+  453  chown ibss-assets index.jsp
+  454  chgrp ibss-assets index.jsp
+  455  chgrp "domain users" index.jsp
+  456  ls -l
+  457  ls /etc/authbind/byport/80
+  458  ls /etc/authbind/byport
+  459  ls /etc/authbind
+  460  apt-get install authbind
+  461  ls touch /etc/authbind/byport/8
+  462  ls touch /etc/authbind/byport/
+  463  ls /etc/authbind/byport/
+  464  ls /etc/authbind/
+  465  touch /etc/authbind/byport/80
+  466  chmod 500 /etc/authbind/byport/80
+  467  chown ibss-assets /etc/authbind/byport/80
+  468  service tomcat restart
+  469  service apache stop
+  470  service httpd stop
+  471  ps -ef | grep -i apache
+  472  service apache2 stop
+  473  service tomcat restart
+  474  apt-get remove apache2
+  475  ps -ef | grep -i tomcat
+  476  service tomcat restart
+  477  service authbind restart
+  478  ls -l /etc/authbind/byport/
+  479  chgrp "domain users" /etc/authbind/byport/80 
+  480  service tomcat restart
+  481  /usr/bin/authbind --deep /bin/bash -c
+  482  history | grep nano
+  483  nano /etc/systemd/system/tomcat.service
+  484  service tomcat stop
+  485  systemctl daemon-reload
+  486  service tomcat start
+  487  ps -ef | grep -i tomcat
+  488  cat /etc/systemd/system/tomcat.service
+  489  history | grep port
+  490  ls
+  491  service tomcat restart
+  492  sudo –u postgre psql
+  493  sudo su - postgres
+  494  rsync -av /var/lib/postgresql /home/ibss-assets/
+  495  mv /var/lib/postgresql/9.5/main /var/lib/postgresql_backup
+  496  nano /etc/postgresql/9.5/main/postgresql.conf
+  497  systemctl start postgresql
+  498  systemctl status postgresql
+  499  sudo su - postgres
+  500  ls -l /home/ibss-assets/postgresql/9.5/main
+  501  rm –rf /var/lib/postgresql_backup
+  502  rm -rf /var/lib/postgresql_backup/
+  503  exit
+  504  sudo su - ibss-assets
+  505  service tomcat restart
+  506  cd /etc
+  507  nano /etc/hosts
+  508  cp hosts hosts.working
+  509  nano hosts
+  510  service tomcat restart
+  511  grep mail.allowed.referrers *
+  512  service tomcat restart
+  513  nano hosts
+  514  service tomcat restart
+  515  tail -100 /var/log/syslog
+  516  ps -ef | grep tomcat
+  517  service tomcat start
+  518  ps -ef | grep tomcat
+  519  tail -100 /var/log/syslog
+  520  cd /opt/tomcat/
+  521  ls
+  522  find . -name "*.pid" -print
+  523  cd temp/
+  524  ps -ef | grep tomcat
+  525  ls
+  526  rm tomcat.pid 
+  527  setvice tomcat start
+  528  service tomcat start
+  529  ps -ef | grep tomcat
+  530  tail -100 /var/log/syslog
+  531  cd ../logs/
+  532  ls
+  533  ls -lath
+  534  tail -100 catalina.out 
+  535  nano hosts
+  536  nano /opt/tomcat/conf/server.xml
+  537  service tomcat start
+  538  ps -ef | grep tomcat
+  539  nano /opt/tomcat/conf/server.xml
+  540  service tomcat restart
+  541  ps -ef | grep tomcat
+  542  nano /opt/tomcat/conf/server.xml
+  543  service tomcat restart
+  544  apt-get install imagemagick
+  545  sudo service tomcat restart
+  546  exit
+  547  service tomcat restart
+  548  exit
+  549  service tomcat restart
+  550  ps -ef | grep -i solr
+  551  ls
+  552  ps -ef | grep -i solr
+  553  ps -ef 
+  554  ps -ef  | grep assets
+  555  service tomcat stop
+  556  w
+  557  ps -ef | grep java
+  558  kill 31413
+  559  ps -ef | grep java
+  560  kill 3699
+  561  ps -ef | grep java
+  562  systemctl stop postgresql
+  563  systemctl status postgresql
+  564  systemctl start postgresql
+  565  systemctl status postgresql
+  566  psql
+  567  service postgresql start
+  568  systemctl status postgresql
+  569  psql
+  570  ps -ef | grep post
+  571  ps -ef | grep pg
+  572  tail -100 /var/log/syslog
+  573  chmod 0700 /home/ibss-assets/postgresql/9.5/main
+  574  service postgresql start
+  575  psql
+  576  service postgresql sto
+  577  psql
+  578  systemctl status postgresql
+  579  du -h
+  580  df -h
+  581  mkdir /var/lib/postgresql
+  582  ls /var/lib/postgresql
+  583  ls /var/lib/postgresql/9.5/
+  584  rsync -av  /home/ibss-assets/postgresql/9.5 /var/lib/postgresql/9.5
+  585  ls
+  586  ls /var/lib/postgresql/9.5
+  587  cd /var/lib/postgresql/9.5
+  588  ls
+  589  cd ..
+  590  mv 9.5 old
+  591  cd old/
+  592  mv 9.5 ..
+  593  cd ..
+  594  cd 9.5/
+  595  ls -l
+  596  sudo nano /etc/postgresql/9.5/main/postgresql.conf
+  597  systemctl start postgresql
+  598  mv /home/ibss-assets/postgresql/9.5/main /home/ibss-assets/postgresql/9.5/main.old
+  599  service tomcat start
+  600  history | grep tail
+  601  tail -100 /var/log/syslog
+  602  service tomcat stop
+  603  service tomcat start
+  604  exit
+  605  service tomcat restart
+  606  exit
+  607  service tomcat restart
+  608  exit
+  609  service tomcat restart
+  610  service tomcat restart
+  611  exit
+  612  service tomcat restart
+  613  exit
+  614  chown ibss-assets /home/ibss-assets/data_transformation/
+  615  chgrp "domain users" /home/ibss-assets/data_transformation/
+  616  exit
+  617  service tomcat restart
+  618  apt-get install libimage-exiftool-perl
+  619  cd /var/l;og
+  620  cd /var/log
+  621  less syslog
+  622  tail -500 syslog
+  623  date
+  624  ls -l /etc/postfix/main.cf
+  625  exit
+  626  apt-get remove mailutils
+  627  apt-get install mailutils
+  628  tail -500 syslog
+  629  cd /var/log
+  630  tail -500 syslog
+  631  tail -500 syslog | grep -v smbd
+  632  tail -1500 syslog | grep -v smbd | grep -i cron
+  633  clear
+  634  tail -1500 syslog | grep -v smbd | grep -i cron
+  635  ls
+  636  tail -100 syslog
+  637  nano # See /usr/share/postfix/main.cf.dist for a commented, more complete version
+  638  nano /etc/postfix/main.cf
+  639  ls /var/mail/ibss-assets
+  640  ls /var/mail
+  641  tail -100 syslog
+  642  sudo apt-get install --reinstall postfix
+  643  mail
+  644  sudo dpkg-reconfigure postfix
+  645  mail
+  646  ls /var/mail
+  647  touch /var/mail/ibss-assets
+  648  chown ibss-assets /var/mail/ibss-assets
+  649  chgrp "domain users" /var/mail/ibss-assets
+  650  cd /var/log
+  651  cd messages
+  652  ls
+  653  tail -100 syslog
+  654  cd /var/spool/
+  655  cd cron
+  656  ls
+  657  cd crontabs
+  658  ls -l
+  659  cat /etc/pam.d/cron
+  660  grep "^+.*cron" /etc/security/access.conf
+  661  cat /etc/security/access.conf
+  662  nano /etc/security/access.conf
+  663  tail -10 /var/log/syslog
+  664  date
+  665  tail -10 /var/log/syslog
+  666  nano /etc/security/access.conf
+  667  history | grep pam
+  668  nano /etc/pam.d/cron
+  669  cat /etc/pam.d/cron
+  670  nano /etc/pam.d/cron
+  671  history | grep tail
+  672  tail -10 /var/log/syslog
+  673  date
+  674  tail -10 /var/log/syslog
+  675  nano /etc/pam.d/cron
+  676  tail -10 /var/log/syslog
+  677  nano /etc/pam.d/cron
+  678  sudo ibss-assets touch /home/ibss-assets/test-file
+  679  sudo su ibss-assets touch /home/ibss-assets/test-file
+  680  sudo su - ibss-assets touch /home/ibss-assets/test-file
+  681  runuser -l ibss-assets touch /home/ibss-assets/test-file
+  682  which touch
+  683  nano /etc/pam.d/cron
+  684  runuser -l ibss-assets /usr/bin/touch /home/ibss-assets/test-file
+  685  su ibss-assets -c "touch /home/ibss-assets/test-file"
+  686  ls -l /home/ibss-assets/test-file
+  687  rm /home/ibss-assets/test-file
+  688  su ibss-assets -c "touch /home/ibss-assets/test-file"
+  689  su ibss-assets -c "touch /home/ibss-assets/dspace/fo"
+  690  su - ibss-assets -c "touch /home/ibss-assets/dspace/fo"
+  691  su - ibss-assets -c "echo boo"
+  692  su  ibss-assets -c "echo boo"
+  693  ls -l  /home/ibss-assets/test-file
+  694  rm  /home/ibss-assets/test-file
+  695  su ibss-assets -c "touch /home/ibss-assets/test-file"
+  696  ls -l  /home/ibss-assets/test-file
+  697  sudo su - -c "touch /tmp/foo"
+  698  ls -l /tmp.foo
+  699  ls -l /tmp/foo
+  700  sudo su ibss-assets - -c "touch /tmp/foo"
+  701  ls -l /tmp/foo
+  702  rm /tmp/foo
+  703  sudo su ibss-assets - -c "touch /tmp/foo"
+  704  ls -l /tmp/foo
+  705  crontab p=-l
+  706  crontab -l
+  707  crontab -e
+  708  mail
+  709  cat /etc/nsswitch.conf
+  710  nano /etc/nsswitch.conf
+  711  exit
+  712  sudo su ibss-assets -c touch /tmp/foo; touch /tmp/bar
+  713  ls -l /tmp/foo
+  714  ls -l /tmp/bar
+  715  rm /tmp/foo
+  716  rm /tmp/bar
+  717  sudo su ibss-assets -c touch /tmp/foo; touch /tmp/bar
+  718  ls -l /tmp/foo
+  719  ls -l /tmp/bar
+  720  sudo su ibss-assets  touch /tmp/foo; touch /tmp/bar
+  721  ls -l /tmp/bar
+  722  ls -l /tmp/foo
+  723  sudo su ibss-assets  'touch /tmp/foo; touch /tmp/bar'
+  724  rm /tmp/foo
+  725  rm /tmp/bar
+  726  sudo su ibss-assets  'touch /tmp/foo; touch /tmp/bar'
+  727  ls -l /tmp/fpp
+  728  ls -l /tmp/foo
+  729  sudo su ibss-assets -c 'touch /tmp/foo; touch /tmp/bar'
+  730  ls -l /tmp/foo
+  731  ls -l /tmp/bar
+  732  mail
+  733  crontab -e
+  734  sudo su ibss-assets -c '/usr/bin/pg_dump dspace > /home/ibss-assets/database_backup/daily/$(date "+%b-%d-%Y").sql; gzip /home/ibss-assets/database_backup/daily/$(date "+%b-%d-%Y").sql'
+  735  ls -lath 
+  736  ls -lath  /home/ibss-assets/database_backup/daily
+  737  mail
+  738  ls /var/mail
+  739  cd /var/mail
+  740  ls -l
+  741  grep -i opne *
+  742  grep -i open *
+  743  crontab -l
+  744  ls
+  745  crontab -e
+  746  crontab -l
+  747  pwd
+  748  crontab -e
+  749  /home/ibss-assets/maintenance_scripts/4-daily.sh
+  750  nano /etc/nsswitch.conf
+  751  /home/ibss-assets/maintenance_scripts/4-daily.sh
+  752  /home/ibss-assets/maintenance_scripts/daily.sh
+  753  rm ./dspace/log/checker.log.2018-04-30
+  754  rm /home/ibss-assets/dspace/log/checker.log.2018-04-30
+  755  ls /home/ibss-assets/dspace/sitemaps/
+  756  ls -l /home/ibss-assets/dspace/sitemaps/
+  757  rm /home/ibss-assets/dspace/sitemaps/*
+  758  rm -rf /home/ibss-assets/dspace/sitemaps/
+  759  ls -l /home/ibss-assets/dspace/sitemaps/
+  760  sudo su - ibss-assets
+  761  history
+  762  history | grep tomcat
+  763  cd /opt/tomcat/
+  764  ls
+  765  find . -name "server.xml" -print
+  766  cd conf/
+  767  less server.xml
+  768  cd ..
+  769  grep -ri dspace *
+  770  grep -ri dspace * | grep -v logs
+  771* 
+  772  history | grep nano
+  773  nano /opt/tomcat/conf/server.xml
+  774  nano /etc/systemd/system/tomcat.service
+  775  history | grep server.xml
+  776  nano /opt/tomcat/conf/server.xml
+  777  history | grep apache
+  778  cd /opt/tomcat/
+  779  ls
+  780  cd webapps/
+  781  ls
+  782  cd ..
+  783  find . -name "*.xml" -print
+  784  find . -name "*.xml" -print -exec grep -i rest {} \;
+  785  find . -name "*.xml" -print -exec grep -i webapps {} \;
+  786  clear
+  787  find . -name "*.xml" -print -exec grep -i webapps {} \;
+  788  find . -name "*.xml" -print -exec grep -i assets {} \;
+  789  cd ,,
+  790  cd ..
+  791  find . -name "*.xml" -print -exec grep -i assets {} \;
+  792  cd /etc
+  793  grep -ri dspace * | grep -v logs
+  794  find . -name "*.xml" -print -exec grep -i assets {} \;
+  795  find . -name "*.xml" -print -exec grep -i dspace {} \;
+  796  cd /opt/
+  797  ls
+  798  cd tomcat/
+  799  ls
+  800  cd conf/
+  801  ls
+  802  grep -i redirect *
+  803  diff server.xml server.xml.orig 
+  804  clear
+  805  diff server.xml server.xml.orig  | less
+  806  less server.xml.orig 
+  807  less server.xml
+  808  cd ..
+  809  find . -name "*.xml" -print -exec grep -i dspace {} \;
+  810  find . -name "*.xml" -print -exec grep -i docbase {} \;
+  811  cd webapps/
+  812  cd host-manager/
+  813  nano manager.xml 
+  814  grep -r docBase *
+  815  cd ..
+  816  grep -r docBase *
+  817  nano tomcat/webapps/host-manager/manager.xml
+  818  service tomcat restart
+  819  find . -name "*.xml" -print -exec grep -i docbase {} \;
+  820  nano tomcat/webapps/host-manager/manager.xml
+  821  echo "$CATALINA_HOME"
+  822  history | less
+  823  cd
+  824  history > /home/ibss-assets/root-command-history

@@ -1,0 +1,1000 @@
+ 1247  file dspace-logo-only-2.png
+ 1248  file dspace-logo-only.png 
+ 1249  cd
+ 1250  ls
+ 1251  cd data_transformation/
+ 1252  ls
+ 1253  ls -lath
+ 1254  rm *.png
+ 1255  ls
+ 1256  cd
+ 1257  ls
+ 1258  cd dspace-6.2-src-release/
+ 1259  ls
+ 1260  find . -name "themes" -print
+ 1261  cd ./dspace-xmlui/src/main/webapp
+ 1262  ls
+ 1263  find . -name "gallery.xsl" -print
+ 1264  find . -name "gallery.*" -print
+ 1265  find . -name "gallery*" -print
+ 1266  cd ..
+ 1267  find . -name "gallery*" -print
+ 1268  cd ~/dspace
+ 1269  find . -name "gallery*" -print
+ 1270  cd
+ 1271  cd dspace
+ 1272  ls
+ 1273  find . -name "themes" -print
+ 1274  cd webapps/xmlui/
+ 1275  ls
+ 1276  cd themes/
+ 1277  ls
+ 1278  less themes.xmap 
+ 1279  cd
+ 1280  cd dspace/config/
+ 1281  ls
+ 1282  ls *orig*
+ 1283  cp xmlui.xconf.orig xmlui.xconf
+ 1284  cd ..
+ 1285  ls
+ 1286  cd config/
+ 1287  nano xmlui.xconf
+ 1288  ls
+ 1289  pwd
+ 1290  cd ..
+ 1291  ls
+ 1292  find . -name "themes" -print
+ 1293  cd webapps/xmlui/
+ 1294  cd themes/
+ 1295  ls
+ 1296  cat ~/dspace/config/xmlui.xconf
+ 1297  ls
+ 1298  cp -r ./Mirage cas
+ 1299  nano ~/dspace/config/xmlui.xconf
+ 1300  nano ~/dspace/config/dspace.cfg
+ 1301  cd
+ 1302  cd ~/dspace/webapps/xmlui/themes
+ 1303  cd cas/
+ 1304  ls
+ 1305  grep -ri mirage *
+ 1306  find . -name "*.jpg" -print
+ 1307  find . -name "*.gif" -print
+ 1308  find . -name "*logo*" -print
+ 1309  cd images/
+ 1310  ls
+ 1311  cd ..
+ 1312  grep -r "dspace-logo-only" *
+ 1313  cd lib/
+ 1314  cd css/
+ 1315  nano style.css 
+ 1316  cd ../../images/
+ 1317  ls
+ 1318  cp ~jrussack/cas-library/*.png .
+ 1319  ls *png*
+ 1320  ls *png* | grep trans
+ 1321  ls -lath
+ 1322  cd ..
+ 1323  ls
+ 1324  cd cas/
+ 1325  ls
+ 1326  find . -name "*.css" -print
+ 1327  grep -r ds-header-logo *
+ 1328  cd lib/css
+ 1329  cp style.css style.css.orig
+ 1330  nano style.css
+ 1331  grep png *
+ 1332  grep png * | grep images
+ 1333  grep png * | grep images | grep -i dspace
+ 1334  grep png * | grep images | grep -i atmire
+ 1335  grep -ri atmire *
+ 1336  nano style.css
+ 1337  cd ..
+ 1338  find . -name "messages.xml" -print
+ 1339  cd ..
+ 1340  find . -name "messages.xml" -print
+ 1341  cd ..
+ 1342  find . -name "messages.xml" -print
+ 1343  cd
+ 1344  cd dspace
+ 1345  cd webapps/
+ 1346  find . -name "messages.xml" -print
+ 1347  cd xmlui/i18n/
+ 1348  ls
+ 1349  grep -i "Dspace rep" *
+ 1350  nano messages.xml 
+ 1351  grep -i "Dspace Repository" *
+ 1352  clear
+ 1353  grep -i "Dspace Repository" *
+ 1354  nano messages.xml
+ 1355  cd ..
+ 1356  cd
+ 1357  cd cas-theme
+ 1358  ls
+ 1359  cd lib/css/
+ 1360  cp style.css.orig style.css
+ 1361  cd
+ 1362  cd cas-theme/images/
+ 1363  ls
+ 1364  ls dspace*
+ 1365  mv dspace-logo-only.png dspace-logo-only.png.orig
+ 1366  ln -s ./CAS_Logo_HorizontalColor_big_transparent.png ./dspace-logo-only.png
+ 1367  ls -l
+ 1368  rm dspace-logo-only.png
+ 1369  mv dspace-logo-only.png.orig dspace-logo-only.png
+ 1370  ls
+ 1371  cd ..
+ 1372  grep -r "DSpace is a digital service that collects, preserves, and distributes digital material. Repositories are important tools for preserving an organization's legacy; they facilitate digital preservation and scholarly communication" *
+ 1373  cd
+ 1374  cd dspace
+ 1375  cd webapps/
+ 1376  grep -r "DSpace is a digital service that collects, preserves, and distributes digital material. Repositories are important tools for preserving an organization's legacy; they facilitate digital preservation and scholarly communication" *
+ 1377  grep -r "DSpace is a digital" *
+ 1378  cd ..
+ 1379  ls
+ 1380  history | grep mess
+ 1381  find . -name "messages.xml" -print
+ 1382  cd webapps/xmlui/
+ 1383  cd
+ 1384  cd dspace
+ 1385  cd ../dspace-6.2-src-release/
+ 1386  grep -r "DSpace is a digital service that collects, preserves, and distributes digital material. Repositories are important tools for preserving an organization's legacy; they facilitate digital preservation and scholarly communication" *
+ 1387  grep -r "DSpace is a digital" *
+ 1388  cd ..
+ 1389  cd dspace
+ 1390  cd config/
+ 1391  grep -r "DSpace is a digital" *
+ 1392  nano news-xmlui.xml 
+ 1393  cd
+ 1394  ls
+ 1395  ls -lath | less
+ 1396  wc items.csv
+ 1397  ls -lath | less
+ 1398  cd import_1/
+ 1399  ls
+ 1400  cd
+ 1401  ls
+ 1402  cd cas-theme
+ 1403  ls
+ 1404  cd lib/
+ 1405  ls
+ 1406  cd css/
+ 1407  ls
+ 1408  grep png orig*
+ 1409  grep png *
+ 1410  grep png *.orig
+ 1411  grep png *.orig | grep atmire
+ 1412  grep png *.orig | grep -i logo
+ 1413  cd /opt/
+ 1414  ls
+ 1415  cd tomcat/
+ 1416  ls
+ 1417  find . -name "dspace-logo-only.png" -print
+ 1418  cd ..
+ 1419  find . -name "dspace-logo-only.png" -print
+ 1420  cd
+ 1421  cd dspace
+ 1422  find . -name "dspace-logo-only.png" -print
+ 1423  cd webapps/
+ 1424  grep png *.orig | grep -i logo
+ 1425  find . -name "dspace-logo-only.png" -print
+ 1426  grep -r "dspace-logo-only" *
+ 1427  file ./xmlui/themes/Mirage/images/dspace-logo-only.png
+ 1428  cd
+ 1429  cd cas-theme
+ 1430  grep -r "DSpace Repository" *
+ 1431  cd
+ 1432  cd dspace
+ 1433  cd config/
+ 1434  grep -r "DSpace Repository" *
+ 1435  nano news-xmlui.xml 
+ 1436  grep -r "DSpace Repository" *
+ 1437  cd
+ 1438  cd dspace
+ 1439  ls
+ 1440  cd
+ 1441  cd dspace-6.2-release/
+ 1442  grep -r "DSpace Repository" *
+ 1443  ls -lath  less
+ 1444  ls -lath  | less
+ 1445  ps -ef | grep python
+ 1446  ls *.sh
+ 1447  ./grant_thumbnail_access.sh > grant_results.txt
+ 1448  bg
+ 1449  jobs
+ 1450  disown
+ 1451  exit
+ 1452  ls -lath | less
+ 1453  tail -100 grant_results.txt 
+ 1454  cat grant_results.txt | grep Adding | wc
+ 1455  ls
+ 1456  ls *.sh
+ 1457  less items.csv 
+ 1458  rm items.csv 
+ 1459  cat update_thumbs.py 
+ 1460  /home/ibss-assets/dspace/bin/dspace filter-media -f -v -i 123456789/30902
+ 1461  cat grant_thumbnail_access.sh 
+ 1462  cd 
+ 1463  cd dspace
+ 1464  cd assetstore/
+ 1465  find . -name '*.png' -exec file {} \; | sed 's/\(.*png\): .* \([0-9]* x [0-9]*\).*/\2 \1/' | awk 'int($1) > 500 {print}'
+ 1466  ls
+ 1467  cd 10
+ 1468  ls
+ 1469  cd 10
+ 1470  ls
+ 1471  cd 01
+ 1472  ls
+ 1473  file 10100155067264175518034455651464437976
+ 1474  ls -l
+ 1475  ls -lath
+ 1476  cd 101001079909375608191302972558629981101
+ 1477  file 10100155067264175518034455651464437976
+ 1478  file 101001079909375608191302972558629981101
+ 1479  cd ..
+ 1480  cd 01
+ 1481  ls -lath
+ 1482  date
+ 1483  ls -lath | less
+ 1484  cd
+ 1485  history
+ 1486  ls
+ 1487  head smalls
+ 1488  cd dspace
+ 1489  cd assetstore/
+ 1490  ls -l ./58/68/77/58687788607683845220703829711139476932
+ 1491  cd ..
+ 1492  date
+ 1493  crontab -l
+ 1494  crontab -e
+ 1495  date
+ 1496  crontab -e
+ 1497  mail
+ 1498  date
+ 1499  nano news-xmlui.xml 
+ 1500  crontab -e
+ 1501  datge
+ 1502  date
+ 1503  crontab -l
+ 1504  mail
+ 1505  date
+ 1506  ls
+ 1507  mail
+ 1508  cd database_backup/
+ 1509  ls
+ 1510  cd daily/
+ 1511  ls
+ 1512  nano news-xmlui.xml 
+ 1513  crontab -l
+ 1514  crontab -e
+ 1515  mail
+ 1516  ls
+ 1517  cd
+ 1518  ls *.sh
+ 1519  ls
+ 1520  find . -name "*thumb*" -print
+ 1521  ls
+ 1522  cat update_thumbs.py 
+ 1523  /home/ibss-assets/dspace/bin/dspace filter-media -f -v -i 123456789/33531
+ 1524  MAIL
+ 1525  mail
+ 1526  cd database_backup/
+ 1527  ls
+ 1528  cd daily/
+ 1529  ls
+ 1530  cd
+ 1531  crontab -l > crontab.dump
+ 1532  cat crontab.dump 
+ 1533  crontab -e
+ 1534  mail
+ 1535  cd database_backup/
+ 1536  ls
+ 1537  date
+ 1538  ls
+ 1539  ks
+ 1540  ls
+ 1541  crontab -e
+ 1542  cd ..
+ 1543  cd
+ 1544  cd ..
+ 1545  ls -l | grep ibss-assets
+ 1546  /home/ibss-assets/test-file
+ 1547  touch /home/ibss-assets/test-file
+ 1548  rm /home/ibss-assets/test-file
+ 1549  exit
+ 1550  cd
+ 1551  cat .bashrc 
+ 1552  alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+ 1553  source .bashrc 
+ 1554  ls -lath | grel .
+ 1555  ls -lath | grep .
+ 1556  source .config/
+ 1557  source .profile 
+ 1558  source .bashrc 
+ 1559  source .bash
+ 1560  bash
+ 1561  exit
+ 1562  ls
+ 1563  ls *dump
+ 1564  cat crontab.dump 
+ 1565  cd
+ 1566  ls
+ 1567  cd database_backup/
+ 1568  ls
+ 1569  cd daily/
+ 1570  ls
+ 1571  mail
+ 1572  exit
+ 1573  cd
+ 1574  ls
+ 1575  cd database_backup/
+ 1576  touch daily.sh
+ 1577  touch weekly.sh
+ 1578  touch monthly.sh
+ 1579  chmod 755 *.sh
+ 1580  nano daily.sh 
+ 1581  ./daily.sh 
+ 1582  nano daily.sh 
+ 1583  ./daily.sh 
+ 1584  nano daily.sh 
+ 1585  yes y
+ 1586  ls
+ 1587  nano monthly.sh 
+ 1588  nano daily.sh 
+ 1589  ./daily
+ 1590  ./daily.sh 
+ 1591  cd daily/
+ 1592  ls
+ 1593  cd ../weekly/
+ 1594  ls
+ 1595  rm *
+ 1596  cd ../
+ 1597  ./daily.sh 
+ 1598  cd daily/
+ 1599  ls
+ 1600  cd ../weekly/
+ 1601  ls
+ 1602  nano daily.sh 
+ 1603  cd ..
+ 1604  nano daily.sh 
+ 1605  nano weekly.sh 
+ 1606  nano daily.sh 
+ 1607  nano weekly.sh 
+ 1608  nano monthly.sh 
+ 1609  ls
+ 1610  touch yearly.sh
+ 1611  chmod 755 yearly.sh 
+ 1612  nano yearly
+ 1613  nano yearly.sh 
+ 1614  cat daily.sh 
+ 1615  cat weekly.sh 
+ 1616  cat monthly.sh 
+ 1617  cat yearly.sh 
+ 1618  ./daily.sh 
+ 1619  ls ./daily
+ 1620  ls ./weekly
+ 1621  ./weekly.sh 
+ 1622  ls ./weekly
+ 1623  ls -l ./weekly
+ 1624  date
+ 1625  ls ./daily
+ 1626  ./monthly.sh 
+ 1627  ls ./monthly
+ 1628  ./yearly.sh 
+ 1629  ls ./yearly
+ 1630  rm ./yearly/*
+ 1631  ./daily.sh 
+ 1632  cd ..
+ 1633  ls
+ 1634  cd database_backup/
+ 1635  cat daily.sh 
+ 1636  cat weekly.sh 
+ 1637  cat monthly.sh 
+ 1638  cat yearly
+ 1639  cat yearly.sh 
+ 1640  cd
+ 1641  ls *dump
+ 1642  less crontab.dump 
+ 1643  pwd
+ 1644  mkdir maintenance_scripts
+ 1645  touch daily.sh
+ 1646  nano daily.sh 
+ 1647  cp daily.sh 4-daily.sh
+ 1648  cp daily.sh weekly.sh
+ 1649  cp weekly.sh monthly.sh
+ 1650  cp monthly.sh yearly.sh
+ 1651  nano 4-daily.sh 
+ 1652  nano daily.sh 
+ 1653  cd ..
+ 1654  ls *.sh
+ 1655  cd
+ 1656  ls *.sh
+ 1657  cat grant_thumbnail_access.sh 
+ 1658  cd database_backup/
+ 1659  ls
+ 1660  echo "\#\!\/usr\/bin\/env bash"
+ 1661  echo "\#\!\/usr/bin/env bash"
+ 1662  echo "#\!\/usr/bin/env bash"
+ 1663  echo "\#\!\/usr/bin/env bash"
+ 1664  echo "\#\!/usr/bin/env bash"
+ 1665  echo '\#\!/usr/bin/env bash'
+ 1666  echo '#\!/usr/bin/env bash'
+ 1667  echo '#!/usr/bin/env bash'
+ 1668  echo '#!/usr/bin/env bash' >> *.sh
+ 1669  ls
+ 1670  nano daily.sh 
+ 1671  nano weekly.sh 
+ 1672  nano monthly.sh 
+ 1673  nano yearly.sh 
+ 1674  cd ..
+ 1675  ls
+ 1676  cd maintenance_scripts/
+ 1677  ls
+ 1678  ls *.sh
+ 1679  cd ..
+ 1680  ls *.sh
+ 1681  mv *.sh ./maintenance_scripts/
+ 1682  cd maintenance_scripts/
+ 1683  ls
+ 1684  chmod 755 *.sh
+ 1685  ls -l
+ 1686  nano daily.sh 
+ 1687  nano 4-daily.sh 
+ 1688  nano weekly.sh 
+ 1689  nano yearly.sh 
+ 1690  cat *.sh | head -1
+ 1691  cat 4-daily.sh | head -1
+ 1692  cat daily.sh.sh | head -1
+ 1693  cat daily.sh 
+ 1694  ls
+ 1695  cat monthly.sh 
+ 1696  cat weekly.sh 
+ 1697  cat yearly.sh 
+ 1698  cat grant_thumbnail_access.sh 
+ 1699  cat restrict_main_image_access.sh 
+ 1700  nano weekly.sh 
+ 1701  ls
+ 1702  nano weekly.sh 
+ 1703  pwd
+ 1704  nano weekly.sh 
+ 1705  pwd
+ 1706  nano weekly.sh 
+ 1707  nano monthly.sh 
+ 1708  nano yearly.sh 
+ 1709  ls -l
+ 1710  pwd
+ 1711  nano /home/ibss-assets/maintenance_scripts/4-daily.sh
+ 1712  nano daily.sh 
+ 1713  find . -user root -print
+ 1714  cd ..
+ 1715  find . -user root -print
+ 1716  cd maintenance_scripts/
+ 1717  ./daily.sh 
+ 1718  cat daily.sh 
+ 1719  ./4-daily.sh 
+ 1720  cd
+ 1721  clear
+ 1722  ls
+ 1723  mkdir database_exploration
+ 1724  mv *.tsv ./database_exploration/
+ 1725  ls
+ 1726  rm crontab.dump 
+ 1727  rm dead.letter 
+ 1728  mv json-to-dspace.py initial_imports/
+ 1729  ls
+ 1730  less test-file 
+ 1731  rm test-file 
+ 1732  mv smalls ./database_exploration/
+ 1733  ls
+ 1734  less update_thumbs.py 
+ 1735  cp update_thumbs.py ./initial_imports/
+ 1736  rm update_thumbs.py 
+ 1737  ls
+ 1738  clear
+ 1739  ls -l
+ 1740  cd customizations/
+ 1741  ls
+ 1742  cd ../database_backup/
+ 1743  ls
+ 1744  cd ..
+ 1745  cd maintenance_scripts/
+ 1746  ls
+ 1747  less weekly.sh 
+ 1748  less daily.sh 
+ 1749  sudo su -
+ 1750  cd
+ 1751  exirt
+ 1752  exit
+ 1753  ls
+ 1754  pwd
+ 1755  cd
+ 1756  ls
+ 1757  cd maintenance_scripts/
+ 1758  ls
+ 1759  less restrict_main_image_access.sh 
+ 1760  less weekly.sh 
+ 1761  cd ../data_transformation/
+ 1762  ls
+ 1763  less README 
+ 1764  ls
+ 1765  less missing_files.tsv 
+ 1766  ls
+ 1767  pwd
+ 1768  cd ..
+ 1769  ls
+ 1770  cd initial_imports/
+ 1771  ls
+ 1772  cd ..
+ 1773  nano README
+ 1774  cd initial_imports/
+ 1775  ls
+ 1776  cd import_1/
+ 1777  ls
+ 1778  less results 
+ 1779  cd cumulus/
+ 1780  ls
+ 1781  cd item_1735
+ 1782  ls
+ 1783  cd ..
+ 1784  ls
+ 1785  cd ..
+ 1786  ls
+ 1787  less update_thumbs.py 
+ 1788  ls
+ 1789  cd import_8
+ 1790  ls
+ 1791  cd cumulus/
+ 1792  ls
+ 1793  pwd
+ 1794  cd ..
+ 1795  ls
+ 1796  cd import_9/
+ 1797  ls
+ 1798  cd cumulus/
+ 1799  ls
+ 1800  ls -l | wc
+ 1801  cd item_13177/
+ 1802  ls
+ 1803  cd ..
+ 1804  ls
+ 1805  cd ..
+ 1806  ls
+ 1807  cd data_transformation/
+ 1808  ls
+ 1809  cd ..
+ 1810  cd data_transformation/
+ 1811  less missing_files.tsv 
+ 1812  tail -1 missing_files.tsv 
+ 1813  grep 1800cxLiittschwager_0001.tif *
+ 1814  find . -name "1800cxLiittschwager_0001.tif" -print
+ 1815  cd ..
+ 1816  find . -name "1800cxLiittschwager_0001.tif" -print
+ 1817  grep -r "1800cxLiittschwager_0001" *
+ 1818  ls
+ 1819  cd data_transformation/
+ 1820  ls
+ 1821  grep 1800cxLiittschwager_0001 *.txt
+ 1822  ls *.txt
+ 1823  less cas-library-extraction.txt 
+ 1824  cd dspace
+ 1825  ls
+ 1826  cd assetstore/
+ 1827  ls
+ 1828  find . -name "1800cxLiittschwager_0001.tif" -print
+ 1829  find . -name "*.tif" -print
+ 1830  ls
+ 1831  cd ..
+ 1832  ls
+ 1833  cd ..
+ 1834  cd
+ 1835  ls
+ 1836  cd data_transformation/
+ 1837  ls
+ 1838  less README 
+ 1839  cd ..
+ 1840  ls
+ 1841  cd database_backup/
+ 1842  ls
+ 1843  cd daily/
+ 1844  ls
+ 1845  ls -lath
+ 1846  gzgrep 1800cxLiittschwager_0001 May-09-2018.sql.gz
+ 1847  zgrep 1800cxLiittschwager_0001 May-09-2018.sql.gz
+ 1848  zgrep -i 1800cxLiittschwager_0001 May-09-2018.sql.gz
+ 1849  cd ..
+ 1850  nano README 
+ 1851  ls
+ 1852  cd customizations/
+ 1853  ls
+ 1854  cd ..
+ 1855  nano README 
+ 1856  cd database_exploration/
+ 1857  ls
+ 1858  less item_mapping.tsv 
+ 1859  less smalls 
+ 1860  cd ..
+ 1861  ls
+ 1862  rm -rf ./postgresql.deleteme/
+ 1863  sudo rm -rf ./postgresql.deleteme/
+ 1864  ls
+ 1865  cd postgresql.deleteme/
+ 1866  ls
+ 1867  cd 9.5/main.old/
+ 1868  ls
+ 1869  cd 9.5/
+ 1870  ls
+ 1871  cd main.old/
+ 1872  ls
+ 1873  ls -lath
+ 1874  cd ..
+ 1875  pwd
+ 1876  cd
+ 1877  ls
+ 1878  cd Cumulus_backup/
+ 1879  ls
+ 1880  find . -name "*.tif" -print
+ 1881  cd Photo_department/
+ 1882  ls
+ 1883  cd 1800_Portraits/
+ 1884  ls
+ 1885  cd ..
+ 1886  ls
+ 1887  cd ..
+ 1888  ls
+ 1889  cd ..
+ 1890  nano README 
+ 1891  pwd
+ 1892  ls
+ 1893  cd ..
+ 1894  cd
+ 1895  ls
+ 1896  cd initial_imports/
+ 1897  ls
+ 1898  cd import_2
+ 1899  ls
+ 1900  cd ..
+ 1901  cat import
+ 1902  cat import.sh 
+ 1903  ls
+ 1904  less delete.sh 
+ 1905  cd import_2
+ 1906  ls
+ 1907  less results 
+ 1908  less mapfile 
+ 1909  cd cumulus/
+ 1910  ls
+ 1911  cd item_2150
+ 1912  l
+ 1913  ls
+ 1914  ls -lath
+ 1915  nano ~/README 
+ 1916  ls
+ 1917  cd ..
+ 1918  ls
+ 1919  cd ..
+ 1920  ls
+ 1921  cd ..
+ 1922  ls
+ 1923  cd ..
+ 1924  ls
+ 1925  cd data_transformation/
+ 1926  ls
+ 1927  less missing_files.tsv 
+ 1928  pwd
+ 1929  wc missing_files.tsv 
+ 1930  pwd
+ 1931  cd ..
+ 1932  ls
+ 1933  cd cy
+ 1934  cd customizations/
+ 1935  ls
+ 1936  grep spatial *
+ 1937  cd ..
+ 1938  find . -name "input-forms.xml" -print
+ 1939  cd dspace/config/
+ 1940  ls
+ 1941  grep spatial *
+ 1942  grep -ri spatial *
+ 1943  cd ..
+ 1944  find . -name "item-view*" -print
+ 1945  cd webapps/xmlui/themes/Mirage/lib/xsl/aspect/artifactbrowser/
+ 1946  ls
+ 1947  cp item-view.xsl item-view.xsl.orig
+ 1948  nano item-view.xsl
+ 1949  grep -i spatial *
+ 1950  nano item-view.xsl
+ 1951  grep "Files in this item" *
+ 1952  cd ..
+ 1953  grep -r "Files in this item" *
+ 1954  cd webapps/
+ 1955  grep -r "Files in this item" *
+ 1956  grep -r "item-files-head" *
+ 1957  nano xmlui/themes/Mirage/lib/xsl/aspect/artifactbrowser/item-view.xsl
+ 1958  grep -r "itemSummaryView-DIM" *
+ 1959  cd xmlui/themes/cas/
+ 1960  ls
+ 1961  cd templates/
+ 1962  ls
+ 1963  cd ..
+ 1964  find . -name "template.xsl" -print
+ 1965  cd ..
+ 1966  find . -name "template.xsl" -print
+ 1967  cd template/
+ 1968  less template.xsl 
+ 1969  nano template.xsl 
+ 1970  cd ..
+ 1971  cd xmlui/
+ 1972  grep itemSummaryView-DIM-fields *
+ 1973  grep -r "itemSummaryView-DIM-fields" *
+ 1974  rm themes/Mirage/lib/xsl/aspect/artifactbrowser/item-view.xsl.orig
+ 1975  grep -r "itemSummaryView-DIM-fields" *
+ 1976  nano themes/cas/lib/xsl/aspect/artifactbrowser/item-view.xsl
+ 1977  cd ..
+ 1978  cd themes/cas/lib/xsl/aspect/artifactbrowser/
+ 1979  cd xmlui/
+ 1980  cd themes/cas/lib/xsl/aspect/artifactbrowser/
+ 1981  cp item-view.xsl item-view.xsl.orig
+ 1982  nano item-view.xsl
+ 1983  grep item-view *
+ 1984  nano item-view.xsl
+ 1985  grep full item-view.xsl
+ 1986  nano item-view.xsl
+ 1987  pwd
+ 1988  ls
+ 1989  cat README 
+ 1990  cd initial_imports/
+ 1991  ls
+ 1992  cd import_2
+ 1993  ls
+ 1994  cd cumulus/
+ 1995  ls
+ 1996  cd item_2920
+ 1997  ls
+ 1998  cat collections 
+ 1999  cat contents 
+ 2000  cat dublin_core.xml 
+ 2001  ls
+ 2002  cd initial_imports/
+ 2003  cd 1
+ 2004  ls
+ 2005  cd import_1/
+ 2006  ls
+ 2007  less results 
+ 2008  ls
+ 2009  less mapfile 
+ 2010  grep 34132 mapfile 
+ 2011  cd ..
+ 2012  grep 34132 */mapfile
+ 2013  cd import_1/
+ 2014  ls
+ 2015  cd cumulus/
+ 2016  ls
+ 2017  grep 34132 ../mapfile 
+ 2018  cd item_19307
+ 2019  ls
+ 2020  less dublin_core.xml 
+ 2021  ls -lath
+ 2022  file /home/ibss-assets/Cumulus_backup/Academy_images/Herpetology_department/N5579M.tif
+ 2023  ls -lath /home/ibss-assets/Cumulus_backup/Academy_images/Herpetology_department/N5579M.tif
+ 2024  cd ,,
+ 2025  cd ..
+ 2026  ls
+ 2027  cd ..
+ 2028  ls
+ 2029  cd ..
+ 2030  ls
+ 2031  cd dspace
+ 2032  ls
+ 2033  cd log/
+ 2034  ls
+ 2035  grep 34132 *
+ 2036  mkdir ~/missing_image_analysis
+ 2037  grep 34132 * >& ~/missing_image_analysis/34132.log
+ 2038  less ~/missing_image_analysis/34132.log
+ 2039  cd ~/missing_image_analysis/
+ 2040  less 34132.log 
+ 2041  sort 34132.log | less
+ 2042  sort 34132.log | grep solr.log > solr.log
+ 2043  sort 34132.log | grep -v solr.log 
+ 2044  sort 34132.log | grep  dspace.log  > dspace.log
+ 2045  sort 34132.log | grep  cocoon.log  > cocoon.log
+ 2046  sort 34132.log | grep -v dspace.log | grep -v cocoon.log | grep -v solr.log
+ 2047  sort 34132.log | grep -v dspace.log | grep -v cocoon.log | grep -v solr.log > misc.log
+ 2048  less dspace.log 
+ 2049  cat dspace.log | grep -v view_item > dspace-2.log 
+ 2050  less dspace-2.log 
+ 2051  cd ..
+ 2052  ls
+ 2053  cd
+ 2054  ls
+ 2055  cd initial_imports/
+ 2056  ls
+ 2057  cd failed/
+ 2058  ks
+ 2059  ls
+ 2060  cd ..
+ 2061  grep -r "item_19307" *
+ 2062  grep -r 34132 *
+ 2063  ibss-assets@tdobz:~/initial_imports$ grep -r 34132 *
+ 2064  curl -s -H "Accept: application/xml" http://localhost:8080/rest/communities | xmllint --format -
+ 2065  sudo apt-get install libxml2-utils
+ 2066  curl -s -H "Accept: application/xml" http://localhost:8080/rest/communities | xmllint --format -
+ 2067  curl -s -H "Accept: application/xml" http://localhost:8080/rest/communities
+ 2068  curl -s -H "Accept: application/xml" http://localhost/rest/communities
+ 2069  curl -s -H "Accept: application/xml" https://ibss-assets.calacademy.org:8443/rest/communities
+ 2070  curl -s -H "Accept: application/xml" https://ibss-assets.calacademy.org:8443/rest
+ 2071  curl -s -H "Accept: application/xml" https://ibss-assets.calacademy.oasdasdrg:8443/rest
+ 2072  echo $CATALINA_HOME
+ 2073  echo CATALINA_HOME
+ 2074  echo $CATALINA_HOME
+ 2075  cd ..
+ 2076  cd dspace
+ 2077  ls
+ 2078  cd webapps/
+ 2079  ls
+ 2080  cd .. 
+ 2081  find . -name "*.xml" -print
+ 2082  find . -name "*.xml" -print -exec grep -i docbase {} \;
+ 2083  find . -name "*.xml"  -exec grep -i docbase {} \;
+ 2084  cd webapps/
+ 2085  ls
+ 2086  grep -r xmlui *
+ 2087  ls
+ 2088  cd ..
+ 2089  cd log/
+ 2090  ls
+ 2091  ls -lath | less
+ 2092  tail -f dspace.log.2018-10-12
+ 2093  cd ..
+ 2094  ls
+ 2095  we webapps/
+ 2096  pwd
+ 2097  ls
+ 2098  cd webapps/
+ 2099  ls
+ 2100  cd rest/
+ 2101  cd WEB-INF/
+ 2102  nano web.xml 
+ 2103  pwd
+ 2104  history | grep cirl
+ 2105  history | grep curl
+ 2106  curl -s -H "Accept: application/xml" https://ibss-assets.calacademy.org:8443/rest/communities
+ 2107  curl -s -H "Accept: application/xml" https://ibss-assets.calacademy.org:8443/rest
+ 2108  curl -s -H "Accept: application/xml" https://ibss-assets.calacademy.org:80
+ 2109  curl -s -H "Accept: application/xml" https://ibss-assets.calacademy.org:80/rest
+ 2110  ls -lath
+ 2111  date
+ 2112  cd
+ 2113  ls
+ 2114  cd missing_image_analysis/
+ 2115  ls
+ 2116  curl http://ibss-assets.calacademy.org/rest/
+ 2117  curl http://ibss-assets.calacademy.org/rest/items/123456789/34132
+ 2118  curl http://ibss-assets.calacademy.org/rest/items/'123456789/34131'
+ 2119  curl -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items/'123456789/34131'
+ 2120  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items/'123456789/34131'
+ 2121  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items/'123456789/34131' | python -m json.tool
+ 2122  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items
+ 2123  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items > results
+ 2124  less results 
+ 2125  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items | python -m json.tool
+ 2126  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items | python -m json.tool > all_items.json
+ 2127  wc all_items.json 
+ 2128  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items/"123456789/31001"
+ 2129  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items/"123456789\/31001"
+ 2130  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items/123456789\/31001
+ 2131  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items/4f9bb1f9-9786-4e94-90d9-59cb2a0ca215
+ 2132  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/items/4f9bb1f9-9786-4e94-90d9-59cb2a0ca215 | python -m json.tool
+ 2133  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/handle/123456789/31001 | python -m json.tool
+ 2134  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/handle/123456789/34132 | python -m json.tool
+ 2135  curl -s -H "Accept: application/json" http://ibss-assets.calacademy.org/rest/handle/123456789/34132 
+ 2136  ls
+ 2137  cd ..
+ 2138  ls
+ 2139  mkdir sources
+ 2140  rmdir sources
+ 2141  ls
+ 2142  cd initial_imports/
+ 2143  ls
+ 2144  cd import_1
+ 2145  ls
+ 2146  cd ..
+ 2147  cd ../missing_image_analysis/
+ 2148  ls
+ 2149  rsync -va --exclude=cumulus  /home/ibss-assets/initial_imports/ ./
+ 2150  ls
+ 2151  cd import_
+ 2152  cd import_1
+ 2153  ls
+ 2154  cd ..
+ 2155  cd
+ 2156  cd dspace
+ 2157  cd log/
+ 2158  ls
+ 2159  grep 'delete_workspace_item' dspace.log.201*
+ 2160  grep 'delete_workspace_item' dspace.log.201* > ~/missing_image_analysis/
+ 2161  grep 'delete_workspace_item' dspace.log.201* > ~/missing_image_analysis/deleted_items.log
+ 2162  cd 
+ 2163  cd missing_image_analysis/
+ 2164  less deleted_items.log 
+ 2165  wc deleted_items.log 
+ 2166  sort ./deleted_items.log > deleted_items.sorted.log
+ 2167  rm deleted_items.log 
+ 2168  less deleted_items.sorted.log 
+ 2169  tail -100 deleted_items.sorted.log 
+ 2170  grep 34132 deleted_items.sorted.log 
+ 2171  less deleted_items.sorted.log 
+ 2172  cat deleted_items.sorted.log  | grep 02-27 | less
+ 2173  cat deleted_items.sorted.log  | grep 02-27 | wc
+ 2174  cat deleted_items.sorted.log  | grep 02-27 | head -10
+ 2175  cd
+ 2176  cd initial_imports/
+ 2177  grep -r item_17256 *
+ 2178  find . -name "item_17256" -print
+ 2179  cd import_1/
+ 2180  cd cumulus/
+ 2181  cd item_17256
+ 2182  ls
+ 2183  ls -lath
+ 2184  ls -lath /home/ibss-assets/Cumulus_backup/Academy_images/Exhibits/N7942b.tif
+ 2185  ls
+ 2186  less dublin_core.xml 
+ 2187  cd ..
+ 2188  grep -r 31995 *
+ 2189  cd ../missing_image_analysis/
+ 2190  ls
+ 2191  grep ea207e2c-48b8-494b-a149-66887c063 *
+ 2192  grep -r 4f9bb1f9-9786-4e94-90d9-59cb2a0ca215 *
+ 2193  grep  4f9bb1f9-9786-4e94-90d9-59cb2a0ca215 *
+ 2194  rm results 
+ 2195  grep  4f9bb1f9-9786-4e94-90d9-59cb2a0ca215 *
+ 2196  ls
+ 2197  cd ../dspace
+ 2198  cd log/
+ 2199  ls
+ 2200  grep 4f9bb1f9-9786-4e94-90d9-59cb2a0ca215 *
+ 2201  ls *.sh
+ 2202  cd
+ 2203  cd initial_imports/
+ 2204  ls
+ 2205  ls *.sh
+ 2206  cat import
+ 2207  cat import.sh 
+ 2208  mkdir import_10
+ 2209  cd import_1
+ 2210  ls
+ 2211  cd cumulus/
+ 2212  mv item_19307 ~/initial_imports/import_10/
+ 2213  cd
+ 2214  cd initial_imports/
+ 2215  cd import_10/
+ 2216  mkdir cumulus
+ 2217  mv item_19307/ ./cumulus/
+ 2218  ls ..
+ 2219  cat ../import.sh 
+ 2220  cd 
+ 2221  cd cumulus
+ 2222  cd initial_imports/
+ 2223  cd import_10/
+ 2224  cp ../import.sh .
+ 2225  nano import.sh 
+ 2226  ./import.sh > results
+ 2227  nano import.sh 
+ 2228  ./import.sh > results
+ 2229  less results
+ 2230  cd
+ 2231  ls
+ 2232  find . -name "*.sh" -print
+ 2233  cd maintenance_scripts/
+ 2234  ls
+ 2235  cat grant_thumbnail_access.sh 
+ 2236  ./grant_thumbnail_access.sh 
+ 2237  history
+ 2238  history | grep -i grant
+ 2239  ls
+ 2240  cd ..
+ 2241  find . -name "grant_results" -print
+ 2242  find . -name "grant_results.txt" -print
+ 2243  pwd
+ 2244  ls
+ 2245  cd install_notes/
+ 2246  history > ibss-assets_command_history

@@ -1,0 +1,142 @@
+Note, there are also notes here: 
+http://ibss-info.calacademy.org:8080/mediawiki/index.php/Ibss-assets
+
+These are my working notes; left here for reference and just-in-case.
+-------------------
+install tomcat following digital ocean: 
+
+remove apache
+createdb --username=ibss-assets --owner=ibss-assets --encoding=UNICODE dspace
+ <user username="ibss-assets" password="libraryAssets" roles="manager-gui,admin-gui"/>
+install authbind
+enable port 80 for ibis-assets:
+  424  touch /etc/authbind/byport/80
+  425  chmod 500 /etc/authbind/byport/80
+  426  chown ibss-assets /etc/authbind/byport/80
+  437  ls -l /etc/authbind/byport/
+  438  chgrp "domain users" /etc/authbind/byport/80
+
+change tomcat server.xml port 8080 to 80
+
+Created tomcat.service:
+===============
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=network.target
+
+[Service]
+Type=forking
+
+Environment=JAVA_HOME=/usr/lib/jvm/java-8-oracle
+Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+Environment=CATALINA_HOME=/opt/tomcat
+Environment=CATALINA_BASE=/opt/tomcat
+Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+
+ExecStart=/usr/bin/authbind --deep /bin/bash -c /opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+
+User=ibss-assets
+Group=domain users
+UMask=0007
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+=====
+
+moved postgres database to /home/ibss-assets:https://www.tutorialspoint.com/articles/how-to-change-postgresql-data-folder-location-on-ubuntu-16-04
+
+
+
+
+
+Dcddd
+
+dspace@ubuntu:~$ diff ./dspace-6.2-src-release/dspace-api/target/dspace-api-6.2.jar /home/dspace/dspace/lib/dspace-api-6.2.jar
+
+tomcat user needs to be able to write to assetstore
+config log4j to write to the log directory with pathname
+build theme
+enable thumbnails
+turn on cron jobs to index
+
+in order to display thumbnails you got to change 
+[dspace-source]/config/dspace.cfg 
+
+- webui.browse.thumbnail.show = true 
+to display thumbnails in browse and search result pages 
+
+- webui.item.thumbnail.show = true 
+to display thumbnail against each bitstream in item display 
+
+You can adjust further thumbnail settings in dspace.cfg 
+- webui.browse.thumbnail.linkbehaviour = item OR bitstream 
+and the size 
+- webui.browse.thumbnail.maxheight = 80 
+- webui.browse.thumbnail.maxwidth = 80 
+
+Changing dspace.cfg in the run directory is picked up instantly by dSpace
+
+http://192.168.1.33:8080/manager/status
+
+
+————
+server info
+http://ibss-assets/manager/html
+
+add thumbnail tasks: https://wiki.duraspace.org/display/DSDOC6x/Scheduled+Tasks+via+Cron
+15 0 * * * $DSPACE/bin/dspace index-discovery -b > /dev/null
+
+
+Customization notes:
+https://groups.google.com/forum/#!searchin/dspace-tech/item$20template%7Csort:date/dspace-tech/zVFeneLT500/YKMeCMupCgAJ
+“item template”
+“simple item record” custom
+
+custom submission per collection: 
+https://wiki.duraspace.org/display/DSDOC6x/Submission+User+Interface#SubmissionUserInterface-AssigningacustomSubmissionProcesstoaCollection
+
+———
+custom theme or facet per collection?
+XMLUI only:
+
+https://wiki.duraspace.org/display/DSDOC6x/XMLUI+Configuration+and+Customization
+theme handle collection https://wiki.duraspace.org/display/DSDOC6x/XMLUI+Configuration+and+Customization
+
+ $DSPACE/bin/dspace oai import
+
+——
+https://wiki.duraspace.org/display/DSPACE/Repository+of+XMLUI+themes
+
+——
+https://kb.osu.edu/dspace/handle/1811/36653/browse?order=ASC&rpp=20&sort_by=1&etal=-1&offset=60&type=title
+
+————
+tomcat:
+
+  383  nano /opt/tomcat/conf/tomcat-users.xml
+  384  nano /opt/tomcat/webapps/manager/META-INF/context.xml
+  385  nano /opt/tomcat/webapps/host-manager/META-INF/context.xml
+  488  cat /etc/systemd/system/tomcat.service
+nano /opt/tomcat/conf/server.xml
+
+ls -lath /opt/tomcat/logs/
+
+——
+webapp manager
+http://ibss-assets.calacademy.org/manager/html
+"ibss-assets" password="libraryAssets"
+
+——
+removed security constraint block from:
+/home/ibss-assets/dspace/webapps/rest/WEB-INF
+
+per: 
+For localhost development purposes, SSL can add additional getting-started difficulty, so security can be disabled. To disable DSpace REST's requirement to require security/ssl, alter [dspace]/webapps/rest/WEB-INF/web.xml or [dspace-source]/dspace-rest/src/main/webapp/WEB-INF/web.xml and comment out the <security-constraint>block, and restart your servlet container. Production usages of the REST API should use SSL, as authentication credentials should not go over the internet unencrypted.
+
+to enable REST before getting https working
+Not for external exposure

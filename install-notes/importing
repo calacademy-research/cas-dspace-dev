@@ -1,0 +1,5 @@
+import line:
+./dspace/bin/dspace import --add -eperson jrussack@calacademy.org --collection 123456789/2 -s /home/ibss-assets/cumulus -m mapfile
+
+By default, anonymous can't read anything yet. weekly script fixes this, see notes in ibss-info.
+
