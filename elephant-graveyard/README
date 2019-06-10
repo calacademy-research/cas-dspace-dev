@@ -1,0 +1,118 @@
+Input - scraped from the cumulus server - is in data.xml
+
+TODO: Check "unicodes" for good import.
+
+mahcine name is IBSS-assets
+
+user name is also IBSS-assets. Data is stored there in /home/ibss-assets/Cumulus_backup/
+
+We're almost done cleaning up the fields for the Library DAM, and we noticed that there are a set of
+ records that have the creation date embedded in the creator field, ex.  T.M. Gosliner 01 Jun 1998.
+ I looked in the records, and the date isn't recorded anywhere else. Is it possible to extract
+ the dates from these fields and add them to the create date field?  I've attached a csv file
+ of the fields we noticed (about ~130).
+
+
+1: Identify which fields we want to retain
+I am in agreement with you about what to retain:
+    Collection [we should tag]
+    Date Created -> dc.date.created
+    Rights Holder -> dc.rights.holder
+    Title -> dc.title
+    Creator -> dc.creator
+    Phyiscal Format - was original format -> dc.format
+    Geographic Location (was Coverage Geographic)
+    Subject
+    Asset Creation Date
+    ID
+NEW fields:
+    Taxon  -> cas.linnean.taxon
+    Common Name  -> cas.linnaean.common
+    Family Name  -> cas.linnaean.family
+    Description  -> cas.description
+    Internal Notes -> cas.notes
+    Container Information -> cas.containerinformation
+    Physical Location  -> cas.physicalLocation
+
+
+Joe's metadata:
+  'Folder Name': 'Directory Path'
+  'Asset Name': 'Filename'
+
+Relevant files:
+    Data Cleanup for DAM.csv - data transformations in CSV format
+    Data Cleanup for DAM.csv.orig - data transformations original from library, with redundancies.
+    Creator_DatesIncluded_cleanup.csv - Creator field sometimes has dates included
+    data.xml - raw extraction from Cumulus; large because it contains the thumbnails inline
+    cumulus-transform.rb - used to transform data.xml to an intermdiate format like:
+    intermadiate_format.txt which is input for
+    to_json.py which outputs
+    intermediate.json
+
+json-to-dspace:
+    Takes JSON format, outputs dspace "Simple Archive Format", documented here:
+    https://wiki.duraspace.org/display/DSDOC6x/Importing+and+Exporting+Items+via+Simple+Archive+Format
+
+
+
+To start it on test instance:
+start ubuntu
+service tomcat start
+http://192.168.1.209:8080/
+http://192.168.1.209:8080/xmlui
+192.168.1.208:8080
+
+
+Current dspace docs:
+https://wiki.duraspace.org/display/DSDOC6x
+Recommended metadata fields: https://wiki.duraspace.org/display/DSDOC6x/Metadata+Recommendations
+
+
+mappings:
+
+Fields,Mapping,Notes
+Collection,dc.identifier (other),Already exists in Cumulus
+Date Created,dc.date (created),Already exists in Cumulus
+Rights Holder,dc.rightsHolder,Already exists in Cumulus
+Title,dc.title,Already exists in Cumulus
+Creator,dc.creator,Already exists in Cumulus
+Physical Format - was original format,dc.format,Already exists in Cumulus
+Geographic Location (was Coverage Geographic),dc.coverage (spatial),Already exists in Cumulus
+Subject,dc.subject,Already exists in Cumulus
+Asset Creation Date,dc.date (created),Already exists in Cumulus
+ID,dc.identifier,Already exists in Cumulus
+Description,dc.description,Already exists in Cumulus
+
+schema name: ibss-library
+Taxon,dc.subject (other),New field                                    [ibss-library.taxon]
+Common Name,dc.subject,New field                                      [ibss-library.commonName]
+Family Name,dc.subject (other),New field                              [ibss-library.familyName]
+Internal Notes,N/A - staff administrative information,New field       [ibss-library.internalNotes]
+Container Information,N/A - staff administrative information,New field[ibss-library.containerInformation]
+Physical Location,N/A - staff administrative information,New field    [ibss-library.physicalLocation]
+
+
+137	ibss-library.commonName
+
+
+140	ibss-library.containerInformation
+
+
+138	ibss-library.familyName
+
+
+139	ibss-library.internalNotes
+
+
+141	ibss-library.physicalLocation
+
+
+136	ibss-library.taxon
+
+
+local url: http://192.168.1.33:8080/xmlui/admin/metadata-registry
+after service tomcat start
+jrussack@calacademy.org is account
+
+
+./dspace/bin/dspace import --add -eperson jrussack@calacademy.org --collection 123456789/6 -s /home/parallels/cumulus2 -m mapfile2

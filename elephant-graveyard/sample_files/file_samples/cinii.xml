@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/">
+<rdf:Description rdf:about="http://ci.nii.ac.jp/naid/110009614908#article">
+<foaf:isPrimaryTopicOf rdf:resource="http://ci.nii.ac.jp/naid/110009614908.rdf" />
+<dc:title>Uniformly Random Generation of Floorplans</dc:title>
+<dc:creator>Katsuhisa Yamanaka</dc:creator>
+<dc:creator>Shin-ichiNakano </dc:creator>
+<dc:publisher>一般社団法人情報処理学会</dc:publisher>
+<prism:publicationName>情報処理学会研究報告. AL, アルゴリズム研究会報告</prism:publicationName>
+<prism:issn>09196072</prism:issn>
+<prism:volume>2013</prism:volume>
+<prism:number>28</prism:number>
+<prism:startingPage>1</prism:startingPage>
+<prism:endingPage>5</prism:endingPage>
+<prism:publicationDate>2013-10-30</prism:publicationDate>
+<dc:description>In this paper we deal with problems on generating mosaic floorplans uniformly at random. We propose an algorithm that generates mosaic floorplans with f faces uniformly at random in polynomial time for each. To the best of our knowledge, this is the first such polynomial-time algorithm. By modifying the algorithm, we give two more algorithms to generate mosaic floorplans with some specified properties uniformly at random.</dc:description>
+<dc:date>2013-10-30</dc:date>
+<cinii:naid>110009614908</cinii:naid>
+<cinii:ncid>AN1009593X</cinii:ncid>
+<dc:language>ENG</dc:language>
+<dc:source>NII-ELS</dc:source>
+<cinii:fulltext>0</cinii:fulltext>
+<dcterms:isPartOf rdf:resource="http://ci.nii.ac.jp/ncid/AN1009593X#entity" dc:title="情報処理学会研究報告. AL, アルゴリズム研究会報告" />
+<rdfs:seeAlso rdf:resource="http://id.nii.ac.jp/1001/00095731/" dc:title="情報処理学会で読む・さがす" />
+</rdf:Description>
+<rdf:Description rdf:about="http://ci.nii.ac.jp/naid/110009614908#article" xml:lang="en">
+<dc:title>Uniformly Random Generation of Floorplans</dc:title>
+<dc:creator>Katsuhisa Yamanaka</dc:creator>
+<dc:creator>Shin-ichi Nakano</dc:creator>
+<dc:publisher>Information Processing Society of Japan (IPSJ)</dc:publisher>
+<prism:publicationName>IPSJ SIG Notes</prism:publicationName>
+<dc:description>In this paper we deal with problems on generating mosaic floorplans uniformly at random. We propose an algorithm that generates mosaic floorplans with f faces uniformly at random in polynomial time for each. To the best of our knowledge, this is the first such polynomial-time algorithm. By modifying the algorithm, we give two more algorithms to generate mosaic floorplans with some specified properties uniformly at random.</dc:description>
+</rdf:Description>
+<rdf:Description rdf:about="http://ci.nii.ac.jp/naid/110009614908#article">
+<foaf:maker>
+<foaf:Person rdf:about="http://ci.nii.ac.jp/nrid/9000240139891#me">
+<foaf:name>Katsuhisa Yamanaka</foaf:name>
+<foaf:name xml:lang="en">Katsuhisa Yamanaka</foaf:name>
+<con:organization>
+<foaf:Organization rdf:about="http://ci.nii.ac.jp/org/Department_of_Electrical_Engineering_and_Computer_Science%252C_Iwate_University">
+<foaf:name>Department of Electrical Engineering and Computer Science, Iwate University</foaf:name>
+<foaf:name xml:lang="en">Department of Electrical Engineering and Computer Science, Iwate University</foaf:name>
+</foaf:Organization>
+</con:organization>
+</foaf:Person>
+</foaf:maker>
+<foaf:maker>
+<foaf:Person rdf:about="http://ci.nii.ac.jp/nrid/9000240139892#me">
+<foaf:name>Shin-ichiNakano </foaf:name>
+<foaf:name xml:lang="en">Shin-ichi Nakano</foaf:name>
+<con:organization>
+<foaf:Organization rdf:about="http://ci.nii.ac.jp/org/Department_of_Computer_Science%252C_Gunma_University">
+<foaf:name>Department of Computer Science, Gunma University</foaf:name>
+<foaf:name xml:lang="en">Department of Computer Science, Gunma University</foaf:name>
+</foaf:Organization>
+</con:organization>
+</foaf:Person>
+</foaf:maker>
+</rdf:Description>
+</rdf:RDF>

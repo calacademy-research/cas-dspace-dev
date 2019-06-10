@@ -1,0 +1,482 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<!DOCTYPE Export>
+<ns:Export xmlns:ns="http://www.canto.com/ns/Export/1.0">
+<ns:Layout tableName="AssetRecords">
+	<ns:Fields>
+		<ns:Field uid="{af4b2e12-5f6a-11d2-8f20-0000c0e166dc}" type="3" valueInterpretation="3">
+			<ns:Name>Image Height</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{1658d872-92e1-11d5-b58d-0050baeba6c7}" type="4" valueInterpretation="0">
+			<ns:Name>Reference Date</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{745e9163-62c2-11d4-909c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Lens Info</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{1f97095a-e6a6-4563-b89f-a29bfc1f1a51}" type="4" valueInterpretation="0">
+			<ns:Name>Date Time Digitized</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e52-5f6a-11d2-8f20-0000c0e166dc}" type="3" valueInterpretation="0">
+			<ns:Name>Exposure Time</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{c8be2dca-f341-11d3-901c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Flash Mode</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e23-5f6a-11d2-8f20-0000c0e166dc}" type="2" valueInterpretation="0">
+			<ns:Name>Asset Identifier</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{5cada4d5-90df-11d2-8e22-008048fdada5}" type="0" valueInterpretation="0">
+			<ns:Name>Supplemental Categories</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e11-5f6a-11d2-8f20-0000c0e166dc}" type="3" valueInterpretation="3">
+			<ns:Name>Image Width</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e3d-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Object Name</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{dfda2122-15b8-4ae3-b7e9-5cab3420557b}" type="0" valueInterpretation="0">
+			<ns:Name>Gain Control</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{7b926fdf-4b31-43f3-a3a1-4cd69c756d44}" type="0" valueInterpretation="0">
+			<ns:Name>File Format Identifier</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{1658d871-92e1-11d5-b58d-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Reference Service</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{9a82b761-d5a0-11d4-b4e4-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Keywords</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e51-5f6a-11d2-8f20-0000c0e166dc}" type="4" valueInterpretation="0">
+			<ns:Name>Captured Date</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e14-5f6a-11d2-8f20-0000c0e166dc}" type="2" valueInterpretation="4">
+			<ns:Name>File Data Size</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{c8be2dc4-f341-11d3-901c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Serial Number</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{745e9161-62c2-11d4-909c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Camera ID</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e5e-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Folder Name</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{226e3b01-2d97-11d5-b533-0050baeba6c7}" type="4" valueInterpretation="0">
+			<ns:Name>IPTC Date Created</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{a89e881e-df7a-4c7c-9bf7-840bf3df707e}" type="2" valueInterpretation="0">
+			<ns:Name>Vertical Pixels</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{17955d37-7295-46be-8a0e-80fecc3d2c32}" type="0" valueInterpretation="0">
+			<ns:Name>FlashPix Version</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e4e-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Camera Model</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{40f7dca0-92e6-40ae-bb3e-500c7a29f5f5}" type="0" valueInterpretation="0">
+			<ns:Name>Identifier</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{cfa5d2c7-0040-4c97-8496-1fb42cbbe98c}" type="0" valueInterpretation="0">
+			<ns:Name>Contact Info City</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{c8be2dce-f341-11d3-901c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Max Aperture (String)</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{b2373251-f405-11d3-901d-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Shutter Time [s]</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{33031162-f2dd-11d5-b5ef-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Certificate</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e0b-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Notes</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e26-5f6a-11d2-8f20-0000c0e166dc}" type="2" valueInterpretation="0">
+			<ns:Name>Thumbnail Standard Deviation</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{c8be2dcd-f341-11d3-901c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>ISO Speed</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{119565c1-018a-11d4-9035-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Manufacturer</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{133293b1-f598-11d3-901f-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Exposure Program</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{039f23a5-36c9-452c-94d9-1250be42e74f}" type="0" valueInterpretation="0">
+			<ns:Name>Location</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e4d-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Camera Manufacturer</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e05-5f6a-11d2-8f20-0000c0e166dc}" type="4" valueInterpretation="0">
+			<ns:Name>Asset Creation Date</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e3f-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Province/State</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{d8b73021-9891-11d5-b593-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Program Version</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{33031161-f2dd-11d5-b5ef-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Owner</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{938322a8-9e83-4d4f-bbec-a3905468134c}" type="3" valueInterpretation="0">
+			<ns:Name>Digital Zoom Ratio</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{5cada4d3-90df-11d2-8e22-008048fdada5}" type="0" valueInterpretation="0">
+			<ns:Name>Service Id</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{289e82a5-9b72-41fb-b2dd-5c07c5bae723}" type="0" valueInterpretation="0">
+			<ns:Name>Class</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e0a-5f6a-11d2-8f20-0000c0e166dc}" type="6" valueInterpretation="0">
+			<ns:Name>Thumbnail</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{d772f661-9242-11d5-b58c-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Originating Program</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{7839a34f-c20e-4004-b396-26db0f4cf15d}" type="0" valueInterpretation="0">
+			<ns:Name>Collection</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e08-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Cataloging User</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{2bf29c20-3a92-4302-9cc7-7334cc265a10}" type="0" valueInterpretation="0">
+			<ns:Name>Subject Distance Range</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{24ce5040-e5f4-11d3-900e-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>IPTC Category</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{49a36838-262f-46e3-a676-f3cd2665073c}" type="3" valueInterpretation="0">
+			<ns:Name>Max Aperture</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{9cbc7a2e-c0bd-4fa7-bfb8-ede8afa630a2}" type="0" valueInterpretation="0">
+			<ns:Name>Date Created</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{15dd6c90-f424-4c4c-beef-58c16b24b674}" type="7" valueInterpretation="0">
+			<ns:Name>Thumbnail Rotation</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e24-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Asset Modification State Identifier</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e3a-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Byline Title</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{05f6f3f0-833a-45a0-ade4-8e48542f37ef}" type="2" valueInterpretation="0">
+			<ns:Name>Horizontal Pixels</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{5a26d2dd-6d1a-4b64-a3cd-eae8c583a941}" type="0" valueInterpretation="0">
+			<ns:Name>Rights Holder</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{50b69355-0fa0-4d6c-85d1-fcbd11883221}" type="0" valueInterpretation="0">
+			<ns:Name>Document Text</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{50073068-453d-4292-87c8-b5972e9ba92c}" type="0" valueInterpretation="0">
+			<ns:Name>Contact Info Phone(s)</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{17f26b9a-0670-41fa-a291-600d3dd639ba}" type="0" valueInterpretation="0">
+			<ns:Name>Phylum</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{1658d873-92e1-11d5-b58d-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Reference Number</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e6a-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Volume Name</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{f07069f3-8447-4938-8c18-23407d76ad92}" type="3" valueInterpretation="0">
+			<ns:Name>Aperture</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e3b-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Credits</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{1d3213c4-ce9b-46d5-957b-26e54d5ccd3d}" type="0" valueInterpretation="0">
+			<ns:Name>User Comment</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e56-5f6a-11d2-8f20-0000c0e166dc}" type="3" valueInterpretation="0">
+			<ns:Name>Focal Length [mm]</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e06-5f6a-11d2-8f20-0000c0e166dc}" type="4" valueInterpretation="0">
+			<ns:Name>Asset Modification Date</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e3c-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Source</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e43-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Title</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{1e29ca59-4022-43f3-9448-539a3da4097c}" type="7" valueInterpretation="9">
+			<ns:Name>Rating</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e39-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Byline</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e55-5f6a-11d2-8f20-0000c0e166dc}" type="3" valueInterpretation="0">
+			<ns:Name>Subject Distance</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e6c-5f6a-11d2-8f20-0000c0e166dc}" type="8" valueInterpretation="0">
+			<ns:Name>Annotation</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{a71e48bd-84e5-4684-b51a-1271b8401df3}" type="0" valueInterpretation="0">
+			<ns:Name>Contact Info Web URL(s)</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e0c-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Categories</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{e2198289-e786-4d4f-8564-e9a0ef6bae22}" type="0" valueInterpretation="0">
+			<ns:Name>Family</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{b4fb120e-b8cd-40cb-98c4-9fe8d70bbb5b}" type="0" valueInterpretation="0">
+			<ns:Name>Contact Info Address</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{745e9165-62c2-11d4-909c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>F Number (String)</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{47544b91-ed41-11d5-b5e8-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Description</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{6e7153ec-5141-4bb5-847b-79619a5cb300}" type="0" valueInterpretation="0">
+			<ns:Name>IPTC Scene</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e07-5f6a-11d2-8f20-0000c0e166dc}" type="7" valueInterpretation="0">
+			<ns:Name>Status</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{c8be2dc8-f341-11d3-901c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Exposure Mode</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e00-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Record Name</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{e174b821-623c-476b-a2bc-173725585e0a}" type="4" valueInterpretation="0">
+			<ns:Name>Date Time Original</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{1fb84bdd-f72e-49d2-9a17-b7c19a600d0b}" type="0" valueInterpretation="0">
+			<ns:Name>Contrast</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e6b-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Server Name</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{b78bb348-3cd2-464f-a420-49bfd694fffa}" type="0" valueInterpretation="0">
+			<ns:Name>Exposure Time (String)</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{ed6416d6-97f6-49f1-9881-b4c96cf35abf}" type="0" valueInterpretation="0">
+			<ns:Name>Intellectual Genre</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e0f-5f6a-11d2-8f20-0000c0e166dc}" type="3" valueInterpretation="2">
+			<ns:Name>Horizontal Resolution</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e72-5f6a-11d2-8f20-0000c0e166dc}" type="5" valueInterpretation="0">
+			<ns:Name>Related Master Assets</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{c8be2dd0-f341-11d3-901c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Meter Mode</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e02-5f6a-11d2-8f20-0000c0e166dc}" type="4" valueInterpretation="0">
+			<ns:Name>Record Modification Date</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e10-5f6a-11d2-8f20-0000c0e166dc}" type="3" valueInterpretation="2">
+			<ns:Name>Vertical Resolution</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{3f6e4112-31f0-4054-972f-e0ae98159c1c}" type="2" valueInterpretation="0">
+			<ns:Name>Unix File Identifier</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e42-5f6a-11d2-8f20-0000c0e166dc}" type="4" valueInterpretation="0">
+			<ns:Name>Date Sent</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{418a4c92-fe63-11d3-9030-0080ad80c556}" type="3" valueInterpretation="0">
+			<ns:Name>Longitude</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e38-5f6a-11d2-8f20-0000c0e166dc}" type="7" valueInterpretation="0">
+			<ns:Name>Urgency</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e01-5f6a-11d2-8f20-0000c0e166dc}" type="4" valueInterpretation="0">
+			<ns:Name>Record Creation Date</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e69-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Asset Name</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{d772f667-9242-11d5-b58c-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Release Time</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e37-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Special Instructions</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e41-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Org. Trans. Ref.</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{e8c79d89-a302-4392-b1e5-05af6df264c2}" type="0" valueInterpretation="0">
+			<ns:Name>Creator</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{d0b55c54-e642-11d4-b4eb-0050baeba6c7}" type="1" valueInterpretation="0">
+			<ns:Name>Copyright Applied</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e16-5f6a-11d2-8f20-0000c0e166dc}" type="5" valueInterpretation="1">
+			<ns:Name>Asset Reference</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e0e-5f6a-11d2-8f20-0000c0e166dc}" type="7" valueInterpretation="0">
+			<ns:Name>Color Mode</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{84a549e7-781f-442b-ad93-8a9b7e56dfe8}" type="0" valueInterpretation="0">
+			<ns:Name>Scene Type</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{d772f666-9242-11d5-b58c-0050baeba6c7}" type="4" valueInterpretation="0">
+			<ns:Name>Release Date</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{418a4c91-fe63-11d3-9030-0080ad80c556}" type="3" valueInterpretation="0">
+			<ns:Name>Latitude</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{43200803-7955-4329-9b6f-de60ba3b3657}" type="0" valueInterpretation="0">
+			<ns:Name>Original Format</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{c3bfe021-f352-11d3-901c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>White Balance Mode</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{5a608c73-d0b3-4eee-916c-e8ef7fc47df0}" type="0" valueInterpretation="0">
+			<ns:Name>Custom Rendered</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e25-5f6a-11d2-8f20-0000c0e166dc}" type="2" valueInterpretation="0">
+			<ns:Name>Thumbnail Mean Value</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{d772f663-9242-11d5-b58c-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Country Code</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{bebb6e50-e83a-11d3-9010-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Image URL</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{5a2da212-5967-4cdc-8494-49580e20a3a5}" type="3" valueInterpretation="0">
+			<ns:Name>Focal Length 35mm Film [mm]</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e04-5f6a-11d2-8f20-0000c0e166dc}" type="1" valueInterpretation="0">
+			<ns:Name>Don't Delete Record</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{913a709a-bb53-4097-854f-e361150e3bbf}" type="0" valueInterpretation="0">
+			<ns:Name>Common name</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{d772f662-9242-11d5-b58c-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Fixture Id</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{c02adb31-5c2c-4014-b86a-a53cf83f7e6c}" type="2" valueInterpretation="0">
+			<ns:Name>ID</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{f53a1462-3485-492e-9658-a436eb026412}" type="0" valueInterpretation="0">
+			<ns:Name>Order</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{e0f7811a-1924-4e4e-8e9d-d36ec9991b97}" type="0" valueInterpretation="0">
+			<ns:Name>Coverage Geographic</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e44-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Subject</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e36-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Headline</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{133293b4-f598-11d3-901f-0080ad80c556}" type="3" valueInterpretation="0">
+			<ns:Name>Exposure Bias</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e40-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Country</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e2b-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Author</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{226e3b02-2d97-11d5-b533-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>IPTC Time Created</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e63-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Producer</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{d772f664-9242-11d5-b58c-0050baeba6c7}" type="7" valueInterpretation="0">
+			<ns:Name>Object Cycle</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e35-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Caption Writer</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e34-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Caption</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e50-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Scanner Model</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{3ea7ce2b-90e7-46b2-a62d-5c530cdbef8e}" type="0" valueInterpretation="0">
+			<ns:Name>Contact Info Email(s)</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{8e006822-f2d8-11d5-b5ef-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Usage Terms</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{b4bb4cd1-90db-11d2-8e22-008048fdada5}" type="0" valueInterpretation="0">
+			<ns:Name>Time Sent</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e09-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Software</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{3de69fa1-2af7-11d4-9067-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Light Source</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{ed58b241-cf37-11d4-b4de-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Image Source</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{097503b7-1409-4d04-a360-ec159d1d7c8f}" type="0" valueInterpretation="0">
+			<ns:Name>Contact Info Postal Code</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{d772f665-9242-11d5-b58c-0050baeba6c7}" type="0" valueInterpretation="0">
+			<ns:Name>Edit Status</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{b23e86e1-f0fb-11d4-b4f5-0050baeba6c7}" type="3" valueInterpretation="0">
+			<ns:Name>Altitude</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{baf99f08-2cbb-49f4-8330-8d162d79b02b}" type="0" valueInterpretation="0">
+			<ns:Name>Saturation</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{633d6f8d-1097-4ed6-8bfa-f1e70d00e485}" type="0" valueInterpretation="0">
+			<ns:Name>Sharpness</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{9219d600-6710-4734-ae6f-761437e652bf}" type="0" valueInterpretation="0">
+			<ns:Name>EXIF Version</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{c02adb32-5c2c-4014-b86a-a53cf83f7e6c}" type="0" valueInterpretation="0">
+			<ns:Name>Catalog Name</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e2c-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>Rights</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e71-5f6a-11d2-8f20-0000c0e166dc}" type="5" valueInterpretation="0">
+			<ns:Name>Related Sub Assets</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{7bbe4e56-be16-43b3-a84e-79a7d05470f7}" type="0" valueInterpretation="0">
+			<ns:Name>IPTC Subject Code</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{ecdc56a3-09cf-4e9d-be1d-7d7a160f3c8d}" type="0" valueInterpretation="0">
+			<ns:Name>Sensing Method</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{b2a84783-86a0-4360-af0a-dcbc2a5a3d8e}" type="9" valueInterpretation="4">
+			<ns:Name>Asset Data Size (Long)</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e3e-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>City</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e0d-5f6a-11d2-8f20-0000c0e166dc}" type="0" valueInterpretation="0">
+			<ns:Name>File Format</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{dcf3a0ee-e89e-41a9-9037-cf1ad5f46973}" type="7" valueInterpretation="8">
+			<ns:Name>Label</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{4580c980-77e5-4003-b598-8b8e5c82d2fb}" type="0" valueInterpretation="0">
+			<ns:Name>Scene Capture Type</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{99b07cfc-a7bc-49d1-998f-77b79557cd78}" type="0" valueInterpretation="0">
+			<ns:Name>Contact Info Country</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{c8be2dc5-f341-11d3-901c-0080ad80c556}" type="0" valueInterpretation="0">
+			<ns:Name>Aperture (String)</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{af4b2e53-5f6a-11d2-8f20-0000c0e166dc}" type="3" valueInterpretation="0">
+			<ns:Name>F Number</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{b1bd6e84-63c5-4c30-b6d9-979119ef527e}" type="0" valueInterpretation="0">
+			<ns:Name>Contact Info State/Province</ns:Name>
+		</ns:Field>
+		<ns:Field uid="{78cb9e6c-2e0b-43d1-80aa-8ef61214b07a}" type="0" valueInterpretation="0">
+			<ns:Name>Scientific name</ns:Name>
+		</ns:Field>
+	</ns:Fields>
+</ns:Layout>
+</ns:Export>

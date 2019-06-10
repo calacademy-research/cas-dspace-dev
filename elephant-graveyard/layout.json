@@ -1,0 +1,960 @@
+{
+  "ns:Export": {
+    "xmlns:ns": "http://www.canto.com/ns/Export/1.0",
+    "ns:Layout": {
+      "tableName": "AssetRecords",
+      "ns:Fields": {
+        "ns:Field": [
+          {
+            "uid": "{af4b2e12-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 3,
+            "valueInterpretation": 3,
+            "ns:Name": "Image Height"
+          },
+          {
+            "uid": "{1658d872-92e1-11d5-b58d-0050baeba6c7}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "Reference Date"
+          },
+          {
+            "uid": "{745e9163-62c2-11d4-909c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Lens Info"
+          },
+          {
+            "uid": "{1f97095a-e6a6-4563-b89f-a29bfc1f1a51}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "Date Time Digitized"
+          },
+          {
+            "uid": "{af4b2e52-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Exposure Time"
+          },
+          {
+            "uid": "{c8be2dca-f341-11d3-901c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Flash Mode"
+          },
+          {
+            "uid": "{af4b2e23-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 2,
+            "valueInterpretation": 0,
+            "ns:Name": "Asset Identifier"
+          },
+          {
+            "uid": "{5cada4d5-90df-11d2-8e22-008048fdada5}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Supplemental Categories"
+          },
+          {
+            "uid": "{af4b2e11-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 3,
+            "valueInterpretation": 3,
+            "ns:Name": "Image Width"
+          },
+          {
+            "uid": "{af4b2e3d-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Object Name"
+          },
+          {
+            "uid": "{dfda2122-15b8-4ae3-b7e9-5cab3420557b}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Gain Control"
+          },
+          {
+            "uid": "{7b926fdf-4b31-43f3-a3a1-4cd69c756d44}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "File Format Identifier"
+          },
+          {
+            "uid": "{1658d871-92e1-11d5-b58d-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Reference Service"
+          },
+          {
+            "uid": "{9a82b761-d5a0-11d4-b4e4-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Keywords"
+          },
+          {
+            "uid": "{af4b2e51-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "Captured Date"
+          },
+          {
+            "uid": "{af4b2e14-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 2,
+            "valueInterpretation": 4,
+            "ns:Name": "File Data Size"
+          },
+          {
+            "uid": "{c8be2dc4-f341-11d3-901c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Serial Number"
+          },
+          {
+            "uid": "{745e9161-62c2-11d4-909c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Camera ID"
+          },
+          {
+            "uid": "{af4b2e5e-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Folder Name"
+          },
+          {
+            "uid": "{226e3b01-2d97-11d5-b533-0050baeba6c7}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "IPTC Date Created"
+          },
+          {
+            "uid": "{a89e881e-df7a-4c7c-9bf7-840bf3df707e}",
+            "type": 2,
+            "valueInterpretation": 0,
+            "ns:Name": "Vertical Pixels"
+          },
+          {
+            "uid": "{17955d37-7295-46be-8a0e-80fecc3d2c32}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "FlashPix Version"
+          },
+          {
+            "uid": "{af4b2e4e-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Camera Model"
+          },
+          {
+            "uid": "{40f7dca0-92e6-40ae-bb3e-500c7a29f5f5}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Identifier"
+          },
+          {
+            "uid": "{cfa5d2c7-0040-4c97-8496-1fb42cbbe98c}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Contact Info City"
+          },
+          {
+            "uid": "{c8be2dce-f341-11d3-901c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Max Aperture (String)"
+          },
+          {
+            "uid": "{b2373251-f405-11d3-901d-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Shutter Time [s]"
+          },
+          {
+            "uid": "{33031162-f2dd-11d5-b5ef-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Certificate"
+          },
+          {
+            "uid": "{af4b2e0b-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Notes"
+          },
+          {
+            "uid": "{af4b2e26-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 2,
+            "valueInterpretation": 0,
+            "ns:Name": "Thumbnail Standard Deviation"
+          },
+          {
+            "uid": "{c8be2dcd-f341-11d3-901c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "ISO Speed"
+          },
+          {
+            "uid": "{119565c1-018a-11d4-9035-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Manufacturer"
+          },
+          {
+            "uid": "{133293b1-f598-11d3-901f-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Exposure Program"
+          },
+          {
+            "uid": "{039f23a5-36c9-452c-94d9-1250be42e74f}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Location"
+          },
+          {
+            "uid": "{af4b2e4d-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Camera Manufacturer"
+          },
+          {
+            "uid": "{af4b2e05-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "Asset Creation Date"
+          },
+          {
+            "uid": "{af4b2e3f-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Province/State"
+          },
+          {
+            "uid": "{d8b73021-9891-11d5-b593-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Program Version"
+          },
+          {
+            "uid": "{33031161-f2dd-11d5-b5ef-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Owner"
+          },
+          {
+            "uid": "{938322a8-9e83-4d4f-bbec-a3905468134c}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Digital Zoom Ratio"
+          },
+          {
+            "uid": "{5cada4d3-90df-11d2-8e22-008048fdada5}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Service Id"
+          },
+          {
+            "uid": "{289e82a5-9b72-41fb-b2dd-5c07c5bae723}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Class"
+          },
+          {
+            "uid": "{af4b2e0a-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 6,
+            "valueInterpretation": 0,
+            "ns:Name": "Thumbnail"
+          },
+          {
+            "uid": "{d772f661-9242-11d5-b58c-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Originating Program"
+          },
+          {
+            "uid": "{7839a34f-c20e-4004-b396-26db0f4cf15d}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Collection"
+          },
+          {
+            "uid": "{af4b2e08-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Cataloging User"
+          },
+          {
+            "uid": "{2bf29c20-3a92-4302-9cc7-7334cc265a10}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Subject Distance Range"
+          },
+          {
+            "uid": "{24ce5040-e5f4-11d3-900e-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "IPTC Category"
+          },
+          {
+            "uid": "{49a36838-262f-46e3-a676-f3cd2665073c}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Max Aperture"
+          },
+          {
+            "uid": "{9cbc7a2e-c0bd-4fa7-bfb8-ede8afa630a2}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Date Created"
+          },
+          {
+            "uid": "{15dd6c90-f424-4c4c-beef-58c16b24b674}",
+            "type": 7,
+            "valueInterpretation": 0,
+            "ns:Name": "Thumbnail Rotation"
+          },
+          {
+            "uid": "{af4b2e24-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Asset Modification State Identifier"
+          },
+          {
+            "uid": "{af4b2e3a-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Byline Title"
+          },
+          {
+            "uid": "{05f6f3f0-833a-45a0-ade4-8e48542f37ef}",
+            "type": 2,
+            "valueInterpretation": 0,
+            "ns:Name": "Horizontal Pixels"
+          },
+          {
+            "uid": "{5a26d2dd-6d1a-4b64-a3cd-eae8c583a941}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Rights Holder"
+          },
+          {
+            "uid": "{50b69355-0fa0-4d6c-85d1-fcbd11883221}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Document Text"
+          },
+          {
+            "uid": "{50073068-453d-4292-87c8-b5972e9ba92c}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Contact Info Phone(s)"
+          },
+          {
+            "uid": "{17f26b9a-0670-41fa-a291-600d3dd639ba}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Phylum"
+          },
+          {
+            "uid": "{1658d873-92e1-11d5-b58d-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Reference Number"
+          },
+          {
+            "uid": "{af4b2e6a-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Volume Name"
+          },
+          {
+            "uid": "{f07069f3-8447-4938-8c18-23407d76ad92}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Aperture"
+          },
+          {
+            "uid": "{af4b2e3b-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Credits"
+          },
+          {
+            "uid": "{1d3213c4-ce9b-46d5-957b-26e54d5ccd3d}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "User Comment"
+          },
+          {
+            "uid": "{af4b2e56-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Focal Length [mm]"
+          },
+          {
+            "uid": "{af4b2e06-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "Asset Modification Date"
+          },
+          {
+            "uid": "{af4b2e3c-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Source"
+          },
+          {
+            "uid": "{af4b2e43-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Title"
+          },
+          {
+            "uid": "{1e29ca59-4022-43f3-9448-539a3da4097c}",
+            "type": 7,
+            "valueInterpretation": 9,
+            "ns:Name": "Rating"
+          },
+          {
+            "uid": "{af4b2e39-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Byline"
+          },
+          {
+            "uid": "{af4b2e55-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Subject Distance"
+          },
+          {
+            "uid": "{af4b2e6c-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 8,
+            "valueInterpretation": 0,
+            "ns:Name": "Annotation"
+          },
+          {
+            "uid": "{a71e48bd-84e5-4684-b51a-1271b8401df3}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Contact Info Web URL(s)"
+          },
+          {
+            "uid": "{af4b2e0c-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Categories"
+          },
+          {
+            "uid": "{e2198289-e786-4d4f-8564-e9a0ef6bae22}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Family"
+          },
+          {
+            "uid": "{b4fb120e-b8cd-40cb-98c4-9fe8d70bbb5b}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Contact Info Address"
+          },
+          {
+            "uid": "{745e9165-62c2-11d4-909c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "F Number (String)"
+          },
+          {
+            "uid": "{47544b91-ed41-11d5-b5e8-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Description"
+          },
+          {
+            "uid": "{6e7153ec-5141-4bb5-847b-79619a5cb300}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "IPTC Scene"
+          },
+          {
+            "uid": "{af4b2e07-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 7,
+            "valueInterpretation": 0,
+            "ns:Name": "Status"
+          },
+          {
+            "uid": "{c8be2dc8-f341-11d3-901c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Exposure Mode"
+          },
+          {
+            "uid": "{af4b2e00-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Record Name"
+          },
+          {
+            "uid": "{e174b821-623c-476b-a2bc-173725585e0a}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "Date Time Original"
+          },
+          {
+            "uid": "{1fb84bdd-f72e-49d2-9a17-b7c19a600d0b}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Contrast"
+          },
+          {
+            "uid": "{af4b2e6b-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Server Name"
+          },
+          {
+            "uid": "{b78bb348-3cd2-464f-a420-49bfd694fffa}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Exposure Time (String)"
+          },
+          {
+            "uid": "{ed6416d6-97f6-49f1-9881-b4c96cf35abf}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Intellectual Genre"
+          },
+          {
+            "uid": "{af4b2e0f-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 3,
+            "valueInterpretation": 2,
+            "ns:Name": "Horizontal Resolution"
+          },
+          {
+            "uid": "{af4b2e72-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 5,
+            "valueInterpretation": 0,
+            "ns:Name": "Related Master Assets"
+          },
+          {
+            "uid": "{c8be2dd0-f341-11d3-901c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Meter Mode"
+          },
+          {
+            "uid": "{af4b2e02-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "Record Modification Date"
+          },
+          {
+            "uid": "{af4b2e10-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 3,
+            "valueInterpretation": 2,
+            "ns:Name": "Vertical Resolution"
+          },
+          {
+            "uid": "{3f6e4112-31f0-4054-972f-e0ae98159c1c}",
+            "type": 2,
+            "valueInterpretation": 0,
+            "ns:Name": "Unix File Identifier"
+          },
+          {
+            "uid": "{af4b2e42-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "Date Sent"
+          },
+          {
+            "uid": "{418a4c92-fe63-11d3-9030-0080ad80c556}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Longitude"
+          },
+          {
+            "uid": "{af4b2e38-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 7,
+            "valueInterpretation": 0,
+            "ns:Name": "Urgency"
+          },
+          {
+            "uid": "{af4b2e01-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "Record Creation Date"
+          },
+          {
+            "uid": "{af4b2e69-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Asset Name"
+          },
+          {
+            "uid": "{d772f667-9242-11d5-b58c-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Release Time"
+          },
+          {
+            "uid": "{af4b2e37-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Special Instructions"
+          },
+          {
+            "uid": "{af4b2e41-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Org. Trans. Ref."
+          },
+          {
+            "uid": "{e8c79d89-a302-4392-b1e5-05af6df264c2}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Creator"
+          },
+          {
+            "uid": "{d0b55c54-e642-11d4-b4eb-0050baeba6c7}",
+            "type": 1,
+            "valueInterpretation": 0,
+            "ns:Name": "Copyright Applied"
+          },
+          {
+            "uid": "{af4b2e16-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 5,
+            "valueInterpretation": 1,
+            "ns:Name": "Asset Reference"
+          },
+          {
+            "uid": "{af4b2e0e-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 7,
+            "valueInterpretation": 0,
+            "ns:Name": "Color Mode"
+          },
+          {
+            "uid": "{84a549e7-781f-442b-ad93-8a9b7e56dfe8}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Scene Type"
+          },
+          {
+            "uid": "{d772f666-9242-11d5-b58c-0050baeba6c7}",
+            "type": 4,
+            "valueInterpretation": 0,
+            "ns:Name": "Release Date"
+          },
+          {
+            "uid": "{418a4c91-fe63-11d3-9030-0080ad80c556}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Latitude"
+          },
+          {
+            "uid": "{43200803-7955-4329-9b6f-de60ba3b3657}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Original Format"
+          },
+          {
+            "uid": "{c3bfe021-f352-11d3-901c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "White Balance Mode"
+          },
+          {
+            "uid": "{5a608c73-d0b3-4eee-916c-e8ef7fc47df0}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Custom Rendered"
+          },
+          {
+            "uid": "{af4b2e25-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 2,
+            "valueInterpretation": 0,
+            "ns:Name": "Thumbnail Mean Value"
+          },
+          {
+            "uid": "{d772f663-9242-11d5-b58c-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Country Code"
+          },
+          {
+            "uid": "{bebb6e50-e83a-11d3-9010-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Image URL"
+          },
+          {
+            "uid": "{5a2da212-5967-4cdc-8494-49580e20a3a5}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Focal Length 35mm Film [mm]"
+          },
+          {
+            "uid": "{af4b2e04-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 1,
+            "valueInterpretation": 0,
+            "ns:Name": "Don't Delete Record"
+          },
+          {
+            "uid": "{913a709a-bb53-4097-854f-e361150e3bbf}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Common name"
+          },
+          {
+            "uid": "{d772f662-9242-11d5-b58c-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Fixture Id"
+          },
+          {
+            "uid": "{c02adb31-5c2c-4014-b86a-a53cf83f7e6c}",
+            "type": 2,
+            "valueInterpretation": 0,
+            "ns:Name": "ID"
+          },
+          {
+            "uid": "{f53a1462-3485-492e-9658-a436eb026412}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Order"
+          },
+          {
+            "uid": "{e0f7811a-1924-4e4e-8e9d-d36ec9991b97}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Coverage Geographic"
+          },
+          {
+            "uid": "{af4b2e44-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Subject"
+          },
+          {
+            "uid": "{af4b2e36-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Headline"
+          },
+          {
+            "uid": "{133293b4-f598-11d3-901f-0080ad80c556}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Exposure Bias"
+          },
+          {
+            "uid": "{af4b2e40-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Country"
+          },
+          {
+            "uid": "{af4b2e2b-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Author"
+          },
+          {
+            "uid": "{226e3b02-2d97-11d5-b533-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "IPTC Time Created"
+          },
+          {
+            "uid": "{af4b2e63-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Producer"
+          },
+          {
+            "uid": "{d772f664-9242-11d5-b58c-0050baeba6c7}",
+            "type": 7,
+            "valueInterpretation": 0,
+            "ns:Name": "Object Cycle"
+          },
+          {
+            "uid": "{af4b2e35-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Caption Writer"
+          },
+          {
+            "uid": "{af4b2e34-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Caption"
+          },
+          {
+            "uid": "{af4b2e50-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Scanner Model"
+          },
+          {
+            "uid": "{3ea7ce2b-90e7-46b2-a62d-5c530cdbef8e}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Contact Info Email(s)"
+          },
+          {
+            "uid": "{8e006822-f2d8-11d5-b5ef-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Usage Terms"
+          },
+          {
+            "uid": "{b4bb4cd1-90db-11d2-8e22-008048fdada5}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Time Sent"
+          },
+          {
+            "uid": "{af4b2e09-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Software"
+          },
+          {
+            "uid": "{3de69fa1-2af7-11d4-9067-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Light Source"
+          },
+          {
+            "uid": "{ed58b241-cf37-11d4-b4de-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Image Source"
+          },
+          {
+            "uid": "{097503b7-1409-4d04-a360-ec159d1d7c8f}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Contact Info Postal Code"
+          },
+          {
+            "uid": "{d772f665-9242-11d5-b58c-0050baeba6c7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Edit Status"
+          },
+          {
+            "uid": "{b23e86e1-f0fb-11d4-b4f5-0050baeba6c7}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "Altitude"
+          },
+          {
+            "uid": "{baf99f08-2cbb-49f4-8330-8d162d79b02b}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Saturation"
+          },
+          {
+            "uid": "{633d6f8d-1097-4ed6-8bfa-f1e70d00e485}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Sharpness"
+          },
+          {
+            "uid": "{9219d600-6710-4734-ae6f-761437e652bf}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "EXIF Version"
+          },
+          {
+            "uid": "{c02adb32-5c2c-4014-b86a-a53cf83f7e6c}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Catalog Name"
+          },
+          {
+            "uid": "{af4b2e2c-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Rights"
+          },
+          {
+            "uid": "{af4b2e71-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 5,
+            "valueInterpretation": 0,
+            "ns:Name": "Related Sub Assets"
+          },
+          {
+            "uid": "{7bbe4e56-be16-43b3-a84e-79a7d05470f7}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "IPTC Subject Code"
+          },
+          {
+            "uid": "{ecdc56a3-09cf-4e9d-be1d-7d7a160f3c8d}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Sensing Method"
+          },
+          {
+            "uid": "{b2a84783-86a0-4360-af0a-dcbc2a5a3d8e}",
+            "type": 9,
+            "valueInterpretation": 4,
+            "ns:Name": "Asset Data Size (Long)"
+          },
+          {
+            "uid": "{af4b2e3e-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "City"
+          },
+          {
+            "uid": "{af4b2e0d-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "File Format"
+          },
+          {
+            "uid": "{dcf3a0ee-e89e-41a9-9037-cf1ad5f46973}",
+            "type": 7,
+            "valueInterpretation": 8,
+            "ns:Name": "Label"
+          },
+          {
+            "uid": "{4580c980-77e5-4003-b598-8b8e5c82d2fb}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Scene Capture Type"
+          },
+          {
+            "uid": "{99b07cfc-a7bc-49d1-998f-77b79557cd78}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Contact Info Country"
+          },
+          {
+            "uid": "{c8be2dc5-f341-11d3-901c-0080ad80c556}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Aperture (String)"
+          },
+          {
+            "uid": "{af4b2e53-5f6a-11d2-8f20-0000c0e166dc}",
+            "type": 3,
+            "valueInterpretation": 0,
+            "ns:Name": "F Number"
+          },
+          {
+            "uid": "{b1bd6e84-63c5-4c30-b6d9-979119ef527e}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Contact Info State/Province"
+          },
+          {
+            "uid": "{78cb9e6c-2e0b-43d1-80aa-8ef61214b07a}",
+            "type": 0,
+            "valueInterpretation": 0,
+            "ns:Name": "Scientific name"
+          }
+        ]
+      }
+    }
+  }
+}

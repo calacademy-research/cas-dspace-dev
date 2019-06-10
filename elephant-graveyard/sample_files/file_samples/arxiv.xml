@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <link href="http://arxiv.org/api/query?search_query%3D%26id_list%3Dastro-ph%2F9806010%26start%3D0%26max_results%3D10" rel="self" type="application/atom+xml"/>
+  <title type="html">ArXiv Query: search_query=&amp;id_list=astro-ph/9806010&amp;start=0&amp;max_results=10</title>
+  <id>http://arxiv.org/api/Y+6jOTxI3nxKmvXqb7Royh6q6Cc</id>
+  <updated>2013-11-16T00:00:00-05:00</updated>
+  <opensearch:totalResults xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">1</opensearch:totalResults>
+  <opensearch:startIndex xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">0</opensearch:startIndex>
+  <opensearch:itemsPerPage xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">10</opensearch:itemsPerPage>
+  <entry>
+    <id>http://arxiv.org/abs/astro-ph/9806010v1</id>
+    <updated>1998-05-31T19:37:10Z</updated>
+    <published>1998-05-31T19:37:10Z</published>
+    <title>Time Dilation in the Peak-to-Peak Time Scale of GRBs</title>
+    <summary>  We present strong evidence of time stretching in the peak-to-peak time scales
+in the light curves of BATSE Gamma Ray Bursts (GRBs). Extensive tests are
+performed on artificially dilated bursts to verify that the procedure for
+extracting the peak-to-peak time scales correctly recovers the stretching of
+bursts. The resulting robust algorithm is then applied to the 4B GRB database.
+We derive a stretching factor of $1.92 \pm 0.13$ between the brightest burst
+group ($P &gt; 7.7 photon \cdot cm^{-2} \cdot s^{-1}$) and the dimmest burst group
+($P = 1.0 \sim 1.4 photon \cdot cm^{-2} \cdot s^{-1}$) with several independent
+peak-to-peak time scale definitions and they agree within uncertainties. Such
+an agreement strongly supports the interpretation of the observed time
+stretching as time dilation caused by the cosmological expansion, rather than
+physical selection effects. We fit the result to cosmological models with
+$\Lambda = 0$, $\Omega_{0}$ from 0.2 to 1.0, and contrained the standard candle
+luminosity to be $L_{0}= 7.0 \pm 2.0 \pm 2.7 \times 10^{56} photons \cdot
+s^{-1}$. Our luminosity value is fully consistent with the value from the
+combined PVO and BATSE LogN-LogP curve with the BATSE bright bursts at low
+redshifts of $z_{bright} = 0.11 \pm 0.02 \pm 0.025$. This luminosity fit is
+definitely inconsistent with the the larger distance scale implied from
+associating burst density with star formation rates.
+</summary>
+    <author>
+      <name>Ming Deng</name>
+      <arxiv:affiliation xmlns:arxiv="http://arxiv.org/schemas/atom">Yale University</arxiv:affiliation>
+    </author>
+    <author>
+      <name>Bradley E. Schaefer</name>
+      <arxiv:affiliation xmlns:arxiv="http://arxiv.org/schemas/atom">Yale University</arxiv:affiliation>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.1063/1.55331</arxiv:doi>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">17 pages, 3 figures, Submitted to ApJL</arxiv:comment>
+    <link href="http://arxiv.org/abs/astro-ph/9806010v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/astro-ph/9806010v1" rel="related" type="application/pdf"/>
+    <link title="doi" href="http://dx.doi.org/10.1063/1.55331" rel="related"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="astro-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="astro-ph" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+</feed>

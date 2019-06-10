@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossref_result xmlns="http://www.crossref.org/qrschema/2.0" version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/qrschema/2.0 http://www.crossref.org/schema/queryResultSchema/crossref_query_output2.0.xsd">
+  <query_result>
+    <head>
+      <doi_batch_id>none</doi_batch_id>
+    </head>
+    <body>
+      <query status="resolved" fl_count="16">
+        <doi type="journal_article">10.1021/ac0354342</doi>
+        <issn type="print">0003-2700</issn>
+        <issn type="electronic">1520-6882</issn>
+        <journal_title>Analytical Chemistry</journal_title>
+        <contributors>
+          <contributor sequence="first" contributor_role="author">
+            <given_name>Juan</given_name>
+            <surname>Astorga-Wells</surname>
+          </contributor>
+          <contributor sequence="additional" contributor_role="author">
+            <given_name>Tomas</given_name>
+            <surname>Bergman</surname>
+          </contributor>
+          <contributor sequence="additional" contributor_role="author">
+            <given_name>Hans</given_name>
+            <surname>Jörnvall</surname>
+          </contributor>
+        </contributors>
+        <volume>76</volume>
+        <issue>9</issue>
+        <first_page>2425</first_page>
+        <last_page>2429</last_page>
+        <year media_type="print">2004</year>
+        <publication_type>full_text</publication_type>
+        <article_title>Multistep Microreactions with Proteins Using Electrocapture Technology</article_title>
+      </query>
+    </body>
+  </query_result>
+</crossref_result>

@@ -1,0 +1,1 @@
+input-forms.xml lives in dspace/config, and contains only the data that the library collections would use.
