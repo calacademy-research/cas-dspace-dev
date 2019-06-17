@@ -48,7 +48,8 @@ services:
     ports:
       - ${PORT:-8080}:8080
     volumes:
-      - /Users/hweinstock/dpsace-outlet:/outlet
+      #- /Users/hweinstock/dpsace-outlet:/outlet
+      - "../../../../dspace-outlet:/outlet"
       - "assetstore:/dspace/assetstore"
       - "../../add-ons/dspace-docker-tools:/dspace-docker-tools"
     entrypoint: /dspace-docker-tools/ingestAIP.sh
