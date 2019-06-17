@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo "Beginning Import into Collection ID $1"
+/dspace/bin/dspace import --add -eperson test@test.edu --collection $1 -s /outlet/to_import -m /outlet/mapfiles/mapfile"-"`date '+%Y-%m-%d-%H:%M:%S'`
+echo "Successfully Imported into Collection ID $1"
+
+

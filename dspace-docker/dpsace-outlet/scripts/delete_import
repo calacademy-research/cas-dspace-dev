@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+cd
+echo "Removing Uploads"
+/dspace/bin/dspace import -d -e test@test.edu -m /outlet/mapfiles/$1 &&  rm /outlet/mapfiles/$1
+echo "Removing Mapfile"
