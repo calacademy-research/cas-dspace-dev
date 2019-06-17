@@ -1,0 +1,44 @@
+version: "3.7"
+
+# Docker compose will enable DSpace developers without a local Oracle installation to test DSpace changes with an Oracle database.
+# Note: this requires you to download a local copy of Oracle's JDBC client driver file.  That file is not bundled within the DSpace Docker image.
+# This compose file makes use of Atmire's dspace-oracle Docker image.
+
+# Download a copy of the Oracle ojdbc6.jar from https://www.oracle.com/technetwork/
+# export ORADRIVER=<path to your copy of odbc6.jar>
+
+services:
+  dspacedb:
+    image: atmire/dspace-oracle:11g2
+    volumes:
+      - oracledata:/u01/app/oracle
+
+  dspace:
+    environment:
+      - AIPWAIT=120
+      - DBWAIT=15
+      # The following overrides will only apply to DSpace 6+
+      # If you need to test Oracle with DSpace 4 or 5, you should manually insert these Values
+      # into the dspace.cfg file. Consider passing in dspace.cfg as a volume.
+      # Double underbars in env names will be replaced with periods for apache commons
+      - db__dialect=org.hibernate.dialect.Oracle10gDialect
+      - db__schema=dspace
+      - db__name=oracle
+      - db__driver=oracle.jdbc.OracleDriver
+      - db__url=jdbc:oracle:thin:@//dspacedb:1521/XE
+    volumes:
+      # export ORADRIVER=<directory containing Oracle JDBC drvier>
+      # you must accept the license agreement and download the file from
+      # https://www.oracle.com/technetwork/
+      - "${ORADRIVER}/ojdbc6.jar:/dspace/lib/ojdbc6.jar"
+      - "${ORADRIVER}/ojdbc6.jar:/dspace/webapps/jspui/WEB-INF/lib/ojdbc6.jar"
+      - "${ORADRIVER}/ojdbc6.jar:/dspace/webapps/oai/WEB-INF/lib/ojdbc6.jar"
+      - "${ORADRIVER}/ojdbc6.jar:/dspace/webapps/rdf/WEB-INF/lib/ojdbc6.jar"
+      - "${ORADRIVER}/ojdbc6.jar:/dspace/webapps/rest/WEB-INF/lib/ojdbc6.jar"
+      - "${ORADRIVER}/ojdbc6.jar:/dspace/webapps/solr/WEB-INF/lib/ojdbc6.jar"
+      - "${ORADRIVER}/ojdbc6.jar:/dspace/webapps/sword/WEB-INF/lib/ojdbc6.jar"
+      - "${ORADRIVER}/ojdbc6.jar:/dspace/webapps/swordv2/WEB-INF/lib/ojdbc6.jar"
+      - "${ORADRIVER}/ojdbc6.jar:/dspace/webapps/xmlui/WEB-INF/lib/ojdbc6.jar"
+
+volumes:
+  oracledata:

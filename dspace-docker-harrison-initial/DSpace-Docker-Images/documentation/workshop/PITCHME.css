@@ -1,0 +1,10 @@
+.reveal pre {
+  width: 96%;
+  font-size: .50em;
+}
+
+/* remove image borders */
+.reveal section img {
+  border: 0;
+  box-shadow: none;
+}

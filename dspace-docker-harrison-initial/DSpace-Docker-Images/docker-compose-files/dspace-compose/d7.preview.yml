@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  dspace:
+    # Image is based on static 'dspace-7.0-preview-1' tag
+    image: "dspace/dspace:dspace-7.0-preview-1"
+
+  dspace-angular:
+    # Image is based on static 'dspace-7.0-preview-1' tag
+    image: "dspace/dspace-angular:dspace-7.0-preview-1"
