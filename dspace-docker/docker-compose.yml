@@ -49,7 +49,7 @@ services:
       - ${PORT:-8080}:8080
     volumes:
       #- /Users/hweinstock/dpsace-outlet:/outlet
-      - "../dspace-local:/outlet"
+      - "../dspace-local:/local"
       - "assetstore:/dspace/assetstore"
       - "./dspace-docker-tools:/dspace-docker-tools"
     entrypoint: /dspace-docker-tools/ingestAIP.sh
