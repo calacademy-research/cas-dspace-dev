@@ -17,8 +17,14 @@ def browser(request):
     return render(request, 'fileviewer/browser.html')
 
 
-class getFilesystem(APIView):
+class GetFilesystem(APIView):
+    """
+    Opens a root folder and walks through it, generates a jqueryFileTree compatible html file
+
+    :returns HttpResponse
+    """
     def post(self, request):
+        print(request)
         r = ['<ul class="jqueryFileTree" style="display: none;">']
         try:
             r = ['<ul class="jqueryFileTree" style="display: none;">']

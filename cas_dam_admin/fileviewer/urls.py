@@ -2,11 +2,11 @@ from django.urls import path
 
 
 from . import views
-from .views import getFilesystem
+from .views import GetFilesystem
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('browser', views.browser, name='browser'),
-    path('getfilesystem', getFilesystem.as_view())
+    path('getfilesystem', GetFilesystem.as_view())
 
 ]
