@@ -13,15 +13,20 @@
     <script src="{% static "fileviewer/jquery/jqueryFileTree.js" %}" type="text/javascript"></script>
     <link rel="stylesheet" href="{% static "fileviewer/jquery/jqueryFileTree.css" %}">
     <script>
-
         $(document).ready(function () {
-            $('#thing').fileTree({root: '/', script: '/fileviewer/getfilesystem'}, function (file) {
+            $('#directory-widget').fileTree({root: '/', script: '/fileviewer/getfilesystem'}, function (file) {
                 alert(file);
             });
         });
     </script>
 </head>
 <body>
-<div id="thing"></div>
+<div id="page">
+    <form action="sendfolders/" method="post">
+        {% csrf_token %}
+        <div id="directory-widget"></div>
+        <input type="submit" value="Select folders">
+    </form>
+</div>
 </body>
 </html>

@@ -17,14 +17,19 @@ def browser(request):
     return render(request, 'fileviewer/browser.html')
 
 
+def sendfolders(request):
+    print("sendfolders", request.POST)
+    return HttpResponse("A OK")
+
+
 class GetFilesystem(APIView):
     """
     Opens a root folder and walks through it, generates a jqueryFileTree compatible html file
 
     :returns HttpResponse
     """
+
     def post(self, request):
-        print(request)
         r = ['<ul class="jqueryFileTree" style="display: none;">']
         try:
             r = ['<ul class="jqueryFileTree" style="display: none;">']
@@ -32,10 +37,14 @@ class GetFilesystem(APIView):
             for f in os.listdir(d):
                 ff = os.path.join(d, f)
                 if os.path.isdir(ff):
-                    r.append('<li class="directory collapsed"><a href="#" rel="%s/">%s</a></li>' % (ff, f))
+                    r.append(
+                        '<li class="directory collapsed"><input type="checkbox" name="%s"><a href="#" rel="%s/">%s</a></li>' % (
+                            ff, ff, f))
                 else:
                     e = os.path.splitext(f)[1][1:]  # get .ext and remove dot
-                    r.append('<li class="file ext_%s"><a href="#" rel="%s">%s</a></li>' % (e, ff, f))
+                    r.append(
+                        '<li class="file ext_%s"><input type="checkbox" name="%s"><a href="#" rel="%s">%s</a></li>' % (
+                            e, ff, ff, f))
             r.append('</ul>')
         except Exception as e:
             r.append('Could not load directory: %s' % str(e))
