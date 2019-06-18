@@ -13,7 +13,7 @@ def index(request):
     return HttpResponse("You're at the index page of fileviewer!")
 
 
-def browswer(request):
+def browser(request):
     return render(request, 'fileviewer/browser.html')
 
 
