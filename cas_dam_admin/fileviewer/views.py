@@ -1,16 +1,29 @@
 import os
-import os
 import urllib
-from django.shortcuts import render
+import logging
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework import status
+
+# Create your views here.
+
+from .forms import UploadCSVForm
 
 
 # Create your views here.
 
 def index(request):
-    return HttpResponse("You're at the index page of fileviewer!")
+    if request.method == 'POST':
+        form = UploadCSVForm(request.POST, request.FILES)
+        if form.is_valid():
+            csv_file = form.save()
+            csv_file.save_file_to_model()
+            # TODO: run something when the file uploads
+            return redirect('index')
+    else:
+        form = UploadCSVForm()
+    return render(request, 'fileviewer/index.html', {'form': form})
 
 
 def browser(request):
@@ -18,7 +31,7 @@ def browser(request):
 
 
 def sendfolders(request):
-    print("sendfolders", request.POST)
+    logging.info("Received folder: ", request.POST)
     return HttpResponse("A OK")
 
 
@@ -38,13 +51,13 @@ class GetFilesystem(APIView):
                 ff = os.path.join(d, f)
                 if os.path.isdir(ff):
                     r.append(
-                        '<li class="directory collapsed"><input type="checkbox" name="%s"><a href="#" rel="%s/">%s</a></li>' % (
+                        '<li class="directory collapsed"><input type="radio" name="%s"><a href="#" rel="%s/">%s</a></li>' % (
                             ff, ff, f))
                 else:
                     e = os.path.splitext(f)[1][1:]  # get .ext and remove dot
                     r.append(
-                        '<li class="file ext_%s"><input type="checkbox" name="%s"><a href="#" rel="%s">%s</a></li>' % (
-                            e, ff, ff, f))
+                        '<li class="file ext_%s"><a href="#" rel="%s">%s</a></li>' % (
+                            e, ff, f))
             r.append('</ul>')
         except Exception as e:
             r.append('Could not load directory: %s' % str(e))
