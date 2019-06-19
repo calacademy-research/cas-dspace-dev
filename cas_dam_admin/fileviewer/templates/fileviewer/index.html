@@ -1,7 +1,59 @@
-{% block content %}
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-  </form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load static %}
+
+    <script>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"
+            integrity="sha256-H3cjtrm/ztDeuhCN9I4yh4iN2Ybx/y1RM7rMmAesA0k=" crossorigin="anonymous"></script>
+
+    <script src="{% static "fileviewer/jquery/jqueryFileTree.js" %}" type="text/javascript"></script>
+    <link rel="stylesheet" href="{% static "fileviewer/jquery/jqueryFileTree.css" %}">
+    <script>
+        $(document).ready(function () {
+            $('#directory-widget').fileTree({root: '/', script: '/fileviewer/getfilesystem'}, function (file) {
+                alert(file);
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        function updatePathField() {
+            // Iterate through radio buttons and extract the value of the selected one
+            let radios = document.getElementsByName('folderpath');
+            for (let i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    document.getElementById("path-input-box").value = radios[i].value;
+                    // only one radio can be logically checked, don't check the rest
+                    break;
+                }
+            }
+        }
+    </script>
+
+</head>
+<body>
+<div id="page">
+    {% block content %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+    {% endblock %}
+
+    <form id="select-folder" action="javascript:void(0);" method="post">
+        {% csrf_token %}
+        <div id="directory-widget"></div>
+        <input type="submit" value="Update path" onclick="updatePathField()">
+
+    </form>
+</div>
+</body>
+</html>

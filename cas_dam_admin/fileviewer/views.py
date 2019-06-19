@@ -10,6 +10,8 @@ from rest_framework import status
 
 from .forms import UploadCSVForm
 
+logging.basicConfig(level=logging.INFO)
+
 
 # Create your views here.
 
@@ -30,11 +32,6 @@ def browser(request):
     return render(request, 'fileviewer/browser.html')
 
 
-def sendfolders(request):
-    logging.info("Received folder: ", request.POST)
-    return HttpResponse("A OK")
-
-
 class GetFilesystem(APIView):
     """
     Opens a root folder and walks through it, generates a jqueryFileTree compatible html file
@@ -51,7 +48,7 @@ class GetFilesystem(APIView):
                 ff = os.path.join(d, f)
                 if os.path.isdir(ff):
                     r.append(
-                        '<li class="directory collapsed"><input type="radio" name="%s"><a href="#" rel="%s/">%s</a></li>' % (
+                        '<li class="directory collapsed"><input type="radio" name="folderpath" value="%s"><a href="#" rel="%s/">%s</a></li>' % (
                             ff, ff, f))
                 else:
                     e = os.path.splitext(f)[1][1:]  # get .ext and remove dot

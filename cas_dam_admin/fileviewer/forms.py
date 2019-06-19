@@ -7,5 +7,6 @@ class UploadCSVForm(forms.ModelForm):
         model = CSVDocument
         fields = ('document', 'path')
         widgets = {
-            'document': forms.FileInput(attrs={'accept': '.csv'})
+            'document': forms.FileInput(attrs={'accept': '.csv'}),
+            'path': forms.TextInput(attrs={'id': 'path-input-box'})
         }
