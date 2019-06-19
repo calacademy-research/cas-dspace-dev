@@ -1,4 +1,5 @@
- .idea
+cas_dam_admin/documents
+.idea
 .DS_Store
 **/.DS_Store
 /cas-dam-admin/venv
