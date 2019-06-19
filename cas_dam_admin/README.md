@@ -12,3 +12,5 @@ Before using/running:
 
 `source ./venv/bin/activate`
 
+We're currently using Cory S.N. LaViska's jQuery file browser plugin (https://www.abeautifulsite.net/jquery-file-tree)
+to manage browsing paths on slevin.

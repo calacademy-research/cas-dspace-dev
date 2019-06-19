@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
-    'fileuploader.apps.FileuploaderConfig',
     'fileviewer.apps.FileviewerConfig',
     'django.contrib.admin',
     'django.contrib.auth',

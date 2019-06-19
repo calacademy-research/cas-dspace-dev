@@ -18,6 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('fileviewer/', include('fileviewer.urls')),
-    path('fileuploader/', include('fileuploader.urls')),
     path('admin/', admin.site.urls),
 ]
