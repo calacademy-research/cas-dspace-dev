@@ -1,20 +1,20 @@
+import logging
 import os
 import urllib
-import logging
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from rest_framework.views import APIView
-from rest_framework import status
 
-# Create your views here.
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from rest_framework import status
+from rest_framework.views import APIView
 
 from .forms import UploadCSVForm
+
+# Create your views here.
 
 logging.basicConfig(level=logging.INFO)
 
 
 # Create your views here.
-
 def index(request):
     if request.method == 'POST':
         form = UploadCSVForm(request.POST, request.FILES)
