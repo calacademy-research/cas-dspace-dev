@@ -4,9 +4,12 @@ Initial commit for project
 
 Create virtual env:
 
-`mkdir venv`
-`cd venv`
-`python3 venv -m .`
+```
+mkdir venv
+cd venv
+python3 venv -m .
+pip install -r requirements.txt
+```
 
 Before using/running:
 
