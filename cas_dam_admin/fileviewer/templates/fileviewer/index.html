@@ -25,15 +25,9 @@
 
     <script type="text/javascript">
         function updatePathField() {
-            // Iterate through radio buttons and extract the value of the selected one
-            let radios = document.getElementsByName('folderpath');
-            for (let i = 0, length = radios.length; i < length; i++) {
-                if (radios[i].checked) {
-                    document.getElementById("path-input-box").value = radios[i].value;
-                    // only one radio can be logically checked, don't check the rest
-                    break;
-                }
-            }
+            // Set the value of the input box to be the value of the checked box
+            document.getElementById("path-input-box").value = document.querySelector('input[name="folderpath"]:checked').value;
+
         }
     </script>
 
