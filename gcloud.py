@@ -34,36 +34,6 @@ def main():
 
     service = build('drive', 'v3', credentials=creds)
 
-    # Call the Drive v3 API
-    # results = service.files().list(
-    #     pageSize=10, fields="nextPageToken, files(id, name)").execute()
-    # print(results)
-    # items = results.get('files', [])
-    # print(items)
-    #
-    # if not items:
-    #     print('No files found.')
-    # else:
-    #     print('Files:')
-    #     for item in items:
-    #         print(u'{0}'.format(item['name']))
-    def search_for_childrenW(folder_id):
-        page_token = None
-        query = "'root' in parents"
-        print(query)
-        while True:
-            response = service.files().list(q= query,
-                                                  spaces='drive',
-                                                  fields='nextPageToken, files(id, name)',
-                                                  pageToken=page_token).execute()
-            for file in response.get('files', []):
-                # Process change
-                #print('Found file: %s (%s)' % (file.get('name'), file.get('id')))
-                pass
-            page_token = response.get('nextPageToken', None)
-            if page_token is None:
-                break
-
     """
     Format of the folder_id is weird. Ex. 'root' gives error but "'root'" works
     Also this function searches the entire tree ** big bad
