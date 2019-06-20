@@ -1,3 +1,7 @@
+#path-input-box {
+	min-width: 125px;
+}
+
 UL.jqueryFileTree {
 	font-family: Verdana, sans-serif;
 	font-size: 11px;
