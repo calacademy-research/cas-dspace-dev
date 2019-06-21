@@ -21,6 +21,7 @@ def index(request):
         if form.is_valid():
             csv_file = form.save()
             csv_file.save_file_to_model()
+            csv_file.log_csv_contents()
             # TODO: run something when the file uploads
             return redirect('index')
     else:
