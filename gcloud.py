@@ -91,6 +91,8 @@ class Gcloud:
     def ID_from_name(self, file_name, file_count=10):
         '''
         takes in a file name and returns all files from google drive with that name
+
+        returns string containing id if there is only one file with that name, otherwise it returns a list of the files which could be empty.
         '''
 
         query = "name = '%s'" % file_name
@@ -107,9 +109,13 @@ class Gcloud:
 if __name__ == '__main__':
     import pprint
     '''
-    Assumes token.pickle and credentials.json is in directory
+    Assumes token.pickle and credentials.json are in directory
     '''
 
+
+    '''
+    Sample Test prints 5 files from root directory of google drive
+    '''
     g = Gcloud()
     files = g.children_search('root', 5)
     print("[File Name, File ID ]")
