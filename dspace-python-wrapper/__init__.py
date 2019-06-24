@@ -98,16 +98,20 @@ class Dspace:
             return True
         return False
 
-    def get_collections(self):
+    def get_data_from_dspace(self, datatype):
+        """ Retrieves objects from dspace.
 
-        collections = requests.get(self.rest_base_url + "/collections",
-                                    cookies={'JSESSIONID': self.jsessionid},
+        :param datatype: a type of object to retrieve (items, collections, communities).
+        :return: dictionary {'name' : 'id'}
+
+        """
+        search = requests.get(self.rest_base_url + "/" + search,
                                     headers={"Accept": "application/json"})
-        collections_list = json.loads(collections.text)
+        search_list = json.loads(collections.text)
 
         dict = {}
 
-        for collection in collections_list:
-            dict[collection['name']] = collection['uuid']
+        for n in search_list:
+            dict[search_list['name']] = search_list['uuid']
 
         return dict
