@@ -5,7 +5,7 @@ import json
 class Dspace:
     def __init__(self, rest_base_url):
 
-        #Testing Url: http://localhost:8080/rest
+        # Testing Url: http://localhost:8080/rest
         self.rest_base_url = rest_base_url
         self.jsessionid = ""
 
@@ -33,7 +33,7 @@ class Dspace:
     def create_new_community_from_data(self, community_name, short_description="", copyright_text=""):
         json_dict = {'name': community_name, 'shortDescription': short_description, 'copyrightText': copyright_text}
 
-        json_data = json.dumps(json_dict)
+        json_data = json.loads(json_dict)
 
         new_community_response = requests.post(self.rest_base_url + '/communities',
                                                cookies={'JSESSIONID': self.jsessionid},
@@ -57,9 +57,8 @@ class Dspace:
                                           headers={"Accept": "application/json"},
                                           json=json_data)
 
-        new_item_response_text = json_data.dumps(new_item_response.text)
+        new_item_response_text = json_data.loads(new_item_response.text)
         return new_item_response_text['uuid'], new_item_response_text
-
 
         pass
 
@@ -78,7 +77,7 @@ class Dspace:
                                        cookies={'JSESSIONID': self.jsessionid},
                                        headers={"Accept": "application/json"})
 
-        status_response_text = json.dumps(status_response.text)
+        status_response_text = json.loads(status_response.text)
 
         if status_response_text['authenticated']:
             return True, status_response_text
@@ -110,18 +109,12 @@ class Dspace:
             return False
 
         search = requests.get(self.rest_base_url + "/" + datatype,
-                                    headers={"Accept": "application/json"})
+                              headers={"Accept": "application/json"})
         search_list = json.loads(search.text)
 
-        dict = {}
+        content_dict = {}
 
         for item in search_list:
-            dict[item['name']] = item['uuid']
+            content_dict[item['name']] = item['uuid']
 
-        return dict
-
-if __name__ == '__main__':
-    import pprint
-
-    d = Dspace('http://localhost:8080/rest')
-    pprint.pprint(d.get_data_from_dspace('bitstreams'))
+        return content_dict
