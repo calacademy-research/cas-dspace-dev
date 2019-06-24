@@ -22,7 +22,6 @@ def index(request):
             csv_file = form.save()
             csv_file.save_file_to_model()
             csv_file.log_csv_contents()
-            # TODO: run something when the file uploads
             return redirect('index')
     else:
         form = UploadCSVForm()
@@ -34,8 +33,7 @@ def browser(request):
 
 
 class GetFilesystem(APIView):
-    """
-    Opens a root folder and walks through it, generates a jqueryFileTree compatible html file
+    """ Opens a root folder and walks through it, generates a jqueryFileTree compatible html file
 
     :returns HttpResponse
     """

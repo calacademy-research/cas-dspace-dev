@@ -16,14 +16,14 @@ class CSVDocument(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     email = models.EmailField()
-    password = models.CharField()
+    password = models.TextField()
 
     collection_uuid = models.CharField(max_length=36)
 
     rest_api_base_url = models.TextField(default="http://localhost:8080/rest")
 
-    headers_textfield = models.TextField()
-    list_of_json_rows_textfield = models.TextField()
+    headers_textfield = models.TextField(default="")
+    list_of_json_rows_textfield = models.TextField(default="")
 
     def save_file_to_model(self):
         """
@@ -78,6 +78,6 @@ class CSVDocument(models.Model):
             filename = data_as_dict['library.filename']
             description = data_as_dict['dc.description']
 
-            item_uuid, response = dspace_controller.register_new_item_from_json(line, collection_uuid)
+            item_uuid, response = dspace_controller.register_new_item_from_json(line, self.collection_uuid)
 
             bitstream_response = dspace_controller.add_bitstream_to_item(filepath, filename, item_uuid)
