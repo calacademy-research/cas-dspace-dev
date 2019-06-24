@@ -4,10 +4,10 @@ import json
 
 class Dspace:
     def __init__(self, rest_base_url):
+
+        #Testing Url: http://localhost:8080/rest
         self.rest_base_url = rest_base_url
         self.jsessionid = ""
-
-        pass
 
     def login(self, email, password):
         """ Logs into the dSpace instance
@@ -97,3 +97,17 @@ class Dspace:
         if test_response.text == "REST api is running.":
             return True
         return False
+
+    def get_collections(self):
+
+        collections = requests.get(self.rest_base_url + "/collections",
+                                    cookies={'JSESSIONID': self.jsessionid},
+                                    headers={"Accept": "application/json"})
+        collections_list = json.loads(collections.text)
+
+        dict = {}
+
+        for collection in collections_list:
+            dict[collection['name']] = collection['uuid']
+
+        return dict
