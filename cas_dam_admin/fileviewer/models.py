@@ -1,7 +1,9 @@
 import csv
 import logging
+import json
 
-import dspace_python_wrapper
+from dspace_python_wrapper import Dspace
+
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
@@ -12,6 +14,13 @@ class CSVDocument(models.Model):
     document = models.FileField(upload_to='documents/', validators=[FileExtensionValidator(allowed_extensions=['csv'])])
     path = models.CharField(max_length=255)  # max_length is required, we could make it longer if needed
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    email = models.EmailField()
+    password = models.CharField()
+
+    collection_uuid = models.CharField(max_length=36)
+
+    rest_api_base_url = models.TextField(default="http://localhost:8080/rest")
 
     headers_textfield = models.TextField()
     list_of_json_rows_textfield = models.TextField()
@@ -60,8 +69,15 @@ class CSVDocument(models.Model):
         headers = eval(self.headers_textfield)
         list_of_json_rows = eval(self.list_of_json_rows_textfield)
 
+        dspace_controller = Dspace(self.rest_api_base_url)
 
-
-        upload_requests = []
         for line in list_of_json_rows:
-            r = requests.post(self.rest_api_base_url + "/")
+            data_as_dict = json.dumps(line)
+
+            filepath = data_as_dict['filename']
+            filename = data_as_dict['library.filename']
+            description = data_as_dict['dc.description']
+
+            item_uuid, response = dspace_controller.register_new_item_from_json(line, collection_uuid)
+
+            bitstream_response = dspace_controller.add_bitstream_to_item(filepath, filename, item_uuid)
