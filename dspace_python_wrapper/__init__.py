@@ -109,13 +109,19 @@ class Dspace:
         if not datatype in ["items", "collections", "communities", "bitstreams"]:
             return False
 
-        search = requests.get(self.rest_base_url + "/" + search,
+        search = requests.get(self.rest_base_url + "/" + datatype,
                                     headers={"Accept": "application/json"})
-        search_list = json.loads(collections.text)
+        search_list = json.loads(search.text)
 
         dict = {}
 
-        for n in search_list:
-            dict[search_list['name']] = search_list['uuid']
+        for item in search_list:
+            dict[item['name']] = item['uuid']
 
         return dict
+
+if __name__ == '__main__':
+    import pprint
+
+    d = Dspace('http://localhost:8080/rest')
+    pprint.pprint(d.get_data_from_dspace('bitstreams'))
