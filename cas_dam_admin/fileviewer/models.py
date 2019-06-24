@@ -1,6 +1,7 @@
 import csv
 import logging
 
+import dspace_python_wrapper
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
@@ -51,3 +52,16 @@ class CSVDocument(models.Model):
         logging.info("%s", ', '.join(headers))
         for line in list_of_json_rows:
             logging.info("%s", ', '.join(line.values()))
+
+    # TODO use requests to post each line of the csv file. Remember to use http:// in url,
+    # TODO r.cookies['JSESSIONID'] to get authorization cookie after logging in
+
+    def upload_csv_to_dspace(self):
+        headers = eval(self.headers_textfield)
+        list_of_json_rows = eval(self.list_of_json_rows_textfield)
+
+
+
+        upload_requests = []
+        for line in list_of_json_rows:
+            r = requests.post(self.rest_api_base_url + "/")
