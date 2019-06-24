@@ -101,10 +101,14 @@ class Dspace:
     def get_data_from_dspace(self, datatype):
         """ Retrieves objects from dspace.
 
-        :param datatype: a type of object to retrieve (items, collections, communities).
+        :param datatype: a type of object to retrieve (items, collections, communities, bitstreams).
         :return: dictionary {'name' : 'id'}
 
         """
+
+        if not datatype in ["items", "collections", "communities", "bitstreams"]:
+            return False
+
         search = requests.get(self.rest_base_url + "/" + search,
                                     headers={"Accept": "application/json"})
         search_list = json.loads(collections.text)
