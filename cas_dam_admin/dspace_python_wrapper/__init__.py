@@ -62,14 +62,16 @@ class Dspace:
 
         :param json_data: json metadata of the item
         :param collection_uuid: the uuid of the collection
+        :type json_data: dict
         :return: a tuple of the uuid and a dict of the response text
         :rtype: tuple(str, dict)
         """
-        json_dict = json.loads(json_data)
 
         json_metadata = {'metadata': []}
 
-        for key, value in json_dict.items():
+        for key, value in json_data.items():
+            if key == "filename":   # filename should not be imported into dSpace, but library.filename should
+                continue
             json_metadata['metadata'].append({'key': key, 'value': value})
 
         new_item_response = requests.post(self.rest_base_url + '/collections/' + collection_uuid + '/items',
@@ -172,3 +174,27 @@ class Dspace:
             content_dict[item['name']] = item['uuid']
 
         return content_dict
+
+    def delete_community(self, community_uuid):
+        delete_response = requests.delete(self.rest_base_url + '/communities/' + community_uuid,
+                                          cookies={'JSESSIONID': self.jsessionid},
+                                          headers={"Accept": "application/json"})
+
+        return delete_response.ok
+
+    def delete_item(self, item_uuid):
+        delete_response = requests.delete(self.rest_base_url + '/items/' + item_uuid,
+                                          cookies={'JSESSIONID': self.jsessionid},
+                                          headers={"Accept": "application/json"})
+
+        return delete_response.ok
+
+    def does_item_exist(self, item_uuid):
+        search_response = requests.get(self.rest_base_url + '/items/' + item_uuid,
+                                       headers={"Accept": "application/json"})
+        if search_response.status_code == 200:
+            return True
+        elif search_response.status_code == 404:
+            return False
+        else:
+            raise Exception

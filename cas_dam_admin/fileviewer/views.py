@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 from .forms import UploadCSVForm
+from .models import CSVDocument
 
 from fileviewer.gcloud_interface.gcloud import Gcloud
 # Create your views here.
@@ -19,9 +20,10 @@ def index(request):
     if request.method == 'POST':
         form = UploadCSVForm(request.POST, request.FILES)
         if form.is_valid():
-            csv_file = form.save()
+            csv_file: CSVDocument = form.save()
             csv_file.save_file_to_model()
             csv_file.log_csv_contents()
+            csv_file.upload_csv_to_dspace()
             return redirect('index')
     else:
         form = UploadCSVForm()
