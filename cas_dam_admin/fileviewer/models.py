@@ -1,11 +1,11 @@
 import csv
-import logging
 import json
-
-from dspace_python_wrapper import Dspace
+import logging
 
 from django.core.validators import FileExtensionValidator
 from django.db import models
+
+from dspace_python_wrapper import Dspace
 
 logging.basicConfig(level=logging.INFO)
 
