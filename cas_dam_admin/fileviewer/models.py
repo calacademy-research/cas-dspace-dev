@@ -1,6 +1,7 @@
 import csv
 import json
 import logging
+import os
 
 from django.core.validators import FileExtensionValidator
 from django.db import models
@@ -71,13 +72,17 @@ class CSVDocument(models.Model):
 
         dspace_controller = Dspace(self.rest_api_base_url)
 
-        for line in list_of_json_rows:
-            data_as_dict = json.dumps(line)
+        dspace_controller.login('test@test.edu', 'test')
 
-            filepath = data_as_dict['filename']
-            filename = data_as_dict['library.filename']
-            description = data_as_dict['dc.description']
+        for line in list_of_json_rows:
+
+            filepath = line['filename']
+            filename = line['ibss-library.filename']
+
+            full_filepath = os.path.join(self.path, filepath.lstrip("/"))
 
             item_uuid, response = dspace_controller.register_new_item_from_json(line, self.collection_uuid)
 
-            bitstream_response = dspace_controller.add_bitstream_to_item(filepath, filename, item_uuid)
+            bitstream_response = dspace_controller.add_bitstream_to_item(full_filepath, filename, item_uuid)
+
+            logging.info("Bitstream response: %s", bitstream_response)
