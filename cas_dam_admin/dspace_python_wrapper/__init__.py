@@ -52,21 +52,47 @@ class Dspace:
         :return: a tuple of the uuid and a dict of the response text
         :rtype: tuple(str, dict)
         """
+        json_dict = json.loads(json_data)
+
+        json_metadata = {'metadata': []}
+
+        for key, value in json_dict.items():
+            json_metadata['metadata'].append({'key': key, 'value': value})
+
         new_item_response = requests.post(self.rest_base_url + '/collections/' + collection_uuid + '/items',
                                           cookies={'JSESSIONID': self.jsessionid},
                                           headers={"Accept": "application/json"},
-                                          json=json_data)
+                                          json=json_metadata)
 
-        new_item_response_text = json_data.loads(new_item_response.text)
+        new_item_response_text = new_item_response.json()
         return new_item_response_text['uuid'], new_item_response_text
 
-        pass
+    def add_bitstream_to_item(self, filepath, filename, uuid):
+        files = {'file': open(filepath, 'rb')}
+        bitstream_response = requests.post(self.rest_base_url + '/items/' + uuid + '/bitstreams',
+                                           cookies={'JSESSIONID': self.jsessionid},
+                                           headers={"Accept": "application/json", "Content-Type": "multipart/form-data"},
+                                           data=files['file'],
+                                           params={'name': filename})
 
-    def add_bitstream_to_item(self):
-        pass
+        return bitstream_response.json()
 
-    def create_new_collection(self):
-        pass
+    def create_new_collection_from_json(self, community_uuid, json_data):
+        ''' Adds a new collection to a community
+
+        :param community_uuid: uuid of the community the data should be added to
+        :param json_data: json metadata of the collection
+        :return: the uuid of the new collection
+        :rtype: tuple(str, dict)
+        '''
+
+        new_collection_response = requests.post(self.rest_base_url + '/communities/' + community_uuid + '/collections',
+                                          cookies={'JSESSIONID': self.jsessionid},
+                                          headers={"Accept": "application/json", "Content-Type": "application/json"},
+                                          json=json_data)
+
+        response_text = json.loads(new_collection_response.text)
+        return response_text['uuid']
 
     def user_status(self):
         """ Gets the user's status, returns a tuple of authentication status and response text as a dict
