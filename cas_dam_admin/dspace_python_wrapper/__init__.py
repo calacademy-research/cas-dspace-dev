@@ -21,26 +21,38 @@ class Dspace:
         self.jsessionid = login_response.cookies['JSESSIONID']
 
     def create_new_community_from_json(self, json_data):
+        """
+        Creates a new community from json metadata
+        :param json_data: str
+        :return: uuid of the new community
+        :rtype: str
+        """
         new_community_response = requests.post(self.rest_base_url + '/communities',
                                                cookies={'JSESSIONID': self.jsessionid},
                                                json=json_data,
                                                headers={"Accept": "application/json"})
 
-        response_text = json.loads(new_community_response.text)
+        response_text = new_community_response.json()
 
         return response_text['uuid']
 
     def create_new_community_from_data(self, community_name, short_description="", copyright_text=""):
-        json_dict = {'name': community_name, 'shortDescription': short_description, 'copyrightText': copyright_text}
-
-        json_data = json.loads(json_dict)
+        """
+        Creates a new community from parameters
+        :param community_name: name of the new community
+        :param short_description: a short description of the new community
+        :param copyright_text: copyright text for the new community
+        :return: uuid of the new community
+        ":rtype: str
+        """
+        json_data = {'name': community_name, 'shortDescription': short_description, 'copyrightText': copyright_text}
 
         new_community_response = requests.post(self.rest_base_url + '/communities',
                                                cookies={'JSESSIONID': self.jsessionid},
                                                json=json_data,
                                                headers={"Accept": "application/json"})
 
-        response_text = json.loads(new_community_response.text)
+        response_text = new_community_response.json()
 
         return response_text['uuid']
 
@@ -68,30 +80,45 @@ class Dspace:
         return new_item_response_text['uuid'], new_item_response_text
 
     def add_bitstream_to_item(self, filepath, filename, uuid):
+        """ Adds a bitstream to an existing item
+
+        :param filepath: complete path to the file, with the filename on the end
+        :param filename: only the name of the file
+        :param uuid: uuid of the item to add the bitstream to
+        :type filepath: str
+        :type filename: str
+        :type uuid: str
+        :return: the response as a dict
+        :rtype: dict
+        """
         files = {'file': open(filepath, 'rb')}
         bitstream_response = requests.post(self.rest_base_url + '/items/' + uuid + '/bitstreams',
                                            cookies={'JSESSIONID': self.jsessionid},
-                                           headers={"Accept": "application/json", "Content-Type": "multipart/form-data"},
+                                           headers={"Accept": "application/json",
+                                                    "Content-Type": "multipart/form-data"},
                                            data=files['file'],
                                            params={'name': filename})
 
         return bitstream_response.json()
 
     def create_new_collection_from_json(self, community_uuid, json_data):
-        ''' Adds a new collection to a community
+        """Adds a new collection to a community
 
         :param community_uuid: uuid of the community the data should be added to
         :param json_data: json metadata of the collection
+        :type community_uuid: str
+        :type json_data: str
         :return: the uuid of the new collection
-        :rtype: tuple(str, dict)
-        '''
-
+        :rtype: str
+        """
+        json_data = json.loads(json_data)
         new_collection_response = requests.post(self.rest_base_url + '/communities/' + community_uuid + '/collections',
-                                          cookies={'JSESSIONID': self.jsessionid},
-                                          headers={"Accept": "application/json", "Content-Type": "application/json"},
-                                          json=json_data)
+                                                cookies={'JSESSIONID': self.jsessionid},
+                                                headers={"Accept": "application/json",
+                                                         "Content-Type": "application/json"},
+                                                json=json_data)
 
-        response_text = json.loads(new_collection_response.text)
+        response_text = new_collection_response.json()
         return response_text['uuid']
 
     def user_status(self):
@@ -103,7 +130,7 @@ class Dspace:
                                        cookies={'JSESSIONID': self.jsessionid},
                                        headers={"Accept": "application/json"})
 
-        status_response_text = json.loads(status_response.text)
+        status_response_text = status_response.json()
 
         if status_response_text['authenticated']:
             return True, status_response_text
