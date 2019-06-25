@@ -61,12 +61,12 @@ class Gcloud:
     def perform_search(self, query):
         page_token = None
 
-        print("Running search: "+query)
+        #print("Running search: "+query)
 
         while True:
             response = self.service.files().list(q=query,
                                                  spaces='drive',
-                                                 #fields='nextPageToken, files(id, name)',
+                                                 fields = '*',
                                                  pageToken=page_token).execute()
             files = []
             for file in response.get('files', []):
@@ -76,7 +76,7 @@ class Gcloud:
             page_token = response.get('nextPageToken', None)
             if page_token is None:
                 break
-        print("Successfully ran search: "+query)
+        #print("Successfully ran search: "+query)
         return files
 
 
@@ -136,7 +136,37 @@ class Gcloud:
         else:
             return False
 
+    def get_metadata(self, fileID):
+
+        metadata = self.service.files().get(fileId = fileID, fields = '*').execute()
+
+        return metadata
+
+    def get_filepath_from_file(self, file_data):
+
+        if 'parents' not in file_data or 'root' in file_data['parents']:
+            return 'G:/root'
+        else:
+            parent = self.get_metadata(file_data['parents'][0])
+
+            return self.get_filepath_from_file(parent) + '/' + str(file_data['name'])
+
+    def get_file_from_filepath(self, file_path):
+        file_name = ''
+        while True:
+            if file_path[-1] == '/':
+                break
+            else:
+                file_name = file_path[-1] + file_name
+                file_path = file_path[:-1]
+
+        file_id = self.ID_from_name(file_name)
+
+        return self.get_metadata(file_id)
+
+
 if __name__ == '__main__':
+    import pprint
 
     def print_tree(tree, indent=''):
         for branch in tree:
@@ -155,7 +185,11 @@ if __name__ == '__main__':
     Sample Test prints out a tree of everything within that folder of the google drive
     '''
     g = Gcloud()
-    file_name = 'bigFilewithAll'
-    folder_id = g.ID_from_name(file_name)
-    files = g.create_directory_tree(folder_id, 3)
-    print_tree(files)
+    #file_name = 'bigFilewithAll'
+    #folder_id = g.ID_from_name(file_name)
+    #pprint.pprint(g.get_metadata(folder_id))
+    folder_id = '0B-mW0Jkbq82NUzdhZWd1LS10T0E'
+    filepath = g.get_filepath_from_file(g.get_metadata(folder_id))
+    pprint.pprint(g.get_file_from_filepath(filepath))
+    # files = g.create_directory_tree(folder_id, 5)
+    # print_tree(files)
