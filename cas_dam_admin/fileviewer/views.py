@@ -41,41 +41,30 @@ class GetFilesystem(APIView):
 
     :returns HttpResponse
     """
+    #gcloud_file = 'bigFilewithAll'
+
+    r_base = ['<ul class="jqueryFileTree" style="display: none;">']
+
+    def folder_jquery(self, a, b, c):
+        return '<li class="directory collapsed directory-marker"><input type="hidden" name="folderpath" value="%s"><a href="#" rel="%s/">%s</a></li>' % (a, b, c)
+
+    def file_jquery(self, a, b, c):
+        return '<li class="file ext_%s"><a href="#" rel="%s">%s</a></li>' % (a, b, c)
 
     if settings.GOOGLE_DRIVE_ONLY:
         google = Gcloud('fileviewer/gcloud_interface/')
 
     def post(self, request):
-        # TODO: Break these into two functions
-        if not settings.GOOGLE_DRIVE_ONLY:
-            try:
-                r = ['<ul class="jqueryFileTree" style="display: none;">']
-                d = urllib.parse.unquote(request.POST.get('dir', '/'))
-                for f in os.listdir(d):
-                    ff = os.path.join(d, f)
-                    if os.path.isdir(ff):
-                        # TODO: DRY https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
-                        r.append(
-                            '<li class="directory collapsed directory-marker"><input type="hidden" name="folderpath" value="%s"><a href="#" rel="%s/">%s</a></li>' % (
-                                ff, ff, f))
-                    else:
-                        e = os.path.splitext(f)[1][1:]  # get .ext and remove dot
-                        r.append(
-                            '<li class="file ext_%s"><a href="#" rel="%s">%s</a></li>' % (
-                                e, ff, f))
-                r.append('</ul>')
-            except Exception as e:
-                r.append('Could not load directory: %s' % str(e))
-            r.append('</ul>')
-            return HttpResponse(''.join(r), status=status.HTTP_200_OK)
+        #TODO: DRY https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
 
-        else:
+        def display_Gcloud_files(request):
             try:
-                r = ['<ul class="jqueryFileTree" style="display: none;">']
+                r = self.r_base.copy()
                 parent_id = urllib.parse.unquote(request.POST.get('dir'))
 
                 if parent_id == '/':
-                    parent_id = self.google.ID_from_name('bigFilewithAll')
+                    #parent_id = self.google.ID_from_name(self.gcloud_file)
+                    parent_id = 'root'
                     parent_metadata = self.google.get_metadata(parent_id)
 
                 else:
@@ -84,24 +73,54 @@ class GetFilesystem(APIView):
                 children = self.google.children_search(parent_metadata['id'], float('inf'))
 
                 for f in children:
+
                     f_name = f['name']
                     f_id = f['id']
+
                     if self.google.is_folder(f):
-                        # TODO: DRY https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
-                        r.append(
-                            '<li class="directory collapsed directory-marker"><input type="hidden" name="folderpath" value="%s"><a href="#" rel="%s/">%s</a></li>' % (
-                                self.google.get_filepath_from_file(f), f_id, f_name))
+                        r.append(self.folder_jquery(self.google.get_filepath_from_file(f), f_id, f_name))
                     else:
-                        # e = f['fileExtension']  # get .ext and remove dot
-                        r.append(
-                            '<li class="file ext_%s"><a href="#" rel="%s">%s</a></li>' % (
-                                '', f_id, f_name))
+                        r.append(self.file_jquery('', f_id, f_name))
+
                 r.append('</ul>')
             except Exception as e:
-                print(e)
                 r.append('Could not load directory: %s' % str(e))
             r.append('</ul>')
-            return HttpResponse(''.join(r), status=status.HTTP_200_OK)
+            return r
+
+        def display_local_files(request):
+
+            try:
+                r = self.r_base.copy()
+                d = urllib.parse.unquote(request.POST.get('dir', '/'))
+
+                for f in os.listdir(d):
+                    ff = os.path.join(d, f)
+                    if os.path.isdir(ff):
+                        # TODO: DRY https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
+                        r.append(self.folder_jquery(ff, ff, f))
+                    else:
+                        e = os.path.splitext(f)[1][1:]  # get .ext and remove dot
+                        r.append(self.file_jquery(e, ff, f))
+
+                r.append('</ul>')
+
+            except Exception as e:
+                r.append('Could not load directory: %s' % str(e))
+            r.append('</ul>')
+
+            return r
+
+        if not settings.GOOGLE_DRIVE_ONLY:
+            r = display_local_files(request)
+        else:
+            r = display_Gcloud_files(request)
+
+        return HttpResponse(''.join(r), status=status.HTTP_200_OK)
+
+
+
+
 
 
 
