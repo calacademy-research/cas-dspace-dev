@@ -46,7 +46,7 @@ class GetFilesystem(APIView):
         google = Gcloud('fileviewer/gcloud_interface/')
 
     def post(self, request):
-
+        # TODO: Break these into two functions
         if not settings.GOOGLE_DRIVE_ONLY:
             try:
                 r = ['<ul class="jqueryFileTree" style="display: none;">']
@@ -54,8 +54,9 @@ class GetFilesystem(APIView):
                 for f in os.listdir(d):
                     ff = os.path.join(d, f)
                     if os.path.isdir(ff):
+                        # TODO: DRY https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
                         r.append(
-                            '<li class="directory collapsed"><input type="radio" name="folderpath" value="%s"><a href="#" rel="%s/">%s</a></li>' % (
+                            '<li class="directory collapsed directory-marker"><input type="hidden" name="folderpath" value="%s"><a href="#" rel="%s/">%s</a></li>' % (
                                 ff, ff, f))
                     else:
                         e = os.path.splitext(f)[1][1:]  # get .ext and remove dot
@@ -86,8 +87,9 @@ class GetFilesystem(APIView):
                     f_name = f['name']
                     f_id = f['id']
                     if self.google.is_folder(f):
+                        # TODO: DRY https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
                         r.append(
-                            '<li class="directory collapsed"><input type="radio" name="folderpath" value="%s"><a href="#" rel="%s/">%s</a></li>' % (
+                            '<li class="directory collapsed directory-marker"><input type="hidden" name="folderpath" value="%s"><a href="#" rel="%s/">%s</a></li>' % (
                                 self.google.get_filepath_from_file(f), f_id, f_name))
                     else:
                         # e = f['fileExtension']  # get .ext and remove dot
