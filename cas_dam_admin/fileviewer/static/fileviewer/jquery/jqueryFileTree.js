@@ -86,6 +86,9 @@ if(jQuery) (function($){
 
 					$(t).find('LI A').bind(o.folderEvent, function() {
 						if (!$(this).hasClass('directory')) {
+							// Add highlight to selected directory and remove it from previously selected directory
+							$(".selected-directory").removeClass("selected-directory");
+							$(this).addClass('selected-directory');
 
 							h($(this).attr('rel'));
 						}

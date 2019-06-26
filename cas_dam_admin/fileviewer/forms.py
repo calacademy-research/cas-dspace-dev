@@ -10,7 +10,7 @@ class UploadCSVForm(forms.ModelForm):
         fields = ('document', 'path', 'collection_uuid', 'email', 'password')
         widgets = {
             'document': forms.FileInput(attrs={'accept': '.csv'}),
-            'path': forms.TextInput(attrs={'class': 'input-box', 'id': 'path-input-box'}),
+            'path': forms.TextInput(attrs={'class': 'input-box', 'id': 'path-input-box', 'value': '/'}),
             'email': forms.TextInput(attrs={'class': 'input-box'}),
             'password': forms.TextInput(attrs={'class': 'input-box', 'type': 'password'})
         }
