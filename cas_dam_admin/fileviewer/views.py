@@ -10,6 +10,8 @@ from rest_framework.views import APIView
 from .forms import UploadCSVForm
 from .models import CSVDocument
 
+from cas_dam_admin import settings
+
 from fileviewer.gcloud_interface.gcloud import Gcloud
 # Create your views here.
 
@@ -39,9 +41,8 @@ class GetFilesystem(APIView):
 
     :returns HttpResponse
     """
-    GoogleCloud = True
 
-    if GoogleCloud:
+    if settings.GOOGLE_DRIVE_ONLY:
         google = Gcloud('fileviewer/gcloud_interface/')
 
     def post(self, request):
