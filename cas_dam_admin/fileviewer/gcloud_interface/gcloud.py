@@ -1,9 +1,13 @@
 from __future__ import print_function
 import pickle
+import io
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+import requests
+from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
+
 
 import pprint
 
@@ -13,7 +17,7 @@ class Gcloud:
     '''
     The gcloud functions are wrapped in a class to make it easier to interface with
 
-    Files used for Authentication, stored in the authdir attribute
+    Files used for Authentication, stored in the authdir attribute,
 
         tokenFile: pickle file used to remember login, if deleted, will prompt for login next time and rebuild file
 
@@ -29,11 +33,10 @@ class Gcloud:
         self.service = self.authenticate()
 
     def authenticate(self):
+        """ Authenticates Gdrive api and generates token.pickle file
 
-        '''
-        Authenticates google service and returns the service that can be used for all subsequent api calls
-            Will build token.pickle file if not already built, remove this feature after testing.
-        '''
+        :return: gdrive service for making API calls
+        """
 
         creds = None
         # The file token.pickle stores the user's access and refresh tokens, and is
@@ -59,6 +62,12 @@ class Gcloud:
         return service
 
     def perform_search(self, query):
+        """ Helper function that performs a generalized query on gdrive files
+
+        :param query: str (Ex. ""'root' in parents" or "self.is_foler()")
+        :return: file dictionaries from gdrive that matched query
+        :rtype: list
+        """
         page_token = None
 
         #print("Running search: "+query)
@@ -81,11 +90,13 @@ class Gcloud:
 
 
     def children_search(self, folder_id, file_count=10):
-        '''
-        takes in the id of a folder in google drive and spits out (file_count) files
+        """ Lists children of folder
 
-        folder_id is google drive id, referred to as driveId in API, which is a piece of metadata of each file
-        '''
+        :param folder_id: str uuid of folder
+        :param file_count: int
+        :return: children of file
+        :rtype: list
+        """
         query = "'%s' in parents" % folder_id
         results = self.perform_search(query)
 
@@ -93,18 +104,25 @@ class Gcloud:
             results = results[:file_count]
 
         return results
-        #return [[file.get('name'), file.get('id')] for file in results]
 
 
     def ID_from_name(self, file_name, file_count=10):
-        '''
-        takes in a file name and returns all files from google drive with that name
+        """
+        returns id from file name
 
-        returns string containing id if there is only one file with that name, otherwise it returns a list of the files which could be empty.
-        '''
+        if multiple files exist with that name --> returns all of the files
+        if none exist with that name --> returns none of the files
+        if one exists with that name --> returns uuid string
+
+        :param file_name: str name of file
+        :param file_count: int
+        :return: uuid of file
+        :rtype: str (or list if error)
+        """
 
         query = "name = '%s'" % file_name
         results =  self.perform_search(query)
+
         if len(results) > file_count:
             results = results[:file_count]
 
@@ -117,6 +135,14 @@ class Gcloud:
         return results[0]['id']
 
     def create_directory_tree(self, fileID, depth):
+        """ Proof of concept creates directory tree of google drive
+
+        :param fileID: str of top file
+        :param depth: int of depth search
+        :return: tree of files
+        :rtype: list
+        """
+
         if depth == 0:
             return []
         else:
@@ -130,6 +156,13 @@ class Gcloud:
             return next_layer
 
     def is_folder(self, file_data):
+        """ Checks if given file is a folder or not
+
+        :param file_data: dict containing file metadata
+        :return: whether or not file is folder
+        :rtype: boolean
+        """
+
         if file_data['mimeType'] == 'application/vnd.google-apps.folder':
             return True
 
@@ -137,12 +170,24 @@ class Gcloud:
             return False
 
     def get_metadata(self, fileID):
+        """ Retrieves all metadata for given fileID
+
+        :param fileID: str
+        :return: metadata of given file
+        :rtype: dict
+        """
 
         metadata = self.service.files().get(fileId = fileID, fields = '*').execute()
 
         return metadata
 
     def get_filepath_from_file(self, file_data):
+        """ Converts file_data into a gdrive filepath
+
+        :param file_data: dict containing file metadata
+        :return: filepath Ex. G:/root/photos/photo.jpeg
+        :rtype: str
+        """
 
         if 'parents' not in file_data or 'root' in file_data['parents']:
             return 'G:/root'
@@ -151,24 +196,72 @@ class Gcloud:
 
             return self.get_filepath_from_file(parent) + '/' + str(file_data['name'])
 
-    def get_file_from_filepath(self, file_path):
+    def get_file_from_filepath(self, filepath):
+        """ Parses filepath to retrieve file
+
+        :param file_path: str Ex. G:/root/photos/photo.jpeg
+        :return: metadata of file from filepath
+        :rtype: dict
+        """
+
         file_name = ''
         while True:
-            if file_path[-1] == '/':
+            if filepath[-1] == '/':
                 break
             else:
-                file_name = file_path[-1] + file_name
-                file_path = file_path[:-1]
+                file_name = filepath[-1] + file_name
+                file_path = filepath[:-1]
 
         file_id = self.ID_from_name(file_name)
 
         return self.get_metadata(file_id)
 
+    def download_file_to_directory(self, file_id, directory=''):
+        """
+        CURRENTLY THROWS AUTHENTICATION ERROR
+        """
+
+
+        """ Downloads file to a given directory
+
+        :param file_id: str
+        :param directory: str, directory on local machine
+        :rtype: None
+        """
+
+
+        # request = self.service.files().get_media(fileId = file_id)
+        # fh = io.BytesIO()
+        # downloader = MediaIoBaseDownload(fh, request)
+        # done = False
+        # while not done:
+        #     status, done = downloader.next_chunk()
+
+        request = self.service.files().export_media(fileId=file_id,
+                                                     mimeType='application/pdf')
+        fh = io.BytesIO()
+        downloader = MediaIoBaseDownload(fh, request)
+        done = False
+        while done is False:
+            status, done = downloader.next_chunk()
+            print("Download %d%%." % int(status.progress() * 100))
 
 if __name__ == '__main__':
+    """
+    All Testing
+    """
+
     import pprint
 
     def print_tree(tree, indent=''):
+        """ prints tree given from create_directory_tree method
+
+        :param tree: list tree
+        :param indent: str counter of depth
+        :return: nothing, only prints
+        :rtype: None
+        """
+
         for branch in tree:
             if type(branch) == list and branch != []:
                 print_tree(branch, indent+ '     ')
@@ -184,12 +277,20 @@ if __name__ == '__main__':
     '''
     Sample Test prints out a tree of everything within that folder of the google drive
     '''
+
     g = Gcloud()
+
     #file_name = 'bigFilewithAll'
     #folder_id = g.ID_from_name(file_name)
     #pprint.pprint(g.get_metadata(folder_id))
-    folder_id = '0B-mW0Jkbq82NUzdhZWd1LS10T0E'
+    folder_id = '0B-mW0Jkbq82NeFhVT09UTVNSSVE'
     filepath = g.get_filepath_from_file(g.get_metadata(folder_id))
-    pprint.pprint(g.get_file_from_filepath(filepath))
+    file = g.get_file_from_filepath(filepath)
+    #download_link = file['webContentLink']
+    g.service = g.authenticate()
+    g.download_file_to_directory(file['id'])
+
+
+
     # files = g.create_directory_tree(folder_id, 5)
     # print_tree(files)
