@@ -47,7 +47,7 @@ class GetFilesystem(APIView):
 
     def post(self, request):
 
-        if not self.GoogleCloud:
+        if not settings.GOOGLE_DRIVE_ONLY:
             try:
                 r = ['<ul class="jqueryFileTree" style="display: none;">']
                 d = urllib.parse.unquote(request.POST.get('dir', '/'))
