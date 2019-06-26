@@ -22,17 +22,9 @@
         $(document).ready(function () {
             $('#directory-widget').fileTree({root: '/', script: '/fileviewer/getfilesystem'}, function (file) {
                 document.getElementById("path-input-box").value = file;
+                Stretchy.resize(document.getElementById("path-input-box"));
             });
         });
-    </script>
-
-    <script type="text/javascript">
-        function updatePathField() {
-            // Set the value of the input box to be the value of the checked box
-            document.getElementById("path-input-box").value = document.querySelector('input[name="folderpath"]:checked').value;
-            Stretchy.resize(document.getElementById("path-input-box"));
-
-        }
     </script>
 
 </head>
@@ -46,11 +38,7 @@
         </form>
     {% endblock %}
 
-    <form id="select-folder" action="javascript:void(0);" method="post">
-        {% csrf_token %}
-        <div id="directory-widget"></div>
-        <input type="submit" value="Update path" onclick="updatePathField()">
-    </form>
+    <div id="directory-widget"></div>
 </div>
 </body>
 </html>
