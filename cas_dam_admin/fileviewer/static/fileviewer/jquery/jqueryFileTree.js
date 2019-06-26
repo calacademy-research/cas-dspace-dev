@@ -60,21 +60,22 @@ if(jQuery) (function($){
 				}
 				
 				function bindTree(t) {
-					$(t).find('LI A').bind(o.folderEvent, function() {
-						if( $(this).parent().hasClass('directory') ) {
-							if( $(this).parent().hasClass('collapsed') ) {
+					$(t).find('.foo').on(o.folderEvent, function() {
+						if( $(this).hasClass('directory') ) {
+							if( $(this).hasClass('collapsed') ) {
 								// Expand
 								if( !o.multiFolder ) {
-									$(this).parent().parent().find('UL').slideUp({ duration: o.collapseSpeed, easing: o.collapseEasing });
-									$(this).parent().parent().find('LI.directory').removeClass('expanded').addClass('collapsed');
+									$(this).parent().find('UL').slideUp({ duration: o.collapseSpeed, easing: o.collapseEasing });
+									$(this).parent().find('LI.directory').removeClass('expanded').addClass('collapsed');
 								}
-								$(this).parent().find('UL').remove(); // cleanup
-								showTree( $(this).parent(), escape($(this).attr('rel').match( /.*\// )) );
-								$(this).parent().removeClass('collapsed').addClass('expanded');
+								$(this).find('UL').remove(); // cleanup
+								child=$(this).find('a')
+								showTree( $(this), escape($(child).attr('rel').match( /.*\// )) );
+								$(this).removeClass('collapsed').addClass('expanded');
 							} else {
 								// Collapse
-								$(this).parent().find('UL').slideUp({ duration: o.collapseSpeed, easing: o.collapseEasing });
-								$(this).parent().removeClass('expanded').addClass('collapsed');
+								$(this).find('UL').slideUp({ duration: o.collapseSpeed, easing: o.collapseEasing });
+								$(this).removeClass('expanded').addClass('collapsed');
 							}
 						} else {
 							h($(this).attr('rel'));
