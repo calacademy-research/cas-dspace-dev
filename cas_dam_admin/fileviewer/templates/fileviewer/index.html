@@ -21,7 +21,7 @@
     <script>
         $(document).ready(function () {
             $('#directory-widget').fileTree({root: '/', script: '/fileviewer/getfilesystem'}, function (file) {
-                alert(file);
+                document.getElementById("path-input-box").value = file;
             });
         });
     </script>
