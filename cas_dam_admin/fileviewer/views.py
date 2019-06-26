@@ -55,7 +55,7 @@ class GetFilesystem(APIView):
                     ff = os.path.join(d, f)
                     if os.path.isdir(ff):
                         r.append(
-                            '<li class="directory collapsed"><input type="radio" name="folderpath" value="%s"><a href="#" rel="%s/">%s</a></li>' % (
+                            '<li class="directory collapsed foo"><input type="radio" name="folderpath" value="%s"><a href="#" rel="%s/">%s</a></li>' % (
                                 ff, ff, f))
                     else:
                         e = os.path.splitext(f)[1][1:]  # get .ext and remove dot
