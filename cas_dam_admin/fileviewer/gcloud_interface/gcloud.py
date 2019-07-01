@@ -9,6 +9,12 @@ import pprint
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
+"""
+In Order to Refresh Scope During Testing,
+stop dspace, then run Oauth. Otherwise token will not refresh.
+This is possibly due to the Oauth and developement version of dspace running on the same ports
+"""
+
 class Gcloud:
     '''
     The gcloud functions are wrapped in a class to make it easier to interface with
@@ -298,20 +304,10 @@ if __name__ == '__main__':
 
     g = Gcloud()
 
-    #file_name = 'bigFilewithAll'
-    #folder_id = g.ID_from_name(file_name)
-    #pprint.pprint(g.get_metadata(folder_id))
     file_name = 'Microscope Photos'
     folder_id = g.ID_from_name(file_name)
     filepath = g.get_filepath_from_file(g.get_metadata(folder_id))
     print(filepath)
     file = g.get_file_from_filepath(filepath)
-    #pprint.pprint(file)
-    #download_link = file['webContentLink']
-    #g.service = g.authenticate()
+
     g.download_from_filepath(filepath)
-
-
-
-    # files = g.create_directory_tree(folder_id, 5)
-    # print_tree(files)
