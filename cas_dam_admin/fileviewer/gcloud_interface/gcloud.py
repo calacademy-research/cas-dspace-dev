@@ -1,13 +1,9 @@
 from __future__ import print_function
-import pickle
-import io
-import os.path
+import pickle, io, os
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-import requests
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
-
 
 import pprint
 
@@ -88,7 +84,6 @@ class Gcloud:
         #print("Successfully ran search: "+query)
         return files
 
-
     def children_search(self, folder_id, file_count=10):
         """ Lists children of folder
 
@@ -104,7 +99,6 @@ class Gcloud:
             results = results[:file_count]
 
         return results
-
 
     def ID_from_name(self, file_name, file_count=10):
         """
@@ -196,12 +190,29 @@ class Gcloud:
 
             return self.get_filepath_from_file(parent) + '/' + str(file_data['name'])
 
+    def download_from_filepath(self, filepath, dir='./test_download/', recursive=True):
+        """Abstraction that downloads file from a given filepath.
+
+        :param filepath: str Ex. G:/root/photos/photo.jpeg
+        :return: Nothing
+        :rtype: None
+        """
+
+        file = self.get_file_from_filepath(filepath)
+
+        self.download_file_to_directory(file, dir, recursive)
+
     def get_file_from_filepath(self, filepath):
         """ Parses filepath to retrieve file
 
-        :param file_path: str Ex. G:/root/photos/photo.jpeg
+        :param filepath: str Ex. G:/root/photos/photo.jpeg
         :return: metadata of file from filepath
         :rtype: dict
+        """
+
+        """
+        Currently breaks if the filename in the filepath has more than one file with that name
+        Recursively go back in the path to determine if it is the correct file, until only one file remains
         """
 
         file_name = ''
@@ -210,41 +221,48 @@ class Gcloud:
                 break
             else:
                 file_name = filepath[-1] + file_name
-                file_path = filepath[:-1]
+                filepath = filepath[:-1]
 
         file_id = self.ID_from_name(file_name)
 
         return self.get_metadata(file_id)
 
-    def download_file_to_directory(self, file_id, directory=''):
-        """
-        CURRENTLY THROWS AUTHENTICATION ERROR
-        """
-
-
+    def download_file_to_directory(self, file, dir='./test_download/', recursive=True):
         """ Downloads file to a given directory
 
         :param file_id: str
         :param directory: str, directory on local machine
         :rtype: None
         """
+        #print(file)
+
+        file_id = file['id']
+        file_name = file['name']
+
+        if self.is_folder(file):
+            if recursive:
+
+                children = self.children_search(file_id)
+                newDir = dir + file_name
+
+                if not os.path.exists(newDir):
+                    os.makedirs(newDir)
+
+                for child in children:
+                    self.download_file_to_directory(child, dir+file_name+'/', True)
+            else:
+                return "Download request was run with a folder, but was not recursive"
+        else:
+            request = self.service.files().get_media(fileId = file_id)
+
+            fh = io.FileIO(dir+file_name, 'wb')
+            downloader = MediaIoBaseDownload(fh, request)
+
+            done = False
+            while not done:
+                status, done = downloader.next_chunk()
 
 
-        # request = self.service.files().get_media(fileId = file_id)
-        # fh = io.BytesIO()
-        # downloader = MediaIoBaseDownload(fh, request)
-        # done = False
-        # while not done:
-        #     status, done = downloader.next_chunk()
-
-        request = self.service.files().export_media(fileId=file_id,
-                                                     mimeType='application/pdf')
-        fh = io.BytesIO()
-        downloader = MediaIoBaseDownload(fh, request)
-        done = False
-        while done is False:
-            status, done = downloader.next_chunk()
-            print("Download %d%%." % int(status.progress() * 100))
 
 if __name__ == '__main__':
     """
@@ -283,12 +301,15 @@ if __name__ == '__main__':
     #file_name = 'bigFilewithAll'
     #folder_id = g.ID_from_name(file_name)
     #pprint.pprint(g.get_metadata(folder_id))
-    folder_id = '0B-mW0Jkbq82NeFhVT09UTVNSSVE'
+    file_name = 'Microscope Photos'
+    folder_id = g.ID_from_name(file_name)
     filepath = g.get_filepath_from_file(g.get_metadata(folder_id))
+    print(filepath)
     file = g.get_file_from_filepath(filepath)
+    #pprint.pprint(file)
     #download_link = file['webContentLink']
-    g.service = g.authenticate()
-    g.download_file_to_directory(file['id'])
+    #g.service = g.authenticate()
+    g.download_from_filepath(filepath)
 
 
 
