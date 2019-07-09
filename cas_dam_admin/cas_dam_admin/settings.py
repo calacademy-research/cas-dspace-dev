@@ -59,7 +59,7 @@ ROOT_URLCONF = 'cas_dam_admin.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'fileviewer-frontend')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,6 +120,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "fileviewer-frontend", "build", "static"),  # update the STATICFILES_DIRS
+)
+
 GOOGLE_DRIVE_ONLY = config('google_drive_only', default=False, cast=bool)
 
 CORS_ORIGIN_ALLOW_ALL = False
@@ -127,3 +131,4 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
        'http://localhost:3000',
 )
+

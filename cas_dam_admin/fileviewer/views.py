@@ -23,6 +23,9 @@ logging.basicConfig(level=logging.INFO)
 from django.shortcuts import render
 
 
+def reactFrontendTest(request):
+    return render(request, 'build/index.html')
+
 def index(request):
     if request.method == 'POST':
         form = UploadCSVForm(request.POST, request.FILES)
