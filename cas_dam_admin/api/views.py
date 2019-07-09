@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 # Create your views here.
 
 from rest_framework.decorators import api_view
@@ -10,11 +8,13 @@ from django.http import HttpResponse
 
 import os
 
-from fileviewer.gcloud_interface.gcloud import Gcloud
+from cas_dam_admin import settings
+
+from gcloud_interface.gcloud import Gcloud
 
 # Create your views here.
-
-google = Gcloud('./fileviewer/gcloud_interface/')
+if settings.GOOGLE_DRIVE_ONLY:
+    google = Gcloud('gcloud_interface/gcloudAuth/')
 
 @api_view(["GET"])
 def test_get(request):
