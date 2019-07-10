@@ -1,7 +1,6 @@
 import React from 'react';
 import Papa from 'papaparse';
 import ReactDataSheet from 'react-datasheet';
-import Select from 'react-select';
 import _ from 'lodash'
 
 import 'react-datasheet/lib/react-datasheet.css';
@@ -16,7 +15,8 @@ class App extends React.Component {
         this.state = {
             isLoggedIn: false,
             grid: "",
-            unusedMetadataEntries: ""
+            unusedMetadataEntries: "",
+            suggestions: []
         };
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
@@ -59,10 +59,6 @@ class App extends React.Component {
         });
     }
 
-    getHeaderPositionFromName(name) {
-        return this.state.grid[0].findIndex(x => x.value === name)
-    }
-
 
     handleFileChosen(file) {
         let reader = new FileReader();
@@ -71,18 +67,15 @@ class App extends React.Component {
             let content = event.target.result;
             let parsed = Papa.parse(content, {skipEmptyLines: true});
             let rows = parsed.data;
-            let newGrid = rows.map((row, index) => row.map(cell => {
-                if (index === 0) {
-                    return ({value: cell, component: this.autofillHeaderCellComponent()})
-                } else {
-                    return ({value: cell})
-                }
+            let newGrid = rows.map((row) => row.map(cell => {
+                return ({value: cell})
             }));
 
             // Add header above cells that lists all unused metadata entries
             // Filter items from metadataEntries if their value is not found in newGrid[0]
 
             this.setState({grid: newGrid, unusedMetadataEntries: this.updateUnusedMetadataEntries(newGrid[0])})
+            console.log(newGrid[0])
         };
 
 
@@ -93,27 +86,9 @@ class App extends React.Component {
         console.log(this.state.grid);
     }
 
-    autofillHeaderCellComponent = (id) => {
-        let metadataOptions = this.metatadataEntries.map(item => _.pick(item, ['value', 'label']));
-        if (this.state.unusedMetadataEntries !== "") {
-            metadataOptions = this.state.unusedMetadataEntries.map(item => _.pick(item, ['value', 'label']));
-        }
-
-        return (
-            <Select
-                // value={this.state && this.state.grocery[id]}
-                // onChange={(opt) => this.setState({grocery: _.assign(this.state.grocery, {[id]: opt})})}
-                onChange={(opt) => {
-                    this.setState({grid: _.assign(this.state.grid,)})
-                    console.log(opt)
-                }}
-                options={metadataOptions}
-            />
-        )
-    }
-
 
     render() {
+
         if (this.state.grid === "") {
             return (
                 <div>
