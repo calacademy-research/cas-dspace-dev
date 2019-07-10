@@ -71,8 +71,12 @@ class App extends React.Component {
             let content = event.target.result;
             let parsed = Papa.parse(content, {skipEmptyLines: true});
             let rows = parsed.data;
-            let newGrid = rows.map(row => row.map(cell => {
-                return ({value: cell, component: this.autofillHeaderCellComponent()})
+            let newGrid = rows.map((row, index) => row.map(cell => {
+                if (index === 0) {
+                    return ({value: cell, component: this.autofillHeaderCellComponent()})
+                } else {
+                    return ({value: cell})
+                }
             }));
 
             // Add header above cells that lists all unused metadata entries
