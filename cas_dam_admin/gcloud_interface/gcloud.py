@@ -2,7 +2,7 @@ from __future__ import print_function
 import io, os
 from googleapiclient.http import MediaIoBaseDownload
 
-from gcloud_interface.gcloudBrowser import GcloudBrowser
+from gcloud_interface.gcloud_browser import GcloudBrowser
 from gcloud_interface.storage import TempStorage
 
 """
@@ -11,18 +11,11 @@ stop dspace, then run Oauth. Otherwise token will not refresh.
 This is possibly due to the Oauth and developement version of dspace running on the same ports
 """
 
+TEST_EMAIL = 'test@test.edu'
+TEST_PASS = 'admin'
+
 
 class Gcloud(GcloudBrowser):
-    '''
-    The gcloud functions are wrapped in a class to make it easier to interface with
-
-    Files used for Authentication, stored in the authdir attribute,
-
-        tokenFile: pickle file used to remember login, if deleted, will prompt for login next time and rebuild file
-
-        credentialsFile: json file that contains credentials that allow access to Google Drive API
-    '''
-
 
     def download_from_filepath(self, filepath):
         """Abstraction that downloads file from a given filepath.
@@ -37,12 +30,27 @@ class Gcloud(GcloudBrowser):
         self.download_file_to_directory(file)
 
     def download_file(self, file):
-        t = TempStorage()
+        t = TempStorage(file['name'])
         self.download_file_to_directory(file, t.path)
-        files = t.contents()
-        t.remove_dir()
-        return files
 
+        return t
+
+
+    def upload_to_dspace(self, file, metadata, collection_uuid):
+
+        storage_object = self.download_file(file)
+
+        if not self.dspace.logged_in:
+            self.dspace.login(TEST_EMAIL, TEST_PASS)
+            print(self.dspace.logged_in)
+
+        item_uuid, response = self.dspace.register_new_item_from_json(metadata, collection_uuid)
+
+        bitstream_response = self.dspace.add_bitstream_to_item(storage_object.path+storage_object.file_name, storage_object.file_name, item_uuid)
+
+        storage_object.remove_dir()
+
+        return bitstream_response
 
     def download_file_to_directory(self, file, exportDir='', recursive=True):
         """ Downloads file to a given directory
@@ -112,9 +120,10 @@ if __name__ == '__main__':
     '''
 
     g = Gcloud()
+    test_data = {"dc.title": "test", "dc.contributor.author": "test author"}
+    test_collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
 
-    file_name = 'Microscope Photos'
+    file_name = 'santa-koala-christmas-illustration-cartoon-bear-s-hat-glass-bowl-46924918.jpg'
     folder_id = g.ID_from_name(file_name)
     file = g.get_metadata(folder_id)
 
-    print(g.download_file(file))

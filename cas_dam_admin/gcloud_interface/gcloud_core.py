@@ -3,10 +3,20 @@ import pickle, io, os
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from dspace_python_wrapper import Dspace
 
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
 class GoogleCore:
+    '''
+        The gcloud functions are wrapped in a class to make it easier to interface with
+
+        Files used for Authentication, stored in the authdir attribute,
+
+            tokenFile: pickle file used to remember login, if deleted, will prompt for login next time and rebuild file
+
+            credentialsFile: json file that contains credentials that allow access to Google Drive API
+        '''
 
     tokenFile = 'token.pickle'
     credentialsFile = 'credentials.json'
@@ -16,6 +26,7 @@ class GoogleCore:
 
         self.authdir = authdir
         self.service = self.authenticate()
+        self.dspace = Dspace('http://localhost:8080/rest')
 
     def authenticate(self):
         """ Authenticates Gdrive api and generates token.pickle file
