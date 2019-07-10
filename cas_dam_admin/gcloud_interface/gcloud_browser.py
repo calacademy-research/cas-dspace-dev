@@ -1,4 +1,4 @@
-from gcloud_interface.gcloud_core import GoogleCore
+from .gcloud_core import GoogleCore
 
 class GcloudBrowser(GoogleCore):
 
