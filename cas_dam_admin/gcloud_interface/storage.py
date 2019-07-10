@@ -4,8 +4,9 @@ import os
 
 class TempStorage:
 
-    def __init__(self, dir='.'):
+    def __init__(self, file_name, dir='.'):
         self.path = tempfile.mkdtemp() + '/'
+        self.file_name = file_name
 
     def remove_dir(self):
         return shutil.rmtree(self.path)
