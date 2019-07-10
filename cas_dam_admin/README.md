@@ -35,7 +35,7 @@ Do not commit this build file, it should already be in `.gitignore`. Any time ch
 to the React App, the `npm run build` command will have to be re-run. Now, start the Django server and check the `/fileviewer/react` url for the file browsing React App. 
 If Google Cloud is disabled in the `setting.ini` file, switching to Google Cloud will throw an error. 
 
-
+this lives at /fileviewer/react/
 
 #Third Party code
 We're currently using Cory S.N. LaViska's jQuery file browser plugin (https://www.abeautifulsite.net/jquery-file-tree)
