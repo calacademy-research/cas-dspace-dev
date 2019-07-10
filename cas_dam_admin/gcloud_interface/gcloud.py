@@ -2,8 +2,8 @@ from __future__ import print_function
 import io, os
 from googleapiclient.http import MediaIoBaseDownload
 
-from gcloud_interface.gcloudBrowser import GcloudBrowser
-from gcloud_interface.storage import TempStorage
+from .gcloud_browser import GcloudBrowser
+from .storage import TempStorage
 
 """
 In Order to Refresh Scope During Testing,
