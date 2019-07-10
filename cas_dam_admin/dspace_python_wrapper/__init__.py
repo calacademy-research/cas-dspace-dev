@@ -9,6 +9,7 @@ class Dspace:
         # Testing Url: http://localhost:8080/rest
         self.rest_base_url = rest_base_url
         self.jsessionid = ""
+        self.logged_in = False
 
     def login(self, email, password):
         """ Logs into the dSpace instance
@@ -20,6 +21,9 @@ class Dspace:
         login_response = requests.post(self.rest_base_url + "/login", data=data)
 
         self.jsessionid = login_response.cookies['JSESSIONID']
+
+        if login_response.status_code == 200:
+            self.logged_in = True
 
     def create_new_community_from_json(self, json_data):
         """
@@ -161,6 +165,11 @@ class Dspace:
 
         """
 
+        """
+        If two or more objects in Dspace have identical names, this function only returns one of them in the dictionary. 
+        """
+
+
         if not datatype in ["items", "collections", "communities", "bitstreams"]:
             return False
 
@@ -175,15 +184,16 @@ class Dspace:
 
         return content_dict
 
-    def delete_community(self, community_uuid):
-        delete_response = requests.delete(self.rest_base_url + '/communities/' + community_uuid,
-                                          cookies={'JSESSIONID': self.jsessionid},
-                                          headers={"Accept": "application/json"})
+    def delete_data_from_dspace(self, data_type, data_uuid):
+        """ Deletes a piece of data from dspace.
 
-        return delete_response.ok
+        :param data_uuid: the uuid of the data that should be deleted.
+        :param datatype: a type of object to retrieve (items, collections, communities, bitstreams).
+        :return: boolean that is true if item was successfully deleted, otherwise false
 
-    def delete_item(self, item_uuid):
-        delete_response = requests.delete(self.rest_base_url + '/items/' + item_uuid,
+        """
+
+        delete_response = requests.delete(self.rest_base_url + '/'+data_type+'/' + data_uuid,
                                           cookies={'JSESSIONID': self.jsessionid},
                                           headers={"Accept": "application/json"})
 
