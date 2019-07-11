@@ -20,7 +20,10 @@ const boxStyle = {
   background: '#9DA5AB',
 
 };
-// TODO: Doomed, harrison, displays the json of the file you selected, for development
+
+// Display Box Purely Developement Purposes that
+// allows easy tracking of 'cursor' value from the tree component
+
 class DisplayBox extends React.Component {
   
   format (json) {

@@ -24,10 +24,6 @@ class FileViewer extends React.Component {
     }
 }
 
-/*
-filepath
-type of file
- */
 // TODO: Let's move this to a .css file.
 const customStyles = {
     content: {
@@ -39,11 +35,18 @@ const customStyles = {
     }
 };
 
-//TODO: Add comment - this is the top level for the treeviewer
-//TODO: Rename "app" to tree viewer modal or something like that.
-// TODO: Document the "food chain" of setselection and closemodal. Describe that this is part of the button
-// press handling.
-class App extends React.Component {
+/*
+This app is component is the top level for the treeviewer,
+it is the modal that contains the treeviewer component.
+
+The setSelection and closeModal are passed down as props from
+TreeModal --> ButtonBar --> UploadButton and used as callback functions.
+
+
+ */
+
+
+class TreeModal extends React.Component {
     constructor(props) {
         super(props);
 
@@ -61,10 +64,10 @@ class App extends React.Component {
     }
 
     setSelection(newSelection) {
+        // This is a callback function given to a lower component to change the state of this component
         this.setState({
             selection: newSelection,
         }, () => {
-            //TODO: This is the hook for calling into the main app
             console.log(this.state)
         })
     }
@@ -79,6 +82,7 @@ class App extends React.Component {
     }
 
     closeModal() {
+        // This is a callback function given to a lower component to change the state of this component
         this.setState({modalIsOpen: false});
 
     }
@@ -102,4 +106,4 @@ class App extends React.Component {
 //TODO Joe: This isn't resolving in pycharm, why?
 Modal.setAppElement('#root');
 
-export default App;
+export default TreeModal;

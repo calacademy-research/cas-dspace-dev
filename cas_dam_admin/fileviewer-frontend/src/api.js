@@ -1,11 +1,9 @@
-// TODO: Harrison this is whwere we strart, write a comment for clueless joe
-
-import {localRootFile, gRootFile} from './constants.js'
-
 /*
 API calls are split into two distinct functions because
 the endpoints and metadata send are different.
  */
+
+import {localRootFile, gRootFile} from './constants.js'
 
 function API_gcloud_children(file = gRootFile) {
     return APIcall('/api/google/childrenSearch/', {

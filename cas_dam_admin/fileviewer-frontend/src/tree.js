@@ -3,6 +3,7 @@ import {Treebeard} from "react-treebeard";
 import {API_gcloud_children, API_local_children} from './api.js';
 import {style} from './style.js'
 import {DisplayBox} from './displayBox.js'
+import './treeStyle.css';
 
 /*
 The datums are distinctly split into two variables because
@@ -98,12 +99,10 @@ const TreeExample = (props) => {
                 <Treebeard
                     data={data}
                     onToggle={onToggle}
-                    style={style}
+                    className='tree'
+                    // style={style}
                 />
             </div>
-            <DisplayBox
-                data={cursor}
-            />
 
         </React.Fragment>
     );
