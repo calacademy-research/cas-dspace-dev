@@ -1,0 +1,76 @@
+{
+  "name": "react-electron",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "curlrequest": "^1.0.1",
+    "electron-is-dev": "^1.1.0",
+    "papaparse": "^5.0.0",
+    "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.9",
+    "react-datasheet": "^1.3.14",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1",
+    "react-treebeard": "^3.2.4",
+    "remote": "^0.2.6",
+    "request": "^2.88.0"
+  },
+  "main": "public/electron.js",
+  "scripts": {
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "postinstall": "electron-builder install-app-deps",
+    "preelectron-pack": "yarn build",
+    "electron-pack": "build -mw"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@rescripts/cli": "^0.0.10",
+    "@rescripts/rescript-env": "^0.0.10",
+    "concurrently": "^4.1.1",
+    "electron": "^5.0.6",
+    "electron-builder": "^20.44.4",
+    "typescript": "^3.5.2",
+    "wait-on": "^3.2.0"
+  },
+  "homepage": "./",
+  "author": {
+    "name": "Dash Peters",
+    "email": "dpeters@calacademy.org",
+    "url": "calacademy.org"
+  },
+  "build": {
+    "appId": "org.calacademy.dspaceuploader",
+    "productName": "dSpace Uploader",
+    "copyright": "Copyright © 2019 ${author}",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  }
+}
