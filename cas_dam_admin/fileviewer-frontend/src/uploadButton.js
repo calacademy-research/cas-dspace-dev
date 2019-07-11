@@ -1,4 +1,9 @@
-//https://codepen.io/KPCodes/pen/QgKREZ
+
+/*
+This button styling came from https://codepen.io/KPCodes/pen/QgKREZ,
+this infromation and citation should and can be
+moved to a README at a later point.
+*/
 
 import React from 'react';
 import './uploadButtonStyle.css';

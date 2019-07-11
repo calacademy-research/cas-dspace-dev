@@ -1,3 +1,10 @@
+/*
+Test Data used for tree proof of concept,
+not important nor critical to the current performance
+ of the tree, but useful in creating new tree structures.
+ */
+
+
 const datum = {
   name: "root",
   toggled: false,

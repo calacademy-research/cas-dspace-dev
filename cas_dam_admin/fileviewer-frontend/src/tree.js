@@ -5,17 +5,32 @@ import { style } from './style.js'
 // import { datum } from './testData.js'
 import { DisplayBox } from './displayBox.js'
 
-const gcloudDatum = API_gcloud_children()
-const localDatum = API_local_children()
+/*
+The datums are distinctly split into two variables because
+the format of their trees is different and the function to expand
+the tree is also different.
+ */
 
-var childrenSearchFunc = API_gcloud_children;
-let datum = gcloudDatum;
+const gcloudDatum = API_gcloud_children();
+const localDatum = API_local_children();
+let childrenSearchFunc;
+let datum;
+
+/*
+Two variables are used to track the current mode, and the current
+selection. All of this information is eventually passed
+into the upload button.
+ */
+
 let gcloudState;
-var uploadState;
-let update;
+let uploadState;
 
 const TreeExample = (props) => {
-  var [cursor, setCursor] = useState(null);
+  /*
+  Initiates Cursor so that selection can be tracked.
+  Cursor stores the current selected part of datum
+   */
+  let [cursor, setCursor] = useState(null);
 
   const onToggle = (node, toggled) => {
     if (cursor) {
@@ -32,7 +47,12 @@ const TreeExample = (props) => {
     cursor = node;
     setData(Object.assign({}, data));
 
-    update = true;
+    /*
+    Uses a callback function to pass information
+    back up to the upload button. A callback button is
+    used in order to go upstream.
+     */
+
     uploadState = {
     cursor: cursor,
     gcloud: props.gcloud,
@@ -68,9 +88,11 @@ const TreeExample = (props) => {
       cursor.children = APIResponse.children
     }
   }
-
-
-  update = false;
+  /*
+  Tree object and Display Box are fragmented together to
+  avoid another callback function and since there is really
+  no reason to have the tree below the display box.
+   */
   return (
     <React.Fragment>
       <div>

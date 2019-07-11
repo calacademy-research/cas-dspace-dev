@@ -1,5 +1,10 @@
 import { localRootFile, gRootFile } from './constants.js'
 
+/*
+API calls are split into two distinct functions because
+the endpoints and metadata send are different.
+ */
+
 function API_gcloud_children(file=gRootFile){
   return APIcall('/api/google/childrenSearch/', {
   id: file.id,
@@ -21,6 +26,9 @@ function API_local_children(file=localRootFile){
 }
 
 function APIcall(url, data) {
+  /*
+  Abstraction that allows code to not be repeated in both the local and gcloud api call functions: General API call
+  */
   var request = new XMLHttpRequest();
   request.open("POST", url, false);
   request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");

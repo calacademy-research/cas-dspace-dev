@@ -1,3 +1,9 @@
+
+/*
+This file removes clutter from the rest of the app
+and allows access to all of the constants in one place.
+ */
+
 const gRootFile = {
   name: "root",
   id: "root",

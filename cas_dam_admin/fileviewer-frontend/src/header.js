@@ -1,5 +1,9 @@
 import React from 'react'
 
+/*
+Simple Header, could be more interesting or even removed.
+ */
+
 const headerStyle = {
   padding: "10px 20px",
   color: "#E2C089",

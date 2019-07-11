@@ -3,6 +3,12 @@ import { TreeExample } from './tree.js';
 import { ModeSwitch } from "./modeSwitch.js";
 import { UploadButton } from "./uploadButton.js";
 
+/*
+Most style-in-line javascript is moved to other files to avoid
+clutter however these two remain for now. Eventually they should
+be moved to the constants.js file.
+ */
+
 const labelStyle = {
   color: "#E2C089",
   textAlign: "center",
@@ -15,7 +21,20 @@ const tableStyle = {
   // minWidth: "10%",
 };
 
+/*
+This Button Bar Component allows a central place
+that controls all buttons and controls of the system.
+It is the common parent among all input devices allowing
+for easy transfer of data.
+*/
+
 class ButtonBar extends React.Component {
+
+  /*
+  The gcloud state is kept as a boolean for ease of use, especially
+  with inverting value, and the upload state is nested such that passing down
+  all the necessary information is easier.
+   */
 
   constructor (props) {
     super(props);
@@ -26,6 +45,11 @@ class ButtonBar extends React.Component {
         upload: null
       }
     };
+
+    /*
+    The Two Call back functions that allow for the information to pass upstream.
+     */
+
     this.switchState = this.switchState.bind(this);
     this.updateUpload = this.updateUpload.bind(this);
 
@@ -34,6 +58,12 @@ class ButtonBar extends React.Component {
   updateUpload (newState) {
     let type;
     let path_or_id;
+    /*
+    The file has to be checked for gcloud vs local so that it knows
+    which api to use and what information it has to send it. For the
+    google endpoint, an id is required. However, for the local endpoint,
+    a full filepath is required.
+     */
 
     if(newState.gcloud){
       type = 'gcloud';
@@ -59,6 +89,10 @@ class ButtonBar extends React.Component {
   }
 
   render () {
+    /*
+    The ButtonBar is formatted using an html table for ease
+of use. However, the styling and spacing is lazy and inconsistent.
+ */
   return(
       <Fragment>
       <table style={tableStyle}>
@@ -92,10 +126,6 @@ class ButtonBar extends React.Component {
       </Fragment>
   );
   }
-}
-
-const buttonStyle = {
-  paddingLeft: "0%"
 }
 
 export { ButtonBar };
