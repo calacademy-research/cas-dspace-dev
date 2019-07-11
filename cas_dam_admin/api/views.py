@@ -35,6 +35,7 @@ def upload_json(request):
     header_seen = False
 
     # Iterate through json body, set collection UUID if it is found. If it is not found, return 400 bad request
+    # TODO: Dash - make this not suck.
     for entry in json_body:
         if not header_seen:  # While the header item has not been seen, search for it in each item.
             # Once it has, don't bother
