@@ -77,6 +77,7 @@ class ButtonBar extends React.Component {
       upload: {
         uploadType: type,
         upload: path_or_id,
+        uploadName: newState.name,
       }
     }, () => {console.log(this.state)});
   }

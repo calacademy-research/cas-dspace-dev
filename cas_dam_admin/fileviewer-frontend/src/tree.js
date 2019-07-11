@@ -56,8 +56,8 @@ const TreeExample = (props) => {
     uploadState = {
     cursor: cursor,
     gcloud: props.gcloud,
+    name: cursor.name,
   };
-    console.log(uploadState, 'in tree');
     props.cursorCallback(uploadState);
 
   };
