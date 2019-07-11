@@ -7,6 +7,9 @@ Set the email to `test@test.edu` and the password to `test`
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+To get started, install and then build app:
+
+### `npm install`
 ## Available Scripts
 
 In the project directory, you can run:
