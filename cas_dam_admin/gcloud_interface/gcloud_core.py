@@ -3,7 +3,6 @@ import pickle, io, os
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-from dspace_python_wrapper import Dspace
 
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
