@@ -25,6 +25,8 @@ class App extends React.Component {
             collectionList: {},
             collectionUuid: "",
             collectionName: "",
+            sourcePath: "/",
+            folderSource: "slevin"
         };
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
@@ -134,7 +136,15 @@ class App extends React.Component {
             jsonData.push(result)
         });
 
-        jsonData.unshift({'collectionUUID': this.state.collectionUuid});
+        let dspaceConfig = {
+            'collectionUuid': this.state.collectionUuid,
+            'uploadHeader': true,
+            'folderSource': this.state.folderSource,
+            'sourcePath': this.state.sourcePath
+
+        }
+
+        jsonData.unshift(dspaceConfig);
         console.log(jsonData);
         return sendJsonAsPost('http://localhost:8000/api/upload_json', jsonData)
     }
