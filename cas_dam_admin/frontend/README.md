@@ -1,3 +1,8 @@
+To set up dSpace so that you can access it, create a new admin:
+SSH into the docker container then run `/dspace/bin/dspace create-administrator`
+
+Set the email to `test@test.edu` and the password to `test`
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
