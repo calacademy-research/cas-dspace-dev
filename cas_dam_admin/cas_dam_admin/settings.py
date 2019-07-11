@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'fileviewer.apps.FileviewerConfig',
-    'localuploader.apps.LocaluploaderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
