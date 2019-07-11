@@ -1,3 +1,8 @@
+/*
+This files stores all of the styling needed to make the tree
+look as slick as it does with the dark theme and the triangles.
+ */
+
 const style = {
     tree: {
         base: {

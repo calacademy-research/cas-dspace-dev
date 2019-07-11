@@ -1,9 +1,14 @@
 import React from "react";
-//import axios from "axios";
-import { API_gcloud_children, APIcall, APIcallget } from './api.js'
+import { API_gcloud_children } from './api.js'
+
+/*
+Deprecated Component used for testing API calls to the backend.
+Can be reformatted to test calls to other endpoints as well.
+ */
+
 const buttonStyle = {
   paddingLeft: "0%"
-}
+};
 
 class APIButton extends React.Component {
 

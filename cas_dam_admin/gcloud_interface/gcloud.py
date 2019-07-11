@@ -29,16 +29,27 @@ class Gcloud(GcloudBrowser):
 
         self.download_file_to_directory(file)
 
-    def download_file(self, file):
-        t = TempStorage(file['name'])
-        self.download_file_to_directory(file, t.path)
+    def download_file(self, file_metadata):
+        """Downloads a file to a temporary directory
+
+        :param file_metadata: Google File Object
+        :return: a TempStorage object that contains the download and ways to retrieve it.
+        """
+        t = TempStorage(file_metadata['name'])
+        self.download_file_to_directory(file_metadata, t.path)
 
         return t
 
+    def upload_to_dspace(self, google_file, metadata, collection_uuid):
+        """Uploads a file to Dspace with the given metadata in the given collection
 
-    def upload_to_dspace(self, file, metadata, collection_uuid):
 
-        storage_object = self.download_file(file)
+        :param google_file: Full Google File Object
+        :param metadata: JSON Ex. {"dc.title": "test", "dc.contributor.author": "test author"}
+        :param collection_uuid: string containing collection uuid
+        :return: the response from the bitstream upload
+        """
+        storage_object = self.download_file(google_file)
 
         if not self.dspace.logged_in:
             self.dspace.login(TEST_EMAIL, TEST_PASS)
@@ -46,26 +57,27 @@ class Gcloud(GcloudBrowser):
 
         item_uuid, response = self.dspace.register_new_item_from_json(metadata, collection_uuid)
 
-        bitstream_response = self.dspace.add_bitstream_to_item(storage_object.path+storage_object.file_name, storage_object.file_name, item_uuid)
+        bitstream_response = self.dspace.add_bitstream_to_item(storage_object.path+storage_object.file_name,
+                                                               storage_object.file_name,
+                                                               item_uuid)
 
         storage_object.remove_dir()
 
         return bitstream_response
 
-    def download_file_to_directory(self, file, exportDir='', recursive=True):
+    def download_file_to_directory(self, file_metadata, export_dir='', recursive=True):
         """ Downloads file to a given directory
 
-        :param file_id: str
-        :param directory: str, directory on local machine
+        :param file_metadata: Google file object
+        :param export_dir: location to drop off file
         :rtype: None
         """
-        #print(file)
 
-        file_id = file['id']
-        file_name = file['name']
-        new_dir = exportDir +file_name
+        file_id = file_metadata['id']
+        file_name = file_metadata['name']
+        new_dir = export_dir + file_name
 
-        if self.is_folder(file):
+        if self.is_folder(file_metadata):
             if recursive:
 
                 children = self.children_search(file_id)
@@ -78,7 +90,7 @@ class Gcloud(GcloudBrowser):
             else:
                 return "Download request was run with a folder, but was not recursive"
         else:
-            request = self.service.files().get_media(fileId = file_id)
+            request = self.service.files().get_media(fileId=file_id)
 
             fh = io.FileIO(new_dir, 'wb')
             downloader = MediaIoBaseDownload(fh, request)
@@ -93,6 +105,9 @@ if __name__ == '__main__':
     """
 
     import pprint
+
+    TEST_EMAIL = 'test@test.edu'
+    TEST_PASS = 'admin'
 
     def print_tree(tree, indent=''):
         """ prints tree given from create_directory_tree method
@@ -126,4 +141,3 @@ if __name__ == '__main__':
     file_name = 'santa-koala-christmas-illustration-cartoon-bear-s-hat-glass-bowl-46924918.jpg'
     folder_id = g.ID_from_name(file_name)
     file = g.get_metadata(folder_id)
-

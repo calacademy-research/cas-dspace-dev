@@ -1,5 +1,11 @@
 import React from 'react'
 
+/*
+displayBox component displays the metadata of the current file.
+ This display functions as a proof of concept for the idea of
+ a thumbnail or general preview of files before they are selected.
+ The styling was also fairly lazy, meaning it is not a finished product and does not scale well.
+ */
 
 const boxStyle = {
   textAlign: 'left',
@@ -13,7 +19,7 @@ const boxStyle = {
   height: '100%',
   background: '#9DA5AB',
 
-}
+};
 
 class DisplayBox extends React.Component {
   
