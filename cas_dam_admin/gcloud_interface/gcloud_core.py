@@ -26,7 +26,6 @@ class GoogleCore:
 
         self.authdir = authdir
         self.service = self.authenticate()
-        self.dspace = Dspace('http://localhost:8080/rest')
 
     def authenticate(self):
         """ Authenticates Gdrive api and generates token.pickle file

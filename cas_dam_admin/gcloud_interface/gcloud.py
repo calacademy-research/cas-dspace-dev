@@ -40,25 +40,26 @@ class Gcloud(GcloudBrowser):
 
         return t
 
-    def upload_to_dspace(self, google_file, metadata, collection_uuid):
+    def upload_to_dspace(self, dspace_controller, google_file, metadata, collection_uuid):
         """Uploads a file to Dspace with the given metadata in the given collection
 
-
+        :param dspace_controller: dSpace instance to upload files to
+        :type dspace_controller: Dspace
         :param google_file: Full Google File Object
         :param metadata: JSON Ex. {"dc.title": "test", "dc.contributor.author": "test author"}
-        :param collection_uuid: string containing collection uuid
+        :type metadata: dict
+        :param collection_uuid: the collection uuid
+        :type collection_uuid: str
         :return: the response from the bitstream upload
+        :rtype: dict
         """
         storage_object = self.download_file(google_file)
 
-        if not self.dspace.logged_in:
-            self.dspace.login(TEST_EMAIL, TEST_PASS)
+        item_uuid, response = dspace_controller.register_new_item_from_json(metadata, collection_uuid)
 
-        item_uuid, response = self.dspace.register_new_item_from_json(metadata, collection_uuid)
-
-        bitstream_response = self.dspace.add_bitstream_to_item(storage_object.path+storage_object.file_name,
-                                                               storage_object.file_name,
-                                                               item_uuid)
+        bitstream_response = dspace_controller.add_bitstream_to_item(storage_object.path + storage_object.file_name,
+                                                                     storage_object.file_name,
+                                                                     item_uuid)
 
         storage_object.remove_dir()
 
@@ -85,7 +86,7 @@ class Gcloud(GcloudBrowser):
                     os.makedirs(new_dir)
 
                 for child in children:
-                    self.download_file_to_directory(child, new_dir+'/', True)
+                    self.download_file_to_directory(child, new_dir + '/', True)
             else:
                 return "Download request was run with a folder, but was not recursive"
         else:
@@ -98,6 +99,7 @@ class Gcloud(GcloudBrowser):
             while not done:
                 status, done = downloader.next_chunk()
 
+
 if __name__ == '__main__':
     """
     All Testing
@@ -107,6 +109,7 @@ if __name__ == '__main__':
 
     TEST_EMAIL = 'test@test.edu'
     TEST_PASS = 'admin'
+
 
     def print_tree(tree, indent=''):
         """ prints tree given from create_directory_tree method
@@ -119,15 +122,15 @@ if __name__ == '__main__':
 
         for branch in tree:
             if type(branch) == list and branch != []:
-                print_tree(branch, indent+ '     ')
+                print_tree(branch, indent + '     ')
             else:
                 if branch != []:
-                    print(indent+ str(branch))
+                    print(indent + str(branch))
+
 
     '''
     Assumes token.pickle and credentials.json are in directory
     '''
-
 
     '''
     Sample Test prints out a tree of everything within that folder of the google drive
