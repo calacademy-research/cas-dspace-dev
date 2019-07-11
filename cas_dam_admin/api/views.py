@@ -99,6 +99,33 @@ def filterGChildrenResponse(children):
 
     return filteredChildren
 
+@api_view(['POST'])
+def upload_via_gcloud(request):
+
+    file_id = request.data['id']
+    google_metadata = google.get_metadata(file_id)
+
+    metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
+    collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
+
+    upload_status = google.upload_to_dspace(google_metadata, metadata, collection_uuid)
+
+    return JsonResponse(upload_status)
+
+@api_view(['POST'])
+def upload_via_local(request):
+
+    file_name = request.data['name']
+    file_path = request.data['path']
+
+    metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
+    collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
+
+    item_uuid, response = google.dspace.register_new_item_from_json(metadata, collection_uuid)
+
+    bitstream_response = google.dspace.add_bitstream_to_item(file_path, file_name, item_uuid)
+
+    return JsonResponse(bitstream_response)
 
 @api_view(['POST'])
 def local_get_children(request):
