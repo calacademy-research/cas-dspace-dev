@@ -53,7 +53,6 @@ class Gcloud(GcloudBrowser):
 
         if not self.dspace.logged_in:
             self.dspace.login(TEST_EMAIL, TEST_PASS)
-            print(self.dspace.logged_in)
 
         item_uuid, response = self.dspace.register_new_item_from_json(metadata, collection_uuid)
 
@@ -135,9 +134,36 @@ if __name__ == '__main__':
     '''
 
     g = Gcloud()
-    test_data = {"dc.title": "test", "dc.contributor.author": "test author"}
-    test_collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
+    # test_data = {"dc.title": "test", "dc.contributor.author": "test author"}
+    # test_collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
+    #
+    # file_name = 'santa-koala-christmas-illustration-cartoon-bear-s-hat-glass-bowl-46924918.jpg'
+    # folder_id = g.ID_from_name(file_name)
+    # file = g.get_metadata(folder_id)
+    g.dspace.login(TEST_EMAIL, TEST_PASS)
 
-    file_name = 'santa-koala-christmas-illustration-cartoon-bear-s-hat-glass-bowl-46924918.jpg'
-    folder_id = g.ID_from_name(file_name)
-    file = g.get_metadata(folder_id)
+
+    def delete_test_data():
+        items = g.dspace.get_data_from_dspace('items')
+
+        if 'test' in items:
+            g.dspace.delete_data_from_dspace('items', items['test'])
+            delete_test_data()
+        else:
+            return
+
+
+    delete_test_data()
+
+    """
+    Potential Dspace Function
+        def upload_item_to_dspace(self, json_data, collection_uuid, filepath, filename):
+        if not self.logged_in:
+            return None
+
+        item_uuid, response = self.register_new_item_from_json(json_data, collection_uuid)
+
+        bitstream_response = self.add_bitstream_to_item(filepath, filename, item_uuid)
+
+        return bitstream_response
+    """
