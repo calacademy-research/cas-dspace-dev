@@ -165,12 +165,11 @@ class Dspace:
 
         """
 
-        """
+        """ ERROR
         If two or more objects in Dspace have identical names, this function only returns one of them in the dictionary. 
         """
 
-
-        if not datatype in ["items", "collections", "communities", "bitstreams"]:
+        if datatype not in ["items", "collections", "communities", "bitstreams"]:
             return False
 
         search = requests.get(self.rest_base_url + "/" + datatype,
@@ -188,7 +187,7 @@ class Dspace:
         """ Deletes a piece of data from dspace.
 
         :param data_uuid: the uuid of the data that should be deleted.
-        :param datatype: a type of object to retrieve (items, collections, communities, bitstreams).
+        :param data_type: a type of object to retrieve (items, collections, communities, bitstreams).
         :return: boolean that is true if item was successfully deleted, otherwise false
 
         """
@@ -196,7 +195,6 @@ class Dspace:
         delete_response = requests.delete(self.rest_base_url + '/'+data_type+'/' + data_uuid,
                                           cookies={'JSESSIONID': self.jsessionid},
                                           headers={"Accept": "application/json"})
-
         return delete_response.ok
 
     def does_item_exist(self, item_uuid):
