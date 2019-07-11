@@ -1,5 +1,6 @@
 import React from 'react'
 
+//TODO: This may go away, or be drastically changed
 /*
 Simple Header, could be more interesting or even removed.
  */

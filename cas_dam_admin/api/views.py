@@ -72,6 +72,7 @@ def google_get_children(request):
     file_name = request.data['name']
     file_is_folder = request.data['is_folder']
 
+    # TODO: Harrison add comment to explain why
     try:
         if len(request.data['children']) > 0:
             return JsonResponse(request.data)
@@ -84,6 +85,7 @@ def google_get_children(request):
         'toggled': False,
         'active': True,
         'name': file_name,
+        # TODO: Harrison - this might be dead
         'updated': False,
     }
     # This line now checks if it has been previously determined a folder before making any google api calls.
@@ -95,7 +97,8 @@ def google_get_children(request):
 
     return JsonResponse(responseData)
 
-
+# TODO: Harrison write comment to explain that this filters out
+#  Unnecessary metadata
 def filterGChildrenResponse(children):
     filteredChildren = []
 
@@ -116,6 +119,7 @@ def filterGChildrenResponse(children):
 
     return filteredChildren
 
+# TODO: Harrison remove or add comments to say for testing
 @api_view(['POST'])
 def upload_via_gcloud(request):
 
@@ -129,6 +133,7 @@ def upload_via_gcloud(request):
 
     return JsonResponse(upload_status)
 
+# TODO: Harrison remove or add comments to say for testing
 @api_view(['POST'])
 def upload_via_local(request):
 
@@ -161,6 +166,7 @@ def local_get_children(request):
         'toggled': False,
         'active': True,
         'name': file_name,
+        # TODO: Harrisoon remove updated
         'updated': False,
         'filepath': filepath,
     }

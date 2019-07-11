@@ -20,7 +20,7 @@ const boxStyle = {
   background: '#9DA5AB',
 
 };
-
+// TODO: Doomed, harrison, displays the json of the file you selected, for development
 class DisplayBox extends React.Component {
   
   format (json) {

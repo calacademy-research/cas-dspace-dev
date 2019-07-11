@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { Treebeard } from "react-treebeard";
-import { API_gcloud_children, API_local_children } from './api.js';
-import { style } from './style.js'
-// import { datum } from './testData.js'
-import { DisplayBox } from './displayBox.js'
+import React, {useState} from "react";
+import {Treebeard} from "react-treebeard";
+import {API_gcloud_children, API_local_children} from './api.js';
+import {style} from './style.js'
+import {DisplayBox} from './displayBox.js'
 
 /*
 The datums are distinctly split into two variables because
@@ -26,88 +25,88 @@ let gcloudState;
 let uploadState;
 
 const TreeExample = (props) => {
-  /*
-  Initiates Cursor so that selection can be tracked.
-  Cursor stores the current selected part of datum
-   */
-  let [cursor, setCursor] = useState(null);
-
-  const onToggle = (node, toggled) => {
-    if (cursor) {
-      cursor.active = false;
-    }
-
-    node.active = true;
-
-    if (node.children) {
-      node.toggled = toggled;
-    }
-
-    setCursor(node);
-    cursor = node;
-    setData(Object.assign({}, data));
-
     /*
-    Uses a callback function to pass information
-    back up to the upload button. A callback button is
-    used in order to go upstream.
+    Initiates Cursor so that selection can be tracked.
+    Cursor stores the current selected part of datum
      */
+    let [cursor, setCursor] = useState(null);
 
-    uploadState = {
-      cursor: cursor,
-      gcloud: props.gcloud,
-      name: cursor.name,
-  };
-    props.cursorCallback(uploadState);
+    const onToggle = (node, toggled) => {
+        if (cursor) {
+            cursor.active = false;
+        }
 
-  };
+        node.active = true;
 
-  if(props.gcloud !== gcloudState) {
-    if(props.gcloud){
-      datum = gcloudDatum;
-      childrenSearchFunc = API_gcloud_children;
+        if (node.children) {
+            node.toggled = toggled;
+        }
 
-    } else {
-      datum = localDatum;
-      childrenSearchFunc = API_local_children;
+        setCursor(node);
+        cursor = node;
+        setData(Object.assign({}, data));
+
+        /*
+        Uses a callback function to pass information
+        back up to the upload button. A callback button is
+        used in order to go upstream.
+         */
+
+        uploadState = {
+            cursor: cursor,
+            gcloud: props.gcloud,
+            name: cursor.name,
+        };
+        props.cursorCallback(uploadState);
+
+    };
+
+    if (props.gcloud !== gcloudState) {
+        if (props.gcloud) {
+            datum = gcloudDatum;
+            childrenSearchFunc = API_gcloud_children;
+
+        } else {
+            datum = localDatum;
+            childrenSearchFunc = API_local_children;
+        }
+
+        cursor = datum;
+        setCursor(datum);
+        gcloudState = props.gcloud;
     }
+    let [data, setData] = useState(datum);
 
-    cursor = datum;
-    setCursor(datum);
-    gcloudState = props.gcloud;
-  }
-  var [data, setData] = useState(datum);
+    data = datum;
 
-  data = datum;
+    if (cursor !== null && cursor.is_folder) {
 
-  if(cursor !== null && cursor.is_folder) {
+        const APIResponse = childrenSearchFunc(cursor);
 
-    const APIResponse = childrenSearchFunc(cursor);
-
-    if (APIResponse.updated) {
-      cursor.children = APIResponse.children
+        if (APIResponse.updated) {
+            cursor.children = APIResponse.children
+        }
     }
-  }
-  /*
-  Tree object and Display Box are fragmented together to
-  avoid another callback function and since there is really
-  no reason to have the tree below the display box.
-   */
-  return (
-    <React.Fragment>
-      <div>
-        <Treebeard
-          data={data}
-          onToggle={onToggle}
-          style={style}
-        />
-      </div>
-      <DisplayBox
-        data={cursor}
-      />
+    /*
+    Tree object and Display Box are fragmented together to
+    avoid another callback function and since there is really
+    no reason to have the tree below the display box.
+     */
+    return (
+        <React.Fragment>
+            <div>
+                <Treebeard
+                    data={data}
+                    onToggle={onToggle}
+                    style={style}
+                />
+            </div>
+            <DisplayBox
+                data={cursor}
+            />
 
-    </React.Fragment>
-  );
+        </React.Fragment>
+    );
 };
 
-export { TreeExample };
+export {TreeExample};
