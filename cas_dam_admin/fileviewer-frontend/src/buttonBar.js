@@ -79,7 +79,7 @@ class ButtonBar extends React.Component {
         upload: path_or_id,
         uploadName: newState.name,
       }
-    }, () => {console.log(this.state)});
+    });
   }
 
   switchState (newState) {
@@ -101,7 +101,7 @@ of use. However, the styling and spacing is lazy and inconsistent.
         <tr>
 
           <th>
-            <UploadButton upload={this.state.upload}/>
+            <UploadButton upload={this.state.upload} closeModal={this.props.closeModal} setSelection={this.props.setSelection}/>
           </th>
 
           <th>

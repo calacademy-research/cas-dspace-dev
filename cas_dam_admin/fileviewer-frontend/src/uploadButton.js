@@ -16,14 +16,23 @@ class UploadButton extends React.Component {
 
   handleBtnClick = () => {
     console.log(this.props.upload);
-    let response;
-    if(this.props.upload.uploadType === 'gcloud'){
-        response = API_gcloud_upload(this.props.upload);
-    } else {
-       response = API_local_upload(this.props.upload);
-    }
-    console.log(response)
+    let path, source;
 
+    if (this.props.upload.uploadType === 'gcloud') {
+        path = '';
+        source = 'gdrive';
+    } else {
+        path = this.props.upload.upload;
+        source = 'slevin';
+    }
+
+    let selection = {
+        path: path,
+        source: source,
+    };
+
+    this.props.setSelection(selection);
+    this.props.closeModal();
   };
 
   render() {
@@ -33,7 +42,7 @@ class UploadButton extends React.Component {
               className="button"
               onClick={this.handleBtnClick}
               >
-            {"Upload File"}
+            {"Select Root Folder"}
           </button>
         </div>
     )
