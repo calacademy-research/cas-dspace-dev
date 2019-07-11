@@ -1,5 +1,7 @@
 To set up dSpace so that you can access it, create a new admin:
-SSH into the docker container then run `/dspace/bin/dspace create-administrator`
+SSH into the docker container: `docker exec -it dspace /bin/bash`
+ 
+ then run `/dspace/bin/dspace create-administrator`
 
 Set the email to `test@test.edu` and the password to `test`
 
