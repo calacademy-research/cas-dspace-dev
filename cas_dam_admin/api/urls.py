@@ -4,8 +4,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('get/', views.test_get, name="testGet"),
-    path('post/', views.test_post, name='testPost'),
+    path('upload_json', views.upload_json),
+    path('get_collections', views.get_collections),
     path('google/childrenSearch/', views.google_get_children, name='gchildSearch'),
     path('local/childrenSearch/', views.local_get_children, name='localChildSearch'),
 ]

@@ -2,6 +2,9 @@ import React from 'react';
 import Papa from 'papaparse';
 import ReactDataSheet from 'react-datasheet';
 import _ from 'lodash'
+import axios from 'axios'
+
+import {sendJsonAsPost, getCollections} from './api'
 
 import 'react-datasheet/lib/react-datasheet.css';
 
@@ -12,11 +15,15 @@ class App extends React.Component {
         super(props);
         this.handleFileChosen = this.handleFileChosen.bind(this);
         this.handleLogCurrentData = this.handleLogCurrentData.bind(this);
+        this.sendJson = this.sendJson.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             isLoggedIn: false,
             grid: "",
             unusedMetadataEntries: "",
-            suggestions: []
+            collectionList: {},
+            collectionUuid: ""
         };
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
@@ -49,6 +56,12 @@ class App extends React.Component {
             {value: 'ibss-library.publish', label: 'ibss-library.publish', readOnly: true}]
     }
 
+    componentDidMount() {
+        // Get collections
+        getCollections('http://localhost:8000/api/get_collections').then(response => this.setState({collectionList: response.data}))
+
+    }
+
     updateUnusedMetadataEntries(headerRow) {
         /**Returns list of items that exist in metadataEntries but not in the header row of the grid
          *
@@ -58,7 +71,6 @@ class App extends React.Component {
             return headerRow.findIndex(x => x.value === item.value) === -1
         });
     }
-
 
     handleFileChosen(file) {
         let reader = new FileReader();
@@ -75,7 +87,6 @@ class App extends React.Component {
             // Filter items from metadataEntries if their value is not found in newGrid[0]
 
             this.setState({grid: newGrid, unusedMetadataEntries: this.updateUnusedMetadataEntries(newGrid[0])})
-            console.log(newGrid[0])
         };
 
 
@@ -86,8 +97,48 @@ class App extends React.Component {
         console.log(this.state.grid);
     }
 
+    handleSubmit(event) {
+        // this.sendJson()
+        console.log("You've clicked submit")
+        event.preventDefault();
+    }
+
+    handleChange(event) {
+        this.setState({collectionUuid: event.target.value})
+    }
+
+    sendJson() {
+        // Convert cell structure to proper JSON
+        let grid = this.state.grid;
+        let jsonData = [];
+        let headerRow = grid.shift();
+
+        grid.forEach((row) => {
+            let result = {};
+            headerRow.forEach((item, itemIndex) => {
+                result[item.value] = row[itemIndex].value
+            });
+            jsonData.push(result)
+        });
+
+        console.log(jsonData);
+        sendJsonAsPost('http://localhost:8000/api/upload_json', jsonData)
+    }
+
 
     render() {
+
+        let collectionList = this.state.collectionList;
+        let collectionOptions = [];
+
+
+        if (collectionList) {
+
+            Object.keys(collectionList).forEach(key => {
+                let option = <option key={collectionList[key]} value={collectionList[key]}>{key}</option>
+                collectionOptions.push(option);
+            });
+        }
 
         if (this.state.grid === "") {
             return (
@@ -101,11 +152,16 @@ class App extends React.Component {
                     <span>
                         <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
                     </span>
+                    <form onSubmit={this.handleSubmit}>
+                        <select name='collection_uuid'>
+                            {collectionOptions}
+                        </select>
+                        <button type="Submit">Submit</button>
+                    </form>
                     <div>
                         <ReactDataSheet
                             data={[this.state.unusedMetadataEntries]}
                             valueRenderer={(cell) => cell.value}
-
                         />
                         <br/>
                     </div>
@@ -123,7 +179,7 @@ class App extends React.Component {
                             })
                         }}
                     />
-                    <button onClick={this.handleLogCurrentData}>Print current data</button>
+                    <button onClick={this.sendJson}>Print current data</button>
                 </div>
             )
         }

@@ -7,33 +7,39 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 
 import os
+import json
 
 from cas_dam_admin import settings
 
 from gcloud_interface.gcloud import Gcloud
+from dspace_python_wrapper import Dspace
 
 # Create your views here.
 if settings.GOOGLE_DRIVE_ONLY:
     google = Gcloud('gcloud_interface/gcloudAuth/')
 
-@api_view(["GET"])
-def test_get(request):
 
-    try:
-        print(request.data)
-        return HttpResponse("Api-Get is Functioning!")
+@api_view(['POST'])
+def upload_json(request):
+    json_body = request.data
+    if not json_body:  # If client sends empty array
+        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
-    except ValueError as e:
-        return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+    dspace_controller = Dspace('http://localhost:8080/rest')
 
-@api_view(["POST"])
-def test_post(request):
-    print(request.data)
-    try:
-        return HttpResponse('Api-Post is Functioning!')
+    for item in json_body:
+        dspace_controller.register_new_item_from_json(item)
+    print(json_body)
 
-    except ValueError as e:
-        return Response(e.args[0], status.HTTP_400_BAD_REQUEST)
+    return HttpResponse(status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_collections(request):
+    dspace_controller = Dspace('http://localhost:8080/rest')
+    collections = dspace_controller.get_data_from_dspace('collections')
+    return Response(collections, status=status.HTTP_200_OK)
+
 
 @api_view(['POST'])
 def google_get_children(request):
@@ -72,8 +78,8 @@ def google_get_children(request):
 
     return JsonResponse(responseData)
 
-def filterGChildrenResponse(children):
 
+def filterGChildrenResponse(children):
     filteredChildren = []
 
     for child in children:
@@ -93,9 +99,9 @@ def filterGChildrenResponse(children):
 
     return filteredChildren
 
+
 @api_view(['POST'])
 def local_get_children(request):
-
     file_name = request.data['name']
     file_is_folder = request.data['is_folder']
     filepath = request.data['filepath']
@@ -128,7 +134,7 @@ def local_get_children(request):
                 childObject['filepath'] = filepath + child
             else:
                 childObject['filepath'] = filepath + '/' + child
-                
+
             childObject['is_folder'] = os.path.isdir(childObject['filepath'])
             if childObject['is_folder']:
                 childObject['children'] = []
@@ -137,4 +143,3 @@ def local_get_children(request):
         responseData['updated'] = True
 
     return JsonResponse(responseData)
-
