@@ -30,23 +30,55 @@ def upload_json(request):
 
     new_items = []
 
-    collection_uuid = None
+    upload_header = {}
+
+    header_seen = False
 
     # Iterate through json body, set collection UUID if it is found. If it is not found, return 400 bad request
     for entry in json_body:
-        if entry.get('collectionUUID', None):
-            collection_uuid = entry['collectionUUID']
+        if not header_seen:  # While the header item has not been seen, search for it in each item.
+            # Once it has, don't bother
+            if 'uploadHeader' in entry:
+                header_seen = True
+                for key, value in entry.items():  # Iterate through header properties, add them to upload_header
+                    if key == 'uploadHeader':
+                        continue
+                    # Fields are: collectionUuid, folderSource, sourcePath, uploadHeader
+                    upload_header[key] = value
             continue
+
+        # Header won't be added to new items, so add all other entries to new_items
         new_items.append(entry)
 
-    if not collection_uuid:
+    if not ('collectionUuid' in upload_header and 'folderSource' in upload_header):
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
-    item_uuids = []
+    item_responses = []
     for item in new_items:
-        response_uuid, response_data = dspace_controller.register_new_item_from_json(item, collection_uuid)
-        item_uuids.append((item, response_uuid, response_data))
+        response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
+                                                                                     upload_header['collectionUuid'])
+        item_responses.append((item, response_uuid, response_data))
     print(json_body)
+
+    for item, response_uuid, response_data in item_responses:
+        if upload_header['folderSource'] == 'gdrive':
+            # Do something
+            # google.upload_to_dspace(dspace_controller, , )
+            pass
+        elif upload_header['folderSource'] == 'slevin':
+            # Set absolute filepath
+            filepath = os.path.join(upload_header['sourcePath'],
+                                    item['filename'].strip("/"))  # Remove leading and trailing slashes of the filename
+
+            # Set filename. If ibss-library.filename exists, use it. Otherwise, use end of filename given in csv
+
+            if 'ibss-library.filename' in item:
+                filename = item['ibss-library.filename']
+
+            else:
+                filename = os.path.basename(item['filenname'])
+
+            dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
 
     return HttpResponse(status=status.HTTP_200_OK)
 
@@ -119,35 +151,35 @@ def filterGChildrenResponse(children):
 
     return filteredChildren
 
-# TODO: Harrison remove or add comments to say for testing
-@api_view(['POST'])
-def upload_via_gcloud(request):
 
-    file_id = request.data['id']
+def upload_via_gcloud(file_id, metadata, collection_uuid, dspace_controller):
+    # file_id = request.data['id']
     google_metadata = google.get_metadata(file_id)
 
-    metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
-    collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
+    # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
+    # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
 
-    upload_status = google.upload_to_dspace(google_metadata, metadata, collection_uuid)
+    upload_status = google.upload_to_dspace(dspace_controller, google_metadata, metadata, collection_uuid)
 
-    return JsonResponse(upload_status)
+    return upload_status
 
-# TODO: Harrison remove or add comments to say for testing
-@api_view(['POST'])
-def upload_via_local(request):
+    # return JsonResponse(upload_status)
 
-    file_name = request.data['name']
-    file_path = request.data['path']
 
-    metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
-    collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
+def upload_via_local(file_name, file_path, metadata, collection_uuid, dspace_controller):
+    # file_name = request.data['name']
+    # file_path = request.data['path']
+    #
+    # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
+    # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
 
     item_uuid, response = google.dspace.register_new_item_from_json(metadata, collection_uuid)
 
     bitstream_response = google.dspace.add_bitstream_to_item(file_path, file_name, item_uuid)
 
-    return JsonResponse(bitstream_response)
+    return bitstream_response
+    # return JsonResponse(bitstream_response)
+
 
 @api_view(['POST'])
 def local_get_children(request):
