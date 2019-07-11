@@ -1,16 +1,7 @@
 import axios from 'axios'
 
 function sendJsonAsPost(url, data) {
-    axios.post(url, data, {}).then(function (response) {
-            if (response.status === 200) {
-                console.log(response);
-                return (response.response);
-            } else {
-                console.log(response.status);
-                return response.status
-            }
-        }
-    )
+    return axios.post(url, data)
 }
 
 function getCollections(url) {

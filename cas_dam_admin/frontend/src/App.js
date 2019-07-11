@@ -23,7 +23,8 @@ class App extends React.Component {
             grid: "",
             unusedMetadataEntries: "",
             collectionList: {},
-            collectionUuid: ""
+            collectionUuid: "",
+            collectionName: "",
         };
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
@@ -58,7 +59,20 @@ class App extends React.Component {
 
     componentDidMount() {
         // Get collections
-        getCollections('http://localhost:8000/api/get_collections').then(response => this.setState({collectionList: response.data}))
+        getCollections('http://localhost:8000/api/get_collections').then(response => {
+            let collectionList = response.data;
+            this.setState({collectionList: collectionList});
+
+            // Janky, should refactor to something cleaner. Generates a default option for selecting a collection
+            // Without this, there is the case of the user not changing the collection and leaving it empty when submitting
+            if (this.state.collectionUuid === "") {
+                this.setState({collectionUuid: collectionList[Object.keys(collectionList)[0]]})
+            }
+            if (this.state.collectionName === "") {
+                this.setState({collectionName: Object.keys(collectionList)[0]})
+            }
+
+        });
 
     }
 
@@ -98,13 +112,12 @@ class App extends React.Component {
     }
 
     handleSubmit(event) {
-        // this.sendJson()
-        console.log("You've clicked submit")
+        this.sendJson()
         event.preventDefault();
     }
 
     handleChange(event) {
-        this.setState({collectionUuid: event.target.value})
+        this.setState({collectionUuid: event.target.value});
     }
 
     sendJson() {
@@ -121,8 +134,9 @@ class App extends React.Component {
             jsonData.push(result)
         });
 
+        jsonData.unshift({'collectionUUID': this.state.collectionUuid});
         console.log(jsonData);
-        sendJsonAsPost('http://localhost:8000/api/upload_json', jsonData)
+        return sendJsonAsPost('http://localhost:8000/api/upload_json', jsonData)
     }
 
 
@@ -133,8 +147,7 @@ class App extends React.Component {
 
 
         if (collectionList) {
-
-            Object.keys(collectionList).forEach(key => {
+            Object.keys(collectionList).forEach((key) => {
                 let option = <option key={collectionList[key]} value={collectionList[key]}>{key}</option>
                 collectionOptions.push(option);
             });
@@ -153,10 +166,10 @@ class App extends React.Component {
                         <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
                     </span>
                     <form onSubmit={this.handleSubmit}>
-                        <select name='collection_uuid'>
+                        <select name='collection_uuid' onChange={this.handleChange}>
                             {collectionOptions}
                         </select>
-                        <button type="Submit">Submit</button>
+                        <input type="submit" value="Submit"/>
                     </form>
                     <div>
                         <ReactDataSheet

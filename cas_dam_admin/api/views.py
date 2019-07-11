@@ -26,9 +26,26 @@ def upload_json(request):
         return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
     dspace_controller = Dspace('http://localhost:8080/rest')
+    dspace_controller.login('test@test.edu', 'test')
 
-    for item in json_body:
-        dspace_controller.register_new_item_from_json(item)
+    new_items = []
+
+    collection_uuid = None
+
+    # Iterate through json body, set collection UUID if it is found. If it is not found, return 400 bad request
+    for entry in json_body:
+        if entry.get('collectionUUID', None):
+            collection_uuid = entry['collectionUUID']
+            continue
+        new_items.append(entry)
+
+    if not collection_uuid:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+
+    item_uuids = []
+    for item in new_items:
+        response_uuid, response_data = dspace_controller.register_new_item_from_json(item, collection_uuid)
+        item_uuids.append((item, response_uuid, response_data))
     print(json_body)
 
     return HttpResponse(status=status.HTTP_200_OK)
