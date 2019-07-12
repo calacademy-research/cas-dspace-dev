@@ -1,6 +1,6 @@
 import React from "react";
 
-import './switchStyle.css';
+import '../css/switchStyle.css';
 
 class ModeSwitch extends React.Component {
     constructor(props) {

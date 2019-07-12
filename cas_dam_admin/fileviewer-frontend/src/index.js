@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import TreeModal from './App.js'
+import TreeModal from './js/TreeModal.js'
 
 /*
 This is the file that is kicked off and renders
