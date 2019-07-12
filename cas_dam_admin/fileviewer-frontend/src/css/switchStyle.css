@@ -6,8 +6,9 @@ This could all be moved to a README.
 .switch-container {
     position: relative;
     vertical-align: middle;
-    padding-left: 25%;
-    padding-bottom: 25%;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 37.5%;
 }
 
 input[type="checkbox"].switch {

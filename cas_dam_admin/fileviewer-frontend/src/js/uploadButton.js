@@ -5,13 +5,9 @@ moved to a README at a later point.
 */
 
 import React from 'react';
-import './uploadButtonStyle.css';
-import {API_local_upload, API_gcloud_upload} from "./api.js";
+import '../css/uploadButtonStyle.css';
 
 class UploadButton extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     handleBtnClick = () => {
         console.log(this.props.upload);

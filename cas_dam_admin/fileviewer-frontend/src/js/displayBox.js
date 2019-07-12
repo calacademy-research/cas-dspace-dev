@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import '../css/displayBoxStyle.css';
 
 /*
 displayBox component displays the metadata of the current file.
@@ -6,20 +7,6 @@ displayBox component displays the metadata of the current file.
  a thumbnail or general preview of files before they are selected.
  The styling was also fairly lazy, meaning it is not a finished product and does not scale well.
  */
-
-const boxStyle = {
-  textAlign: 'left',
-  color: 'black',
-  padding: "10px 10px",
-  border: "0px solid",
-  borderColor: "#E2C089",
-  display: "inlineBlock",
-  float: 'left',
-  width: '40%',
-  height: '100%',
-  background: '#9DA5AB',
-
-};
 
 // Display Box Purely Developement Purposes that
 // allows easy tracking of 'cursor' value from the tree component
@@ -41,11 +28,11 @@ class DisplayBox extends React.Component {
   render () {
 
     return (
-      <div style={boxStyle}>
+      <div className="displayBox">
         <pre>{this.format(this.props.data)}</pre>
       </div>
     );
   };
-};
+}
 
 export { DisplayBox };

@@ -20,7 +20,7 @@
             .link {
                 cursor: pointer;
                 position: relative;
-                padding: 0px 5px;
+                padding: 0 5px;
                 display: block;
             }
             .activeLink {
@@ -42,8 +42,6 @@
                     margin: -7px 0 0 -7px;
                     height: 14px;
                 }
-                height: 14;
-                width: 14;
                 .arrow {
                     fill: #9DA5AB;
                     stroke-width: 0;
@@ -61,7 +59,7 @@
                     border-left: solid 2px black;
                     border-bottom: solid 2px black;
                     position: absolute;
-                    top: 0px;
+                    top: 0;
                     left: -21px;
                 }
                 .title {
