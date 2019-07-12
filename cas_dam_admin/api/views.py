@@ -39,12 +39,10 @@ def upload_json(request):
     for entry in json_body:
         if not header_seen:  # While the header item has not been seen, search for it in each item.
             # Once it has, don't bother
-            if 'uploadHeader' in entry:
+            if 'collectionUuid' in entry:
                 header_seen = True
                 for key, value in entry.items():  # Iterate through header properties, add them to upload_header
-                    if key == 'uploadHeader':
-                        continue
-                    # Fields are: collectionUuid, folderSource, sourcePath, uploadHeader
+                    # Fields are: collectionUuid, folderSource, sourcePath
                     upload_header[key] = value
             continue
 
