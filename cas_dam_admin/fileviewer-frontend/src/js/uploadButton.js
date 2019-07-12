@@ -10,7 +10,8 @@ import '../css/uploadButtonStyle.css';
 class UploadButton extends React.Component {
 
     handleBtnClick = () => {
-        console.log(this.props.upload);
+        // TODO: For harrison, look at javascript/react loggging packages
+        // console.log(this.props.upload);
         let path, source;
 
         if (this.props.upload.uploadType === 'gcloud') {
