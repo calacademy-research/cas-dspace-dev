@@ -21,6 +21,7 @@ class App extends React.Component {
         this.handleUuidChange = this.handleUuidChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setSelection = this.setSelection.bind(this);
+        this.clearGridData = this.clearGridData.bind(this);
 
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
@@ -52,20 +53,10 @@ class App extends React.Component {
             {value: 'dc.rights (status)', label: 'dc.rights (status)', readOnly: true},
             {value: 'ibss-library.publish', label: 'ibss-library.publish', readOnly: true}];
 
-        let grid = [];
-        let headerRow = [];
-
-        // Populate first row of grid with value of each metadata entry
-        this.metatadataEntries.forEach(entry => headerRow.push({value: entry.value}));
-
-        grid.push(headerRow);
-
         // Add empty row underneath
-        grid = this.addEmptyRowToGrid(grid);
-
         this.state = {
             isLoggedIn: false,
-            grid: grid,
+            grid: this.createEmptyGrid(),
             // grid: "",
             unusedMetadataEntries: "",
             collectionList: {},
@@ -76,6 +67,26 @@ class App extends React.Component {
         };
         // TODO: Dash - let's pull this into a config file
         // https://stackoverflow.com/questions/30568796/how-to-store-configuration-file-and-read-it-using-react
+    }
+
+    // Return an empty row that's the size of the grid
+    generateEmptyGridRow(grid) {
+        return Array(grid[0].length).fill({value: ""});   // Generate an row with the same
+
+    }
+
+    //Creates an empty grid, does not deal with the state object.
+    // We need to do this because the grid has data preconditions
+    createEmptyGrid() {
+        let grid = [];
+        let headerRow = [];
+
+        // Populate first row of grid with value of each metadata entry
+        this.metatadataEntries.forEach(entry => headerRow.push({value: entry.value}));
+
+        grid.push(headerRow);
+        grid.push(this.generateEmptyGridRow(grid));
+        return grid
     }
 
     setSelection(newSelection) {
@@ -90,6 +101,10 @@ class App extends React.Component {
         }, () => {
             Logger.info([this.state.sourcePath, this.state.folderSource]);
         })
+    }
+
+    clearGridData() {
+        this.setState({grid:this.createEmptyGrid()});
     }
 
     // TODO: Dash comment this funciton
@@ -147,7 +162,7 @@ class App extends React.Component {
             }));
 
             if (this.isLastGridRowEmpty(newGrid)) {
-                this.addEmptyRowToGrid(newGrid);
+                newGrid.push(this.generateEmptyGridRow(newGrid));
             }
 
             // Add header above cells that lists all unused metadata entries
@@ -226,11 +241,7 @@ class App extends React.Component {
     }
 
 
-    addEmptyRowToGrid(grid) {
-        grid.push(Array(grid[0].length).fill({value: ""}));   // Generate an row with the same
-        return grid
 
-    }
 
 
     render() {
@@ -287,7 +298,7 @@ class App extends React.Component {
 
                         // Add a new row to the bottom of the array if the current last one has data in it
                         if (this.isLastGridRowEmpty(grid)) {
-                            grid = this.addEmptyRowToGrid(grid)
+                            grid.push(this.generateEmptyGridRow(grid));
                         }
 
                         this.setState({
@@ -299,6 +310,8 @@ class App extends React.Component {
                 {/* This is a debug hook for now*/}
                 <button onClick={this.generateGridJson}>Print current data</button>
                 <TreeModal setSelection={this.setSelection}/>
+                <button onClick={this.clearGridData}>Clear data</button>
+
             </div>
         )
     }
