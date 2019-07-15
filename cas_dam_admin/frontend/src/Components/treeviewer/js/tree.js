@@ -67,7 +67,7 @@ const TreeExample = (props) => {
             childrenSearchFunc = API_local_children;
         }
 
-        datum = childrenSearchFunc()
+        datum = childrenSearchFunc();
         cursor = datum;
         setCursor(datum);
         gcloudState = props.gcloud;

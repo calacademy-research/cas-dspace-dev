@@ -70,7 +70,7 @@ class App extends React.Component {
             sourcePath: newSelection.path,
             folderSource: newSelection.source,
         }, () => {
-            Logger.info([this.state.sourcePath, this.state.sourceFile]);
+            Logger.info([this.state.sourcePath, this.state.folderSource]);
         })
     }
 
