@@ -21,18 +21,7 @@ class App extends React.Component {
         this.handleUuidChange = this.handleUuidChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setSelection = this.setSelection.bind(this);
-        this.state = {
-            isLoggedIn: false,
-            grid: "",
-            unusedMetadataEntries: "",
-            collectionList: {},
-            collectionUuid: "",
-            collectionName: "",
-            sourcePath: "/",
-            folderSource: "slevin"
-        };
-        // TODO: Dash - let's pull this into a config file
-        // https://stackoverflow.com/questions/30568796/how-to-store-configuration-file-and-read-it-using-react
+
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
             {value: 'dc.title', label: 'dc.title', readOnly: true, className: "required-column"},
@@ -61,7 +50,32 @@ class App extends React.Component {
             {value: 'dc.type', label: 'dc.type', readOnly: true},
             {value: 'dc.rights (statement)', label: 'dc.rights (statement)', readOnly: true},
             {value: 'dc.rights (status)', label: 'dc.rights (status)', readOnly: true},
-            {value: 'ibss-library.publish', label: 'ibss-library.publish', readOnly: true}]
+            {value: 'ibss-library.publish', label: 'ibss-library.publish', readOnly: true}];
+
+        let grid = [];
+        let headerRow = [];
+
+        // Populate first row of grid with value of each metadata entry
+        this.metatadataEntries.forEach(entry => headerRow.push({value: entry.value}));
+
+        grid.push(headerRow);
+
+        // Add empty row underneath
+        grid = this.addEmptyRowToGrid(grid);
+
+        this.state = {
+            isLoggedIn: false,
+            grid: grid,
+            // grid: "",
+            unusedMetadataEntries: "",
+            collectionList: {},
+            collectionUuid: "",
+            collectionName: "",
+            sourcePath: "/",
+            folderSource: "slevin"
+        };
+        // TODO: Dash - let's pull this into a config file
+        // https://stackoverflow.com/questions/30568796/how-to-store-configuration-file-and-read-it-using-react
     }
 
     setSelection(newSelection) {
@@ -132,6 +146,10 @@ class App extends React.Component {
                 return ({value: cell})
             }));
 
+            if (this.isLastGridRowEmpty(newGrid)) {
+                this.addEmptyRowToGrid(newGrid);
+            }
+
             // Add header above cells that lists all unused metadata entries
             // Filter items from metadataEntries if their value is not found in newGrid[0]
 
@@ -145,7 +163,6 @@ class App extends React.Component {
     handleLogCurrentData() {
         console.log(this.state.grid);
     }
-
 
     handleUuidChange(event) {
         /**
@@ -165,7 +182,7 @@ class App extends React.Component {
     }
 
     generateGridJson() {
-         // Convert cell structure to proper JSON
+        // Convert cell structure to proper JSON
         let grid = this.state.grid;
         let jsonData = [];
         let headerRow = grid.shift();   // Remove header row, as we will be applying it to each of the subsequent rows
@@ -197,19 +214,28 @@ class App extends React.Component {
     }
 
 
-    isLastGridRowEmpty() {
+    isLastGridRowEmpty(grid) {
         /**
          * Sees if the last row in the grid is empty (contains only empty strings)
          *
          * @returns {bool} True if the last row is empty, false if there is a non-empty string
          */
-        let lastRow = this.state.grid[this.state.grid.length - 1];
+        let lastRow = grid[grid.length - 1];
 
-        return (lastRow.some(cell => cell !== ""))
+        return (lastRow.some(cell => cell.value !== ""))
+    }
+
+
+    addEmptyRowToGrid(grid) {
+        grid.push(Array(grid[0].length).fill({value: ""}));   // Generate an row with the same
+        return grid
+
     }
 
 
     render() {
+
+        console.log(this.state.grid)
 
         let collectionList = this.state.collectionList;
         let collectionOptions = [];
@@ -223,60 +249,58 @@ class App extends React.Component {
             });
         }
 
-        if (this.state.grid === "") {
-            return (
-                <div>
-                    <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
-                </div>
+        // Don't show unused metadata entries datasheet if there are none
+        let unusedMetadataDataSheet;
+        if (this.state.unusedMetadataEntries !== "") {
+            unusedMetadataDataSheet = (
+                <ReactDataSheet
+                    data={[this.state.unusedMetadataEntries]}
+                    valueRenderer={(cell) => cell.value}
+                />
             )
         } else {
-            return (
-                <div>
+            unusedMetadataDataSheet = null
+        }
+
+
+        return (
+            <div>
                     <span>
                         <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
                     </span>
-                    <form onSubmit={this.handleSubmit}>
-                        <select name='collection_uuid' onChange={this.handleUuidChange}>
-                            {collectionOptions}
-                        </select>
-                        <input type="submit" value="Submit"/>
-                    </form>
-                    <div>
-                        <ReactDataSheet
-                            data={[this.state.unusedMetadataEntries]}
-                            valueRenderer={(cell) => cell.value}
-                        />
-                        <br/>
-                    </div>
-                    <ReactDataSheet
-                        data={this.state.grid}
-                        valueRenderer={(cell) => cell.value}
-                        onCellsChanged={changes => {
-                            // Duplicate the grid, and then apply each change to the new grid
-                            const grid = this.state.grid.map(row => [...row]);
-                            changes.forEach(({cell, row, col, value}) => {
-                                grid[row][col] = {...grid[row][col], value}
-                            });
+                <form onSubmit={this.handleSubmit}>
+                    <select name='collection_uuid' onChange={this.handleUuidChange}>
+                        {collectionOptions}
+                    </select>
+                    <input type="submit" value="Submit"/>
+                </form>
+                <div>{unusedMetadataDataSheet}</div>
+                <ReactDataSheet
+                    data={this.state.grid}
+                    valueRenderer={(cell) => cell.value}
+                    onCellsChanged={changes => {
+                        // Duplicate the grid, and then apply each change to the new grid
+                        let grid = this.state.grid.map(row => [...row]);
+                        changes.forEach(({cell, row, col, value}) => {
+                            grid[row][col] = {...grid[row][col], value}
+                        });
 
-                            // Add a new row to the bottom of the array if the current last one has data in it
+                        // Add a new row to the bottom of the array if the current last one has data in it
+                        if (this.isLastGridRowEmpty(grid)) {
+                            grid = this.addEmptyRowToGrid(grid)
+                        }
 
-                            if (this.isLastGridRowEmpty()) {    //
-                                grid.push(Array(grid[0].length).fill(""))   // Generate an row with the same
-                                // length as the header filled with empty strings
-                            }
-
-                            this.setState({
-                                grid: grid,
-                                unusedMetadataEntries: this.updateUnusedMetadataEntries(grid[0])
-                            })
-                        }}
-                    />
-                    {/* This is a debug hook for now*/}
-                    <button onClick={this.generateGridJson}>Print current data</button>
-                    <TreeModal setSelection={this.setSelection}/>
-                </div>
-            )
-        }
+                        this.setState({
+                            grid: grid,
+                            unusedMetadataEntries: this.updateUnusedMetadataEntries(grid[0])
+                        })
+                    }}
+                />
+                {/* This is a debug hook for now*/}
+                <button onClick={this.generateGridJson}>Print current data</button>
+                <TreeModal setSelection={this.setSelection}/>
+            </div>
+        )
     }
 }
 
