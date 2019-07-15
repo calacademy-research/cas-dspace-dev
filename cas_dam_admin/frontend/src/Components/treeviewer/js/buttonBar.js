@@ -5,6 +5,7 @@ import {UploadButton} from "./uploadButton.js";
 import {ExitButton} from "./exitButton";
 import '../css/tableStyle.css';
 import Logger from '../../../logger.js'
+import '../css/ExitButton.css';
 
 /*
 This Button Bar Component allows a central place
@@ -115,7 +116,7 @@ class ButtonBar extends React.Component {
                         </th>
 
                         <th>
-                            <div style={{right: '10px', position: 'absolute', top: '10px' }}>
+                            <div className="ExitButton-container">
                                 <ExitButton closeModal={this.props.closeModal}/>
                             </div>
                         </th>
