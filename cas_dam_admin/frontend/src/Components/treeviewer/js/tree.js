@@ -34,15 +34,19 @@ const TreeExample = (props) => {
             cursor.active = false;
         }
 
-        node.active = true;
+        //node.active = true;
 
         if (node.children) {
             node.toggled = toggled;
+            setCursor(node);
+            cursor = node;
+            node.active = true;
+            setData(Object.assign({}, data));
         }
 
-        setCursor(node);
-        cursor = node;
-        setData(Object.assign({}, data));
+        // setCursor(node);
+        // cursor = node;
+        // setData(Object.assign({}, data));
 
         /*
         Uses a callback function to pass information

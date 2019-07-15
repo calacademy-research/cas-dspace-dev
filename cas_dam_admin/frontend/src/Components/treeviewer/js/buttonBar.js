@@ -3,6 +3,7 @@ import {TreeExample} from './tree.js';
 import {ModeSwitch} from "./modeSwitch.js";
 import {UploadButton} from "./uploadButton.js";
 import '../css/tableStyle.css';
+import Logger from '../../../logger.js'
 
 /*
 This Button Bar Component allows a central place
@@ -41,6 +42,7 @@ class ButtonBar extends React.Component {
     updateUpload(newState) {
         let type;
         let path_or_id;
+        console.log(newState.cursor);
         /*
         The file has to be checked for gcloud vs local so that it knows
         which api to use and what information it has to send it. For the
@@ -54,15 +56,21 @@ class ButtonBar extends React.Component {
         } else {
             type = 'local';
             path_or_id = newState.cursor.filepath
+            console.log(path_or_id);
         }
 
-        this.setState({
+        if(newState.cursor.is_folder){
+            this.setState({
             upload: {
                 uploadType: type,
                 upload: path_or_id,
                 uploadName: newState.name,
             }
         });
+
+        } else {
+            Logger.info("File Was Selected");
+        }
     }
 
     switchState(newState) {
