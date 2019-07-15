@@ -80,12 +80,9 @@ const TreeExample = (props) => {
     data = datum;
 
     if (cursor !== null && cursor.is_folder) {
-
         const APIResponse = childrenSearchFunc(cursor);
+        cursor.children = APIResponse.children
 
-        if (APIResponse.updated) {
-            cursor.children = APIResponse.children
-        }
     }
     /*
     Tree object and Display Box are fragmented together to

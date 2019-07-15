@@ -103,7 +103,10 @@ def google_get_children(request):
     file_name = request.data['name']
     file_is_folder = request.data['is_folder']
 
-    # TODO: Harrison add comment to explain why
+    # if the length of children is greater than 0, this file must have already been used
+    # in an api request so it already has all the children.
+    # There is no other way to populate the children variable other than to make
+    # an api request to this endpoint.
     try:
         if len(request.data['children']) > 0:
             return JsonResponse(request.data)
@@ -116,21 +119,22 @@ def google_get_children(request):
         'toggled': False,
         'active': True,
         'name': file_name,
-        # TODO: Harrison - this might be dead
-        'updated': False,
     }
     # This line now checks if it has been previously determined a folder before making any google api calls.
     if file_is_folder or google.is_folder(google.get_metadata(file_id)):
         children = google.children_search(file_id)
         responseData['is_folder'] = True
         responseData['children'] = filterGChildrenResponse(children)
-        responseData['updated'] = True
 
     return JsonResponse(responseData)
 
-# TODO: Harrison write comment to explain that this filters out
-#  Unnecessary metadata
 def filterGChildrenResponse(children):
+    """ When a gcloud file is requested, there is an excess of metadata on the file that is unneeded.
+    This function filters all that information out by creating a new dictionary with only the needed information
+
+    :param children: list of gcloud file objects
+    :return: list of filtered gcloud file objects
+    """
     filteredChildren = []
 
     for child in children:
@@ -150,34 +154,35 @@ def filterGChildrenResponse(children):
 
     return filteredChildren
 
+# TESTING PURPOSES
 
-def upload_via_gcloud(file_id, metadata, collection_uuid, dspace_controller):
-    # file_id = request.data['id']
-    google_metadata = google.get_metadata(file_id)
-
-    # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
-    # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
-
-    upload_status = google.upload_to_dspace(dspace_controller, google_metadata, metadata, collection_uuid)
-
-    return upload_status
-
-    # return JsonResponse(upload_status)
-
-
-def upload_via_local(file_name, file_path, metadata, collection_uuid, dspace_controller):
-    # file_name = request.data['name']
-    # file_path = request.data['path']
-    #
-    # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
-    # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
-
-    item_uuid, response = google.dspace.register_new_item_from_json(metadata, collection_uuid)
-
-    bitstream_response = google.dspace.add_bitstream_to_item(file_path, file_name, item_uuid)
-
-    return bitstream_response
-    # return JsonResponse(bitstream_response)
+# def upload_via_gcloud(file_id, metadata, collection_uuid, dspace_controller):
+#     # file_id = request.data['id']
+#     google_metadata = google.get_metadata(file_id)
+#
+#     # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
+#     # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
+#
+#     upload_status = google.upload_to_dspace(dspace_controller, google_metadata, metadata, collection_uuid)
+#
+#     return upload_status
+#
+#     # return JsonResponse(upload_status)
+#
+#
+# def upload_via_local(file_name, file_path, metadata, collection_uuid, dspace_controller):
+#     # file_name = request.data['name']
+#     # file_path = request.data['path']
+#     #
+#     # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
+#     # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
+#
+#     item_uuid, response = google.dspace.register_new_item_from_json(metadata, collection_uuid)
+#
+#     bitstream_response = google.dspace.add_bitstream_to_item(file_path, file_name, item_uuid)
+#
+#     return bitstream_response
+#     # return JsonResponse(bitstream_response)
 
 
 @api_view(['POST'])
@@ -197,8 +202,6 @@ def local_get_children(request):
         'toggled': False,
         'active': True,
         'name': file_name,
-        # TODO: Harrisoon remove updated
-        'updated': False,
         'filepath': filepath,
     }
 
@@ -220,7 +223,5 @@ def local_get_children(request):
             if childObject['is_folder']:
                 childObject['children'] = []
             responseData['children'].append(childObject)
-
-        responseData['updated'] = True
 
     return JsonResponse(responseData)
