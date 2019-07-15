@@ -6,7 +6,7 @@ moved to a README at a later point.
 
 import React from 'react';
 import '../css/uploadButtonStyle.css';
-import Logger from './logger.js';
+import Logger from '../../../logger.js';
 class UploadButton extends React.Component {
 
     handleBtnClick = () => {

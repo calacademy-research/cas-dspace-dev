@@ -1,3 +1,5 @@
+## Setup
+
 To set up dSpace so that you can access it, create a new admin:
 SSH into the docker container: `docker exec -it dspace /bin/bash`
  
@@ -10,6 +12,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 To get started, install and then build app:
 
 ### `npm install`
+
+## Logging
+
+All logging is done using `winston`, a javascript logging library. 
+The setup for the logger can be found in `src/logger.js`. All information 
+about the logger can be found here: https://github.com/winstonjs/winston.
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -4,13 +4,13 @@ import ReactDataSheet from 'react-datasheet';
 import _ from 'lodash'
 import axios from 'axios'
 import TreeModal from './Components/treeviewer/js/TreeModal.js';
+import Logger from './logger.js';
 
 import {sendJsonAsPost, getCollections} from './api'
 
 import 'react-datasheet/lib/react-datasheet.css';
 
 import './App.css';
-import Logger from "./Components/treeviewer/js/logger";
 
 class App extends React.Component {
     constructor(props) {
@@ -70,7 +70,7 @@ class App extends React.Component {
             sourcePath: newSelection.path,
             folderSource: newSelection.source,
         }, () => {
-            console.log(this.state);
+            Logger.info([this.state.sourcePath, this.state.sourceFile]);
         })
     }
 

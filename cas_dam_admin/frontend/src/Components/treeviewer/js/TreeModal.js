@@ -2,7 +2,7 @@ import { FileViewer } from './fileviewer.js';
 import React from 'react';
 import Modal from 'react-modal';
 import '../css/modalStyle.scss';
-import Logger from "./logger";
+import Logger from "../../../logger";
 
 /*
 Eventually this should be moved to a CSS doc but right now
