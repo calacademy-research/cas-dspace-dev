@@ -8,6 +8,6 @@ This is the file that is kicked off and renders
 everything to the screen.
  */
 
-const rootElement = document.getElementById("root");
-
-ReactDOM.render(<TreeModal />, rootElement);
+// const rootElement = document.getElementById("root");
+//
+// ReactDOM.render(<TreeModal />, rootElement);

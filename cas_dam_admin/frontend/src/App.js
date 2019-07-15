@@ -3,6 +3,7 @@ import Papa from 'papaparse';
 import ReactDataSheet from 'react-datasheet';
 import _ from 'lodash'
 import axios from 'axios'
+import TreeModal from './Components/treeviewer/js/TreeModal.js';
 
 import {sendJsonAsPost, getCollections} from './api'
 
@@ -114,7 +115,7 @@ class App extends React.Component {
     }
 
     handleSubmit(event) {
-        this.sendJson()
+        this.sendJson();
         event.preventDefault();
     }
 
@@ -141,7 +142,7 @@ class App extends React.Component {
             'folderSource': this.state.folderSource,
             'sourcePath': this.state.sourcePath
 
-        }
+        };
 
         jsonData.unshift(dspaceConfig);
         console.log(jsonData);
@@ -165,6 +166,7 @@ class App extends React.Component {
         if (this.state.grid === "") {
             return (
                 <div>
+                     <TreeModal />
                     <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
                 </div>
             )

@@ -30,7 +30,7 @@ function APIcall(url, data) {
     Abstraction that allows code to not be repeated in both the local and gcloud api call functions: General API call
     */
     var request = new XMLHttpRequest();
-    request.open("POST", url, false);
+    request.open("POST", "http://localhost:8000"+url, false);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send(JSON.stringify(data));
 

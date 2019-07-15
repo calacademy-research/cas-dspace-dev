@@ -79,7 +79,7 @@ const TreeExample = (props) => {
 
     data = datum;
 
-    if (cursor !== null && cursor.is_folder) {
+    if (cursor !== null && cursor !== undefined && cursor.is_folder) {
         const APIResponse = childrenSearchFunc(cursor);
         cursor.children = APIResponse.children
 
