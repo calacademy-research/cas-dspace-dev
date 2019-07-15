@@ -2,6 +2,7 @@ import React, {Fragment} from "react";
 import {TreeExample} from './tree.js';
 import {ModeSwitch} from "./modeSwitch.js";
 import {UploadButton} from "./uploadButton.js";
+import {ExitButton} from "./exitButton";
 import '../css/tableStyle.css';
 import Logger from '../../../logger.js'
 
@@ -42,7 +43,6 @@ class ButtonBar extends React.Component {
     updateUpload(newState) {
         let type;
         let path_or_id;
-        console.log(newState.cursor);
         /*
         The file has to be checked for gcloud vs local so that it knows
         which api to use and what information it has to send it. For the
@@ -111,6 +111,12 @@ class ButtonBar extends React.Component {
                         <th>
                             <div className="label">
                                 <h1> Google Drive </h1>
+                            </div>
+                        </th>
+
+                        <th>
+                            <div style={{right: '10px', position: 'absolute', top: '10px' }}>
+                                <ExitButton closeModal={this.props.closeModal}/>
                             </div>
                         </th>
 
