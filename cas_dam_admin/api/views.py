@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 
 import os
-import json
+import logging
 
 from cas_dam_admin import settings
 
@@ -23,9 +23,10 @@ if settings.GOOGLE_DRIVE_ONLY:
 @api_view(['POST'])
 def upload_json(request):
     json_body = request.data
-    if not json_body:  # If client sends empty array
-        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
+    if not json_body:  # If client sends empty array, respond with 204
+        return HttpResponse("Error: empty array received", status=status.HTTP_204_NO_CONTENT)
 
+    # Establish dspace controller
     dspace_controller = Dspace('http://localhost:8080/rest')
     dspace_controller.login('test@test.edu', 'test')
 
@@ -36,31 +37,34 @@ def upload_json(request):
     header_seen = False
 
     # Iterate through json body, set collection UUID if it is found. If it is not found, return 400 bad request
+    # Searches for the property collectionUuid: it is unique to the header, so it identifies the header compared to the
+    # rest of the uploaded items
     # TODO: Dash - make this not suck.
     for entry in json_body:
         if not header_seen:  # While the header item has not been seen, search for it in each item.
             # Once it has, don't bother
-            if 'uploadHeader' in entry:
+            if 'collectionUuid' in entry:
                 header_seen = True
                 for key, value in entry.items():  # Iterate through header properties, add them to upload_header
-                    if key == 'uploadHeader':
-                        continue
-                    # Fields are: collectionUuid, folderSource, sourcePath, uploadHeader
+                    # Fields are: collectionUuid, folderSource, sourcePath
                     upload_header[key] = value
             continue
 
         # Header won't be added to new items, so add all other entries to new_items
         new_items.append(entry)
 
-    if not ('collectionUuid' in upload_header and 'folderSource' in upload_header):
-        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+    # Verify all the headers are present, return 400 if one or more is missing
+    if not all(item in upload_header for item in ['collectionUuid', 'folderSource', 'sourcePath']):
+        return HttpResponse("Error: one or more dSpace configuration properties is missing.",
+                            status=status.HTTP_400_BAD_REQUEST)
 
     item_responses = []
     for item in new_items:
         response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
                                                                                      upload_header['collectionUuid'])
         item_responses.append((item, response_uuid, response_data))
-    print(json_body)
+
+    logging.info(json_body)
 
     for item, response_uuid, response_data in item_responses:
         if upload_header['folderSource'] == 'gdrive':
@@ -106,7 +110,10 @@ def google_get_children(request):
     file_name = request.data['name']
     file_is_folder = request.data['is_folder']
 
-    # TODO: Harrison add comment to explain why
+    # if the length of children is greater than 0, this file must have already been used
+    # in an api request so it already has all the children.
+    # There is no other way to populate the children variable other than to make
+    # an api request to this endpoint.
     try:
         if len(request.data['children']) > 0:
             return JsonResponse(request.data)
@@ -119,21 +126,25 @@ def google_get_children(request):
         'toggled': False,
         'active': True,
         'name': file_name,
-        # TODO: Harrison - this might be dead
-        'updated': False,
     }
     # This line now checks if it has been previously determined a folder before making any google api calls.
     if file_is_folder or google.is_folder(google.get_metadata(file_id)):
         children = google.children_search(file_id)
         responseData['is_folder'] = True
         responseData['children'] = filterGChildrenResponse(children)
-        responseData['updated'] = True
 
     return JsonResponse(responseData)
+
 
 # TODO: Harrison write comment to explain that this filters out
 #  Unnecessary metadata
 def filterGChildrenResponse(children):
+    """ When a gcloud file is requested, there is an excess of metadata on the file that is unneeded.
+    This function filters all that information out by creating a new dictionary with only the needed information
+
+    :param children: list of gcloud file objects
+    :return: list of filtered gcloud file objects
+    """
     filteredChildren = []
 
     for child in children:
@@ -153,34 +164,35 @@ def filterGChildrenResponse(children):
 
     return filteredChildren
 
+# TESTING PURPOSES
 
-def upload_via_gcloud(file_id, metadata, collection_uuid, dspace_controller):
-    # file_id = request.data['id']
-    google_metadata = google.get_metadata(file_id)
-
-    # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
-    # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
-
-    upload_status = google.upload_to_dspace(dspace_controller, google_metadata, metadata, collection_uuid)
-
-    return upload_status
-
-    # return JsonResponse(upload_status)
-
-
-def upload_via_local(file_name, file_path, metadata, collection_uuid, dspace_controller):
-    # file_name = request.data['name']
-    # file_path = request.data['path']
-    #
-    # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
-    # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
-
-    item_uuid, response = google.dspace.register_new_item_from_json(metadata, collection_uuid)
-
-    bitstream_response = google.dspace.add_bitstream_to_item(file_path, file_name, item_uuid)
-
-    return bitstream_response
-    # return JsonResponse(bitstream_response)
+# def upload_via_gcloud(file_id, metadata, collection_uuid, dspace_controller):
+#     # file_id = request.data['id']
+#     google_metadata = google.get_metadata(file_id)
+#
+#     # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
+#     # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
+#
+#     upload_status = google.upload_to_dspace(dspace_controller, google_metadata, metadata, collection_uuid)
+#
+#     return upload_status
+#
+#     # return JsonResponse(upload_status)
+#
+#
+# def upload_via_local(file_name, file_path, metadata, collection_uuid, dspace_controller):
+#     # file_name = request.data['name']
+#     # file_path = request.data['path']
+#     #
+#     # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
+#     # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
+#
+#     item_uuid, response = google.dspace.register_new_item_from_json(metadata, collection_uuid)
+#
+#     bitstream_response = google.dspace.add_bitstream_to_item(file_path, file_name, item_uuid)
+#
+#     return bitstream_response
+#     # return JsonResponse(bitstream_response)
 
 
 @api_view(['POST'])
@@ -200,8 +212,6 @@ def local_get_children(request):
         'toggled': False,
         'active': True,
         'name': file_name,
-        # TODO: Harrisoon remove updated
-        'updated': False,
         'filepath': filepath,
     }
 
@@ -223,7 +233,5 @@ def local_get_children(request):
             if childObject['is_folder']:
                 childObject['children'] = []
             responseData['children'].append(childObject)
-
-        responseData['updated'] = True
 
     return JsonResponse(responseData)

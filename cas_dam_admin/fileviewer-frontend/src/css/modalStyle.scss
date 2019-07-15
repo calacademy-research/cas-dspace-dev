@@ -1,0 +1,14 @@
+.modal {
+    .content {
+        top: 5%;
+        left: 5%;
+        right: 5%;
+        bottom: 5%;
+        background-color: #21252B;
+    }
+}
+
+/*
+This bit cannot be imported, doesnt throw error,
+but doesn't hold any effect on the modal.
+ */

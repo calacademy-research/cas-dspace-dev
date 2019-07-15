@@ -138,7 +138,6 @@ class App extends React.Component {
 
         let dspaceConfig = {
             'collectionUuid': this.state.collectionUuid,
-            'uploadHeader': true,
             'folderSource': this.state.folderSource,
             'sourcePath': this.state.sourcePath
 

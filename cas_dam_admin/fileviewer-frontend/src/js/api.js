@@ -25,19 +25,6 @@ function API_local_children(file = localRootFile) {
     )
 }
 
-function API_gcloud_upload(uploadData) {
-    return APIcall('/api/google/upload/', {
-        id: uploadData.upload,
-    })
-}
-
-function API_local_upload(uploadData) {
-    return APIcall('/api/local/upload/', {
-        path: uploadData.upload,
-        name: uploadData.uploadName,
-    })
-}
-
 function APIcall(url, data) {
     /*
     Abstraction that allows code to not be repeated in both the local and gcloud api call functions: General API call
@@ -56,4 +43,4 @@ function APIcall(url, data) {
 
 }
 
-export {API_gcloud_children, API_local_children, API_local_upload, API_gcloud_upload};
+export {API_gcloud_children, API_local_children};

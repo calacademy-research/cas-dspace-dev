@@ -1,37 +1,22 @@
-import {Header} from './header.js'
-import {ButtonBar} from './buttonBar.js'
-import React, {Fragment} from 'react'
+import { FileViewer } from './fileviewer.js';
+import React from 'react';
 import Modal from 'react-modal';
+import '../css/modalStyle.scss';
+import Logger from "./logger";
 
 /*
-This wraps all of the existing components in an app
-that can be served to the render to DOM. The React Fragment
-method is the preferred method of wrapping components rather
-than simply a div.
+Eventually this should be moved to a CSS doc but right now
+that move is not working as expected. Eventually the styling
+should be housed in modalStyle.scss
  */
 
-class FileViewer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <Fragment>
-                <ButtonBar closeModal={this.props.closeModal} setSelection={this.props.setSelection}/>
-            </Fragment>
-        )
-    }
-}
-
-// TODO: Let's move this to a .css file.
-const customStyles = {
+const modalStyle = {
     content: {
         top: '5%',
         left: '5%',
         right: '5%',
         bottom: '5%',
-        backgroundColor: "#21252B",
+        backgroundColor: '#21252B',
     }
 };
 
@@ -41,10 +26,7 @@ it is the modal that contains the treeviewer component.
 
 The setSelection and closeModal are passed down as props from
 TreeModal --> ButtonBar --> UploadButton and used as callback functions.
-
-
  */
-
 
 class TreeModal extends React.Component {
     constructor(props) {
@@ -68,7 +50,7 @@ class TreeModal extends React.Component {
         this.setState({
             selection: newSelection,
         }, () => {
-            console.log(this.state)
+            Logger.info(this.state);
         })
     }
 
@@ -95,7 +77,9 @@ class TreeModal extends React.Component {
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
-                    style={customStyles}>
+                    //className="modal"
+                    style={modalStyle}
+                    >
                     <FileViewer closeModal={this.closeModal} setSelection={this.setSelection}/>
                 </Modal>
             </div>

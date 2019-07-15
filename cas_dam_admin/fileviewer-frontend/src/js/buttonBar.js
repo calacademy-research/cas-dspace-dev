@@ -2,25 +2,7 @@ import React, {Fragment} from "react";
 import {TreeExample} from './tree.js';
 import {ModeSwitch} from "./modeSwitch.js";
 import {UploadButton} from "./uploadButton.js";
-
-/*
-Most style-in-line javascript is moved to other files to avoid
-clutter however these two remain for now. Eventually they should
-be moved to the constants.js file.
- */
-
-// TODO: Move to css files
-const labelStyle = {
-    color: "#E2C089",
-    textAlign: "center",
-    fontSize: "8px",
-    fontFamily: "Avenir",
-};
-
-const tableStyle = {
-    marginLeft: "5%",
-    // minWidth: "10%",
-};
+import '../css/tableStyle.css';
 
 /*
 This Button Bar Component allows a central place
@@ -95,7 +77,7 @@ class ButtonBar extends React.Component {
         // of use. However, the styling and spacing is lazy and inconsistent.
         return (
             <Fragment>
-                <table style={tableStyle}>
+                <table className="table">
                     <tbody>
                     <tr>
 
@@ -105,17 +87,21 @@ class ButtonBar extends React.Component {
                         </th>
 
                         <th>
-                            <div style={labelStyle}>
+                            <div style={{paddingLeft: "50px"}}/>
+                        </th>
+
+                        <th>
+                            <div className="label">
                                 <h1> Local Drive </h1>
                             </div>
                         </th>
 
-                        <th width="100px">
+                        <th>
                             <ModeSwitch isChecked={this.state.gcloud} switchState={this.switchState}/>
                         </th>
 
                         <th>
-                            <div style={labelStyle}>
+                            <div className="label">
                                 <h1> Google Drive </h1>
                             </div>
                         </th>

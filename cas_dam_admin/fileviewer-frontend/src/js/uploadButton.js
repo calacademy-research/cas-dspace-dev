@@ -5,17 +5,11 @@ moved to a README at a later point.
 */
 
 import React from 'react';
-import './uploadButtonStyle.css';
-import {API_local_upload, API_gcloud_upload} from "./api.js";
-
+import '../css/uploadButtonStyle.css';
+import Logger from './logger.js';
 class UploadButton extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     handleBtnClick = () => {
-        // TODO: For harrison, look at javascript/react loggging packages
-        // console.log(this.props.upload);
         let path, source;
 
         if (this.props.upload.uploadType === 'gcloud') {
@@ -33,6 +27,7 @@ class UploadButton extends React.Component {
 
         this.props.setSelection(selection);
         this.props.closeModal();
+        Logger.info("Modal Closed");
     };
 
     render() {
