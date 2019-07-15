@@ -10,6 +10,7 @@ import {sendJsonAsPost, getCollections} from './api'
 import 'react-datasheet/lib/react-datasheet.css';
 
 import './App.css';
+import Logger from "./Components/treeviewer/js/logger";
 
 class App extends React.Component {
     constructor(props) {
@@ -19,6 +20,7 @@ class App extends React.Component {
         this.sendJson = this.sendJson.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.setSelection = this.setSelection.bind(this);
         this.state = {
             isLoggedIn: false,
             grid: "",
@@ -58,6 +60,16 @@ class App extends React.Component {
             {value: 'dc.rights (statement)', label: 'dc.rights (statement)', readOnly: true},
             {value: 'dc.rights (status)', label: 'dc.rights (status)', readOnly: true},
             {value: 'ibss-library.publish', label: 'ibss-library.publish', readOnly: true}]
+    }
+
+    setSelection(newSelection) {
+        // This is a callback function given to a lower component to change the state of this component
+        this.setState({
+            sourcePath: newSelection.path,
+            folderSource: newSelection.source,
+        }, () => {
+            console.log(this.state);
+        })
     }
 
     componentDidMount() {
@@ -145,7 +157,6 @@ class App extends React.Component {
         };
 
         jsonData.unshift(dspaceConfig);
-        console.log(jsonData);
         return sendJsonAsPost('http://localhost:8000/api/upload_json', jsonData)
     }
 
@@ -166,7 +177,6 @@ class App extends React.Component {
         if (this.state.grid === "") {
             return (
                 <div>
-                     <TreeModal />
                     <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
                 </div>
             )
@@ -204,6 +214,7 @@ class App extends React.Component {
                         }}
                     />
                     <button onClick={this.sendJson}>Print current data</button>
+                    <TreeModal setSelection={this.setSelection}/>
                 </div>
             )
         }

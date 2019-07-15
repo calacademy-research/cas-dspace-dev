@@ -40,18 +40,6 @@ class TreeModal extends React.Component {
         this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-
-        //TODO: Move SetSelection to root Parent once fileviewer is attached to csv uploader.
-        this.setSelection = this.setSelection.bind(this);
-    }
-
-    setSelection(newSelection) {
-        // This is a callback function given to a lower component to change the state of this component
-        this.setState({
-            selection: newSelection,
-        }, () => {
-            Logger.info(this.state);
-        })
     }
 
     openModal() {
@@ -80,7 +68,7 @@ class TreeModal extends React.Component {
                     //className="modal"
                     style={modalStyle}
                     >
-                    <FileViewer closeModal={this.closeModal} setSelection={this.setSelection}/>
+                    <FileViewer closeModal={this.closeModal} setSelection={this.props.setSelection}/>
                 </Modal>
             </div>
         );
