@@ -17,7 +17,7 @@ class App extends React.Component {
         super(props);
         this.handleFileChosen = this.handleFileChosen.bind(this);
         this.handleLogCurrentData = this.handleLogCurrentData.bind(this);
-        this.sendJson = this.sendJson.bind(this);
+        this.generateGridJson = this.generateGridJson.bind(this);
         this.handleUuidChange = this.handleUuidChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setSelection = this.setSelection.bind(this);
@@ -112,7 +112,7 @@ class App extends React.Component {
         /**
          * Reads a file and parses it, then sets the grid state to the parsed file and updates unused metadata fields
          *
-         * @param {blob} file The blob to be read
+         * @param {blob} file The file to be read
          */
 
         let reader = new FileReader();
@@ -142,12 +142,6 @@ class App extends React.Component {
         console.log(this.state.grid);
     }
 
-    handleSubmit(event) {
-        // TODO give feedback that the submission went through
-        // Right now, the promise returned from sendJson is ignored, we should use the promise to give feedback
-        this.sendJson();
-        event.preventDefault();
-    }
 
     handleUuidChange(event) {
         /**
@@ -156,8 +150,18 @@ class App extends React.Component {
         this.setState({collectionUuid: event.target.value});
     }
 
-    sendJson() {
-        // Convert cell structure to proper JSON
+    handleSubmit(event) {
+        event.preventDefault();
+
+        // TODO give feedback that the submission went through
+        // Right now, the promise returned from sendJson is ignored, we should use the promise to give feedback
+        let gridJson = this.generateGridJson();
+        return sendJsonAsPost('http://localhost:8000/api/upload_json', gridJson)
+
+    }
+
+    generateGridJson() {
+         // Convert cell structure to proper JSON
         let grid = this.state.grid;
         let jsonData = [];
         let headerRow = grid.shift();   // Remove header row, as we will be applying it to each of the subsequent rows
@@ -185,8 +189,9 @@ class App extends React.Component {
 
         // Insert the config at the beginning of the array to be sent to the server
         jsonData.unshift(dspaceConfig);
-        return sendJsonAsPost('http://localhost:8000/api/upload_json', jsonData)
+        return jsonData
     }
+
 
     isLastGridRowEmpty() {
         let lastRow = this.state.grid[this.state.grid.length - 1];
@@ -196,7 +201,6 @@ class App extends React.Component {
         }
         return false
     }
-
 
 
     render() {
@@ -261,7 +265,8 @@ class App extends React.Component {
                             })
                         }}
                     />
-                    <button onClick={this.sendJson}>Print current data</button>
+                    {/* This is a debug hook for now*/}
+                    <button onClick={this.generateGridJson}>Print current data</button>
                     <TreeModal setSelection={this.setSelection}/>
                 </div>
             )
