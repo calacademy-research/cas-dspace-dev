@@ -10,8 +10,6 @@ the format of their trees is different and the function to expand
 the tree is also different.
  */
 
-const gcloudDatum = API_gcloud_children();
-const localDatum = API_local_children();
 let childrenSearchFunc;
 let datum;
 
@@ -63,14 +61,13 @@ const TreeExample = (props) => {
 
     if (props.gcloud !== gcloudState) {
         if (props.gcloud) {
-            datum = gcloudDatum;
             childrenSearchFunc = API_gcloud_children;
 
         } else {
-            datum = localDatum;
             childrenSearchFunc = API_local_children;
         }
 
+        datum = childrenSearchFunc()
         cursor = datum;
         setCursor(datum);
         gcloudState = props.gcloud;
