@@ -19,6 +19,7 @@ if settings.GOOGLE_DRIVE_ONLY:
     google = Gcloud('gcloud_interface/gcloudAuth/')
 
 
+# TODO: Dash - comment that this is the post to dspace via the api
 @api_view(['POST'])
 def upload_json(request):
     json_body = request.data

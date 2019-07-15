@@ -1,4 +1,4 @@
-curl -k -4 --silent  --cookie "JSESSIONID=92CF8DB302C9F4E95AE9B17458AC3AB1" --url "localhost:8080/rest/collections/32a898bb-a2e3-46c0-8862-a7e4802791ba/items"  -H "accept: application/json" -H "Content-Type: application/json" -d '
+curl -k -4 --silent  --cookie "JSESSIONID=D13E9C2BEBD32290956070A502768AE3" --url "localhost:8080/rest/collections/0fd17cb9-d5d9-4cce-8e2b-2bfa5256ea62/items"  -H "accept: application/json" -H "Content-Type: application/json" -d '
 {"metadata":[
     {
       "key": "dc.contributor.author",
