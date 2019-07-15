@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 
 import os
-import json
+import logging
 
 from cas_dam_admin import settings
 
@@ -22,9 +22,10 @@ if settings.GOOGLE_DRIVE_ONLY:
 @api_view(['POST'])
 def upload_json(request):
     json_body = request.data
-    if not json_body:  # If client sends empty array
-        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
+    if not json_body:  # If client sends empty array, respond with 204
+        return HttpResponse("Error: empty array received", status=status.HTTP_204_NO_CONTENT)
 
+    # Establish dspace controller
     dspace_controller = Dspace('http://localhost:8080/rest')
     dspace_controller.login('test@test.edu', 'test')
 
@@ -35,6 +36,8 @@ def upload_json(request):
     header_seen = False
 
     # Iterate through json body, set collection UUID if it is found. If it is not found, return 400 bad request
+    # Searches for the property collectionUuid: it is unique to the header, so it identifies the header compared to the
+    # rest of the uploaded items
     # TODO: Dash - make this not suck.
     for entry in json_body:
         if not header_seen:  # While the header item has not been seen, search for it in each item.
@@ -49,15 +52,18 @@ def upload_json(request):
         # Header won't be added to new items, so add all other entries to new_items
         new_items.append(entry)
 
-    if not ('collectionUuid' in upload_header and 'folderSource' in upload_header):
-        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+    # Verify all the headers are present, return 400 if one or more is missing
+    if not all(item in upload_header for item in ['collectionUuid', 'folderSource', 'sourcePath']):
+        return HttpResponse("Error: one or more dSpace configuration properties is missing.",
+                            status=status.HTTP_400_BAD_REQUEST)
 
     item_responses = []
     for item in new_items:
         response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
                                                                                      upload_header['collectionUuid'])
         item_responses.append((item, response_uuid, response_data))
-    print(json_body)
+
+    logging.info(json_body)
 
     for item, response_uuid, response_data in item_responses:
         if upload_header['folderSource'] == 'gdrive':
@@ -128,6 +134,9 @@ def google_get_children(request):
 
     return JsonResponse(responseData)
 
+
+# TODO: Harrison write comment to explain that this filters out
+#  Unnecessary metadata
 def filterGChildrenResponse(children):
     """ When a gcloud file is requested, there is an excess of metadata on the file that is unneeded.
     This function filters all that information out by creating a new dictionary with only the needed information

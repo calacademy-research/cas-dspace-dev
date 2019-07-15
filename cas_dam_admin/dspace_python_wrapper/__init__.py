@@ -83,6 +83,7 @@ class Dspace:
                                           headers={"Accept": "application/json"},
                                           json=json_metadata)
 
+        # TODO catch 401, 404, 405, 415, 500 errors
         new_item_response_text = new_item_response.json()
         return new_item_response_text['uuid'], new_item_response_text
 
@@ -106,6 +107,7 @@ class Dspace:
                                            data=files['file'],
                                            params={'name': filename})
 
+        # TODO catch 401, 404, 405, 415, 500 errors
         return bitstream_response.json()
 
     def create_new_collection_from_json(self, community_uuid, json_data):
