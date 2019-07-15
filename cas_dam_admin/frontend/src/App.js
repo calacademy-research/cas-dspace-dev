@@ -17,8 +17,8 @@ class App extends React.Component {
         super(props);
         this.handleFileChosen = this.handleFileChosen.bind(this);
         this.handleLogCurrentData = this.handleLogCurrentData.bind(this);
-        this.sendJson = this.sendJson.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.generateGridJson = this.generateGridJson.bind(this);
+        this.handleUuidChange = this.handleUuidChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setSelection = this.setSelection.bind(this);
         this.state = {
@@ -98,9 +98,10 @@ class App extends React.Component {
     }
 
     updateUnusedMetadataEntries(headerRow) {
-        /**Returns list of items that exist in metadataEntries but not in the header row of the grid
+        /**
+         * Returns list of items that exist in metadataEntries but not in the header row of the grid
          *
-         * @type {Array}
+         * @returns {Array} unused metadata entries
          */
         return this.metatadataEntries.filter(item => {
             return headerRow.findIndex(x => x.value === item.value) === -1
@@ -108,13 +109,22 @@ class App extends React.Component {
     }
 
     handleFileChosen(file) {
+        /**
+         * Reads a file and parses it, then sets the grid state to the parsed file and updates unused metadata fields
+         *
+         * @param {blob} file The file to be read
+         */
+
         let reader = new FileReader();
+
         reader.onload = (event) => {
-            // The file's text will be printed here
+            // reader.onload is called after readAsText and happens after the FileReader is done reading the file
+
             let content = event.target.result;
             let parsed = Papa.parse(content, {skipEmptyLines: true});
             let rows = parsed.data;
             let newGrid = rows.map((row) => row.map(cell => {
+                // Iterate through grid (represented as array of arrays) and change each cell value to an object
                 return ({value: cell})
             }));
 
@@ -132,20 +142,32 @@ class App extends React.Component {
         console.log(this.state.grid);
     }
 
-    handleSubmit(event) {
-        this.sendJson();
-        event.preventDefault();
-    }
 
-    handleChange(event) {
+    handleUuidChange(event) {
+        /**
+         * Updates the uuid state
+         */
         this.setState({collectionUuid: event.target.value});
     }
 
-    sendJson() {
-        // Convert cell structure to proper JSON
+    handleSubmit(event) {
+        event.preventDefault();
+
+        // TODO give feedback that the submission went through
+        // Right now, the promise returned from sendJson is ignored, we should use the promise to give feedback
+        let gridJson = this.generateGridJson();
+        return sendJsonAsPost('http://localhost:8000/api/upload_json', gridJson)
+
+    }
+
+    generateGridJson() {
+         // Convert cell structure to proper JSON
         let grid = this.state.grid;
         let jsonData = [];
-        let headerRow = grid.shift();
+        let headerRow = grid.shift();   // Remove header row, as we will be applying it to each of the subsequent rows
+
+        // We convert from a grid format where the headers are one row and the data is in rows below it to an array
+        // of objects. In each object, the header for the column is they key, and the cell data is the value.
 
         grid.forEach((row) => {
             let result = {};
@@ -155,6 +177,9 @@ class App extends React.Component {
             jsonData.push(result)
         });
 
+        // dspaceConfig is the header that contains properties that apply to every item in the array.
+        // folderSource defines where the files will come from: gdrive or slevin
+        // sourcePath is the path to the closest common directory shared between all the files.
         let dspaceConfig = {
             'collectionUuid': this.state.collectionUuid,
             'folderSource': this.state.folderSource,
@@ -162,8 +187,19 @@ class App extends React.Component {
 
         };
 
+        // Insert the config at the beginning of the array to be sent to the server
         jsonData.unshift(dspaceConfig);
-        return sendJsonAsPost('http://localhost:8000/api/upload_json', jsonData)
+        return jsonData
+    }
+
+
+    isLastGridRowEmpty() {
+        let lastRow = this.state.grid[this.state.grid.length - 1];
+
+        if (lastRow.some(cell => cell !== "")) {
+            return true
+        }
+        return false
     }
 
 
@@ -173,7 +209,7 @@ class App extends React.Component {
         let collectionOptions = [];
 
         // TODO: Dash give me a comment saying what object this is operating on/creatring
-        
+        // Generates an array of <option> elements that list the available collections that can be selected.
         if (collectionList) {
             Object.keys(collectionList).forEach((key) => {
                 let option = <option key={collectionList[key]} value={collectionList[key]}>{key}</option>
@@ -194,7 +230,7 @@ class App extends React.Component {
                         <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
                     </span>
                     <form onSubmit={this.handleSubmit}>
-                        <select name='collection_uuid' onChange={this.handleChange}>
+                        <select name='collection_uuid' onChange={this.handleUuidChange}>
                             {collectionOptions}
                         </select>
                         <input type="submit" value="Submit"/>
@@ -210,17 +246,27 @@ class App extends React.Component {
                         data={this.state.grid}
                         valueRenderer={(cell) => cell.value}
                         onCellsChanged={changes => {
+                            // Duplicate the grid, and then apply each change to the new grid
                             const grid = this.state.grid.map(row => [...row]);
                             changes.forEach(({cell, row, col, value}) => {
                                 grid[row][col] = {...grid[row][col], value}
                             });
+
+                            // Add a new row to the bottom of the array if the current last one has data in it
+
+                            if (this.isLastGridRowEmpty()) {    //
+                                grid.push(Array(grid[0].length).fill(""))   // Generate an row with the same
+                                // length as the header filled with empty strings
+                            }
+
                             this.setState({
                                 grid: grid,
                                 unusedMetadataEntries: this.updateUnusedMetadataEntries(grid[0])
                             })
                         }}
                     />
-                    <button onClick={this.sendJson}>Print current data</button>
+                    {/* This is a debug hook for now*/}
+                    <button onClick={this.generateGridJson}>Print current data</button>
                     <TreeModal setSelection={this.setSelection}/>
                 </div>
             )
