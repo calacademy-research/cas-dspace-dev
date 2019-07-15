@@ -65,6 +65,10 @@ class App extends React.Component {
     }
 
     setSelection(newSelection) {
+        /**
+         * Callback function to update the source path and folder source given to a lower component
+         * @param {Object.<string, string>} newSelection
+         */
         // This is a callback function given to a lower component to change the state of this component
         this.setState({
             sourcePath: newSelection.path,
@@ -194,12 +198,14 @@ class App extends React.Component {
 
 
     isLastGridRowEmpty() {
+        /**
+         * Sees if the last row in the grid is empty (contains only empty strings)
+         *
+         * @returns {bool} True if the last row is empty, false if there is a non-empty string
+         */
         let lastRow = this.state.grid[this.state.grid.length - 1];
 
-        if (lastRow.some(cell => cell !== "")) {
-            return true
-        }
-        return false
+        return (lastRow.some(cell => cell !== ""))
     }
 
 
