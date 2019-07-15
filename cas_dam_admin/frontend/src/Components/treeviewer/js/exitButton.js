@@ -1,5 +1,9 @@
 import React from 'react';
 
+const tempStyle = {
+
+};
+
 class ExitButton extends React.Component {
     constructor(props){
         super(props);
@@ -8,7 +12,9 @@ class ExitButton extends React.Component {
     render() {
         return (
             <div>
-                <button type="button" onClick={this.props.closeModal}>Exit</button>
+                <button type="button" onClick={this.props.closeModal}>
+                    X
+                </button>
             </div>
         )
     }
