@@ -31,6 +31,8 @@ class App extends React.Component {
             sourcePath: "/",
             folderSource: "slevin"
         };
+        // TODO: Dash - let's pull this into a config file
+        // https://stackoverflow.com/questions/30568796/how-to-store-configuration-file-and-read-it-using-react
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
             {value: 'dc.title', label: 'dc.title', readOnly: true, className: "required-column"},
@@ -72,6 +74,10 @@ class App extends React.Component {
         })
     }
 
+    // TODO: Dash comment this funciton
+    // This funciton populates the list in the magic thingy that dash will tell me what it's actually called
+    // and then selects the (first?) item so we have a sensible default if the user picks nothing.
+    // We should mark this required and display a modal error
     componentDidMount() {
         // Get collections
         getCollections('http://localhost:8000/api/get_collections').then(response => {
@@ -166,7 +172,8 @@ class App extends React.Component {
         let collectionList = this.state.collectionList;
         let collectionOptions = [];
 
-
+        // TODO: Dash give me a comment saying what object this is operating on/creatring
+        
         if (collectionList) {
             Object.keys(collectionList).forEach((key) => {
                 let option = <option key={collectionList[key]} value={collectionList[key]}>{key}</option>
