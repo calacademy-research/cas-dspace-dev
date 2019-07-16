@@ -114,7 +114,7 @@ class App extends React.Component {
         /**
          * Resets the grid state to just the metadata header and an empty row
          */
-        this.setState({grid:this.createEmptyGrid()});
+        this.setState({grid: this.createEmptyGrid()});
     }
 
     // TODO: Dash comment this funciton
@@ -165,7 +165,7 @@ class App extends React.Component {
 
             // Merge header rows while keeping order
             let jointArray = metadataHeaders.concat(headerRow);
-            const combinedHeaderRow = jointArray.filter((item,index) => jointArray.indexOf(item) === index);
+            const combinedHeaderRow = jointArray.filter((item, index) => jointArray.indexOf(item) === index);
 
             let grid = [combinedHeaderRow];
 
@@ -185,7 +185,6 @@ class App extends React.Component {
             combinedHeaderRow.forEach((columnName, columnIndex) => {
                 rows.forEach((row, rowIndex) => {
                     if (row[columnName]) {
-                        console.log(row.columnName);
                         grid[rowIndex + 1][columnIndex] = row[columnName]
                     }
                 })
@@ -275,9 +274,6 @@ class App extends React.Component {
 
         return (lastRow.some(cell => cell.value !== ""))
     }
-
-
-
 
 
     render() {
