@@ -19,6 +19,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-select": "^3.0.4",
+    "react-sidebar": "^3.0.2",
     "react-treebeard": "^3.2.4",
     "winston": "^3.2.1"
   },

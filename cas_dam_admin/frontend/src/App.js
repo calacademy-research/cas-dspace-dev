@@ -3,11 +3,13 @@ import Papa from 'papaparse';
 import ReactDataSheet from 'react-datasheet';
 import TreeModal from './Components/treeviewer/js/TreeModal.js';
 import Logger from './logger.js';
+import Sidebar from 'react-sidebar';
 
 import {sendJsonAsPost, getCollections} from './api'
 
 import 'react-datasheet/lib/react-datasheet.css';
 
+import './bootstrap/css/bootstrap.min.css'
 import './App.css';
 
 class App extends React.Component {
@@ -20,6 +22,7 @@ class App extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setSelection = this.setSelection.bind(this);
         this.clearGridData = this.clearGridData.bind(this);
+        this.setModalStatus = this.setModalStatus.bind(this);
 
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
@@ -58,7 +61,8 @@ class App extends React.Component {
             collectionUuid: "",
             collectionName: "",
             sourcePath: "/",
-            folderSource: "slevin"
+            folderSource: "slevin",
+            isModalOpen: false,
         };
         // TODO: Dash - let's pull this into a config file
         // https://stackoverflow.com/questions/30568796/how-to-store-configuration-file-and-read-it-using-react
@@ -263,7 +267,6 @@ class App extends React.Component {
         return jsonData
     }
 
-
     isLastGridRowEmpty(grid) {
         /**
          * Sees if the last row in the grid is empty (contains only empty strings)
@@ -273,6 +276,10 @@ class App extends React.Component {
         let lastRow = grid[grid.length - 1];
 
         return (lastRow.some(cell => cell.value !== ""))
+    }
+
+    setModalStatus(event) {
+        this.setState({isModalOpen: event})
     }
 
 
@@ -289,7 +296,7 @@ class App extends React.Component {
             });
         }
 
-        return (
+        let sidebar = (
             <div>
                     <span>
                         <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
@@ -300,32 +307,51 @@ class App extends React.Component {
                     </select>
                     <input type="submit" value="Submit"/>
                 </form>
-                <ReactDataSheet
-                    data={this.state.grid}
-                    valueRenderer={(cell) => cell.value}
-                    onCellsChanged={changes => {
-                        // Duplicate the grid, and then apply each change to the new grid
-                        let grid = this.state.grid.map(row => [...row]);
-                        changes.forEach(({cell, row, col, value}) => {
-                            grid[row][col] = {...grid[row][col], value}
-                        });
-
-                        // Add a new row to the bottom of the array if the current last one has data in it
-                        if (this.isLastGridRowEmpty(grid)) {
-                            grid.push(this.generateEmptyGridRow(grid));
-                        }
-
-                        this.setState({
-                            grid: grid,
-                        })
-                    }}
-                />
-                {/* This is a debug hook for now*/}
-                <button onClick={this.generateGridJson}>Print current data</button>
-                <TreeModal setSelection={this.setSelection}/>
-                <button onClick={this.clearGridData}>Clear data</button>
-
             </div>
+        );
+
+        let sidebarProps = {
+            sidebar,
+            docked: !this.state.isModalOpen,
+            touch: false,
+            shadow: false,
+            open: false,
+            styles: {
+                sidebar: {background: '#e8e8e8'},
+                content: {background: 'white'}
+            },
+            transitions: false
+        };
+
+        return (
+            <Sidebar {...sidebarProps}>
+                <div>
+                    <ReactDataSheet
+                        data={this.state.grid}
+                        valueRenderer={(cell) => cell.value}
+                        onCellsChanged={changes => {
+                            // Duplicate the grid, and then apply each change to the new grid
+                            let grid = this.state.grid.map(row => [...row]);
+                            changes.forEach(({cell, row, col, value}) => {
+                                grid[row][col] = {...grid[row][col], value}
+                            });
+
+                            // Add a new row to the bottom of the array if the current last one has data in it
+                            if (this.isLastGridRowEmpty(grid)) {
+                                grid.push(this.generateEmptyGridRow(grid));
+                            }
+
+                            this.setState({
+                                grid: grid,
+                            })
+                        }}
+                    />
+                    {/* This is a debug hook for now*/}
+                    <button onClick={this.generateGridJson}>Print current data</button>
+                    <TreeModal setSelection={this.setSelection} setModalStatus={this.setModalStatus}/>
+                    <button onClick={this.clearGridData}>Clear data</button>
+                </div>
+            </Sidebar>
         )
     }
 }
