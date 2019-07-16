@@ -40,7 +40,7 @@ export default class LoginModal extends React.Component {
                     onRequestClose={this.closeModal}
                     style={modalStyle}
                     >
-                    <Login closeModal={this.closeModal}/>
+                    <Login closeModal={this.closeModal} setEmailAndPassword={this.props.setEmailAndPassword}/>
                 </Modal>
             </div>
         );
