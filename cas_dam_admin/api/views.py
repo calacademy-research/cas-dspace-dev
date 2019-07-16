@@ -184,13 +184,13 @@ def local_get_children(request):
     }
 
     if file_is_folder:
-        children = os.listdir(filepath)
         responseData['is_folder'] = True
         responseData['children'] = []
+        children = os.listdir(filepath)
 
         for child in children:
             childObject = {}
-
+            permission = True
             childObject['name'] = child
             if filepath == '/':
                 childObject['filepath'] = filepath + child
@@ -198,8 +198,16 @@ def local_get_children(request):
                 childObject['filepath'] = filepath + '/' + child
 
             childObject['is_folder'] = os.path.isdir(childObject['filepath'])
+
             if childObject['is_folder']:
                 childObject['children'] = []
-            responseData['children'].append(childObject)
+                try:
+                    os.listdir(childObject['filepath'])
+
+                except PermissionError:
+                    permission = False
+
+            if permission:
+                responseData['children'].append(childObject)
 
     return JsonResponse(responseData)
