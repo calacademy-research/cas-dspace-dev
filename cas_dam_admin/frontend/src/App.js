@@ -312,12 +312,12 @@ class App extends React.Component {
 
         let sidebarProps = {
             sidebar,
-            docked: !this.state.isModalOpen,
+            docked: true,
             touch: false,
             shadow: false,
             open: false,
             styles: {
-                sidebar: {background: '#e8e8e8'},
+                sidebar: {background: '#e8e8e8', zIndex: 0},
                 content: {background: 'white'}
             },
             transitions: false
@@ -348,7 +348,7 @@ class App extends React.Component {
                     />
                     {/* This is a debug hook for now*/}
                     <button onClick={this.generateGridJson}>Print current data</button>
-                    <TreeModal setSelection={this.setSelection} setModalStatus={this.setModalStatus}/>
+                    <TreeModal isModalOpen={this.state.isModalOpen} setSelection={this.setSelection} setModalStatus={this.setModalStatus}/>
                     <button onClick={this.clearGridData}>Clear data</button>
                 </div>
             </Sidebar>

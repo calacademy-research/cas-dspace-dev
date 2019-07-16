@@ -33,28 +33,27 @@ class TreeModal extends React.Component {
         super(props);
 
         this.state = {
-            modalIsOpen: false,
             selection: null,
         };
 
         this.openModal = this.openModal.bind(this);
-        this.afterOpenModal = this.afterOpenModal.bind(this);
+        // this.afterOpenModal = this.afterOpenModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
 
     openModal() {
-        this.setState({modalIsOpen: true});
+        // this.setState({modalIsOpen: true});
         this.props.setModalStatus(true)
     }
 
-    afterOpenModal() {
-        // references are now sync'd and can be accessed.
-        //
-    }
+    // afterOpenModal() {
+    // Runs right after modal is rendered, could be used for running JS
+    //     // references are now sync'd and can be accessed.
+    //     //
+    // }
 
     closeModal() {
         // This is a callback function given to a lower component to change the state of this component
-        this.setState({modalIsOpen: false});
         this.props.setModalStatus(false);
 
     }
@@ -64,8 +63,8 @@ class TreeModal extends React.Component {
             <div>
                 <button onClick={this.openModal}>Open Modal</button>
                 <Modal
-                    isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.afterOpenModal}
+                    isOpen={this.props.isModalOpen}
+                    // onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
                     //className="modal"
                     style={modalStyle}
