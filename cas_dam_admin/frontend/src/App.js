@@ -351,9 +351,9 @@ class App extends React.Component {
                     />
                     {/* This is a debug hook for now*/}
                     <button onClick={this.generateGridJson}>Print current data</button>
-                    <TreeModal isModalOpen={this.state.isModalOpen} setSelection={this.setSelection} setModalStatus={this.setModalStatus}/>
+                    <TreeModal isModalOpen={this.state.isModalOpen} setSelection={this.setSelection}
+                               setModalStatus={this.setModalStatus}/>
                     <button onClick={this.clearGridData}>Clear data</button>
-                    <Button variant={'primary'}>Primary</Button>
                 </div>
             </Sidebar>
         )
