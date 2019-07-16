@@ -5,6 +5,8 @@ import TreeModal from './Components/treeviewer/js/TreeModal.js';
 import Logger from './logger.js';
 import Sidebar from 'react-sidebar';
 
+import LoginModal from './Components/Login/LoginModal';
+
 import {sendJsonAsPost, getCollections} from './api'
 
 import 'react-datasheet/lib/react-datasheet.css';
@@ -26,6 +28,8 @@ class App extends React.Component {
         this.setSelection = this.setSelection.bind(this);
         this.clearGridData = this.clearGridData.bind(this);
         this.setModalStatus = this.setModalStatus.bind(this);
+        this.setLoginModalStatus = this.setLoginModalStatus.bind(this);
+        this.showLoginModal = this.showLoginModal.bind(this);
 
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
@@ -66,6 +70,7 @@ class App extends React.Component {
             sourcePath: "/",
             folderSource: "slevin",
             isModalOpen: false,
+            showLoginModal: false,
         };
         // TODO: Dash - let's pull this into a config file
         // https://stackoverflow.com/questions/30568796/how-to-store-configuration-file-and-read-it-using-react
@@ -281,6 +286,14 @@ class App extends React.Component {
         return (lastRow.some(cell => cell.value !== ""))
     }
 
+    setLoginModalStatus(event) {
+        this.setState({showLoginModal: event})
+    }
+
+    showLoginModal() {
+        this.setLoginModalStatus(true);
+    }
+
     setModalStatus(event) {
         this.setState({isModalOpen: event})
     }
@@ -301,9 +314,10 @@ class App extends React.Component {
 
         let sidebar = (
             <div>
-                    <span>
-                        <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
-                    </span>
+                <button onClick={() => this.setLoginModalStatus(true)}>Show Login</button>
+                <span>
+                    <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
+                </span>
                 <form onSubmit={this.handleSubmit}>
                     <select name='collection_uuid' onChange={this.handleUuidChange}>
                         {collectionOptions}
@@ -329,6 +343,7 @@ class App extends React.Component {
         return (
             <Sidebar {...sidebarProps}>
                 <div>
+                    <LoginModal showModal={this.state.showLoginModal} setLoginModalStatus={this.setLoginModalStatus}/>
                     <ReactDataSheet
                         data={this.state.grid}
                         valueRenderer={(cell) => cell.value}
@@ -354,6 +369,7 @@ class App extends React.Component {
                     <TreeModal isModalOpen={this.state.isModalOpen} setSelection={this.setSelection}
                                setModalStatus={this.setModalStatus}/>
                     <button onClick={this.clearGridData}>Clear data</button>
+
                 </div>
             </Sidebar>
         )
