@@ -8,6 +8,7 @@ from django.http import HttpResponse
 
 import os
 import logging
+import json
 
 from cas_dam_admin import settings
 
@@ -87,6 +88,23 @@ def upload_json(request):
             dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
 
     return HttpResponse(status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def test_login_credentials(request):
+
+    print(request.body)
+    data = json.loads(request.body)
+
+    email = data['email']
+    password = data['password']
+
+    dspace_controller = Dspace('http://localhost:8080/rest')
+    is_logged_in = dspace_controller.login(email, password)
+
+    if is_logged_in:
+        return HttpResponse(status=status.HTTP_200_OK)
+    else:
+        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['GET'])

@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     path('upload_json', views.upload_json),
+    path('test_login_credentials', views.test_login_credentials),
     path('get_collections', views.get_collections),
     path('google/childrenSearch/', views.google_get_children, name='gchildSearch'),
     # path('google/upload/', views.upload_via_gcloud, name='gcloudUpload'),

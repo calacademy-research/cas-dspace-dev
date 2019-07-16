@@ -5,7 +5,6 @@ function sendJsonAsPost(url, data) {
 }
 
 function getCollections(url) {
-    console.log('get collections has been triggered')
     return axios.get(url)
 }
 

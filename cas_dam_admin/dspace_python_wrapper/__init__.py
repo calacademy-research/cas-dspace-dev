@@ -12,10 +12,12 @@ class Dspace:
         self.logged_in = False
 
     def login(self, email, password):
-        """ Logs into the dSpace instance
+        """ Logs into the dSpace instance, returns whether or not the user is logged in
 
         :type email: str
         :type password: str
+        :rtype: bool
+        :returns True if the user is now logged in, false otherwise
         """
         data = {'email': email, 'password': password}
         login_response = requests.post(self.rest_base_url + "/login", data=data)
@@ -24,6 +26,11 @@ class Dspace:
 
         if login_response.status_code == 200:
             self.logged_in = True
+
+        elif login_response.status_code == 401:
+            self.logged_in = False
+
+        return self.logged_in
 
     def create_new_community_from_json(self, json_data):
         """

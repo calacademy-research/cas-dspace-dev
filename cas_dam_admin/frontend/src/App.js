@@ -30,6 +30,7 @@ class App extends React.Component {
         this.setModalStatus = this.setModalStatus.bind(this);
         this.setLoginModalStatus = this.setLoginModalStatus.bind(this);
         this.showLoginModal = this.showLoginModal.bind(this);
+        this.setEmailAndPassword = this.setEmailAndPassword.bind(this);
 
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
@@ -71,6 +72,8 @@ class App extends React.Component {
             folderSource: "slevin",
             isModalOpen: false,
             showLoginModal: false,
+            userEmail: "",
+            userPassword: "",
         };
         // TODO: Dash - let's pull this into a config file
         // https://stackoverflow.com/questions/30568796/how-to-store-configuration-file-and-read-it-using-react
@@ -298,6 +301,10 @@ class App extends React.Component {
         this.setState({isModalOpen: event})
     }
 
+    setEmailAndPassword(data) {
+        this.setState({userEmail: data.email, userPassword: data.password})
+    }
+
 
     render() {
 
@@ -343,7 +350,8 @@ class App extends React.Component {
         return (
             <Sidebar {...sidebarProps}>
                 <div>
-                    <LoginModal showModal={this.state.showLoginModal} setLoginModalStatus={this.setLoginModalStatus}/>
+                    <LoginModal setEmailAndPassword={this.setEmailAndPassword}
+                                showModal={this.state.showLoginModal} setLoginModalStatus={this.setLoginModalStatus}/>
                     <ReactDataSheet
                         data={this.state.grid}
                         valueRenderer={(cell) => cell.value}
