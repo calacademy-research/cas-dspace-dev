@@ -2,8 +2,6 @@
         .base {
             list-style: none;
             background-color: #21252B;
-            margin: 0;
-            padding: 0;
             color: #9DA5AB;
             font-family: lucida grande ,tahoma,verdana, arial, sans-serif;
             font-size: 14px;
@@ -11,7 +9,9 @@
             margin-right: 5%;
             display: inline-block;
             width: 40%;
-            float: left;
+            float: top;
+            z-index: 1;
+            position: relative;
         }
         .node {
             .base {
@@ -77,3 +77,8 @@
             }
         }
     }
+.tree-container {
+    top: 15%;
+    position: relative;
+    float: bottom;
+}

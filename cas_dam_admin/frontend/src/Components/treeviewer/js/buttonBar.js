@@ -86,45 +86,49 @@ class ButtonBar extends React.Component {
         // of use. However, the styling and spacing is lazy and inconsistent.
         return (
             <Fragment>
-                <table className="table">
-                    <tbody>
-                    <tr>
+                <div className="table-container">
+                    <table className="table">
+                        <tbody>
+                        <tr>
 
-                        <th>
-                            <UploadButton upload={this.state.upload} closeModal={this.props.closeModal}
-                                          setSelection={this.props.setSelection}/>
-                        </th>
+                            <th>
+                                <UploadButton upload={this.state.upload} closeModal={this.props.closeModal}
+                                              setSelection={this.props.setSelection}/>
+                            </th>
 
-                        <th>
-                            <div style={{paddingLeft: "50px"}}/>
-                        </th>
+                            <th>
+                                <div style={{paddingLeft: "50px"}}/>
+                            </th>
 
-                        <th>
-                            <div className="label">
-                                <h1> Local Drive </h1>
-                            </div>
-                        </th>
+                            <th>
+                                <div className="label">
+                                    <h1> Local Drive </h1>
+                                </div>
+                            </th>
 
-                        <th>
-                            <ModeSwitch isChecked={this.state.gcloud} switchState={this.switchState}/>
-                        </th>
+                            <th>
+                                <ModeSwitch isChecked={this.state.gcloud} switchState={this.switchState}/>
+                            </th>
 
-                        <th>
-                            <div className="label">
-                                <h1> Google Drive </h1>
-                            </div>
-                        </th>
+                            <th>
+                                <div className="label">
+                                    <h1> Google Drive </h1>
+                                </div>
+                            </th>
 
-                        <th>
-                            <div className="ExitButton-container">
-                                <ExitButton closeModal={this.props.closeModal}/>
-                            </div>
-                        </th>
+                            <th>
+                                <div className="ExitButton-container">
+                                    <ExitButton closeModal={this.props.closeModal}/>
+                                </div>
+                            </th>
 
-                    </tr>
-                    </tbody>
-                </table>
-                <TreeExample gcloud={this.state.gcloud} cursorCallback={this.updateUpload}/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="tree-container">
+                    <TreeExample gcloud={this.state.gcloud} cursorCallback={this.updateUpload}/>
+                </div>
             </Fragment>
         );
     }
