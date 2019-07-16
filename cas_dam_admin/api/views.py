@@ -136,8 +136,6 @@ def google_get_children(request):
     return JsonResponse(responseData)
 
 
-# TODO: Harrison write comment to explain that this filters out
-#  Unnecessary metadata
 def filterGChildrenResponse(children):
     """ When a gcloud file is requested, there is an excess of metadata on the file that is unneeded.
     This function filters all that information out by creating a new dictionary with only the needed information
@@ -163,36 +161,6 @@ def filterGChildrenResponse(children):
         filteredChildren.append(filteredChildObject)
 
     return filteredChildren
-
-# TESTING PURPOSES
-
-# def upload_via_gcloud(file_id, metadata, collection_uuid, dspace_controller):
-#     # file_id = request.data['id']
-#     google_metadata = google.get_metadata(file_id)
-#
-#     # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
-#     # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
-#
-#     upload_status = google.upload_to_dspace(dspace_controller, google_metadata, metadata, collection_uuid)
-#
-#     return upload_status
-#
-#     # return JsonResponse(upload_status)
-#
-#
-# def upload_via_local(file_name, file_path, metadata, collection_uuid, dspace_controller):
-#     # file_name = request.data['name']
-#     # file_path = request.data['path']
-#     #
-#     # metadata = {"dc.title": "test", "dc.contributor.author": "test author"}
-#     # collection_uuid = '5d228494-34cb-458f-af16-5f29654f5c68'
-#
-#     item_uuid, response = google.dspace.register_new_item_from_json(metadata, collection_uuid)
-#
-#     bitstream_response = google.dspace.add_bitstream_to_item(file_path, file_name, item_uuid)
-#
-#     return bitstream_response
-#     # return JsonResponse(bitstream_response)
 
 
 @api_view(['POST'])
