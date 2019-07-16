@@ -9,8 +9,11 @@ import {sendJsonAsPost, getCollections} from './api'
 
 import 'react-datasheet/lib/react-datasheet.css';
 
-import './bootstrap/css/bootstrap.min.css'
+// import './bootstrap/css/bootstrap.min.css'
+import './bootstrap/custom.scss'
+
 import './App.css';
+import Button from "react-bootstrap/Button";
 
 class App extends React.Component {
     constructor(props) {
@@ -350,6 +353,7 @@ class App extends React.Component {
                     <button onClick={this.generateGridJson}>Print current data</button>
                     <TreeModal isModalOpen={this.state.isModalOpen} setSelection={this.setSelection} setModalStatus={this.setModalStatus}/>
                     <button onClick={this.clearGridData}>Clear data</button>
+                    <Button variant={'primary'}>Primary</Button>
                 </div>
             </Sidebar>
         )
