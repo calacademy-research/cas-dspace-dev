@@ -1,10 +1,11 @@
 .displayBox {
   text-align: left;
+  font-size: 100%;
   color: black;
-  padding: 10px 10px;
   display: inline-block;
   float: left;
-  width: 40%;
-  height: 100%;
+  padding-left: 5px;
+  height: 60%;
+  width: 350px;
   background: #9DA5AB;
 }

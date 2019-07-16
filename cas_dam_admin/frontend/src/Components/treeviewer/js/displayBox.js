@@ -1,4 +1,5 @@
 import React from 'react';
+import {abbreviate_path} from "./constants";
 import '../css/displayBoxStyle.css';
 
 /*
@@ -11,25 +12,15 @@ displayBox component displays the metadata of the current file.
 // Display Box Purely Developement Purposes that
 // allows easy tracking of 'cursor' value from the tree component
 
+
+//TODO: Currently shows id with google drive. This should be changed somehow.
 class DisplayBox extends React.Component {
-  
-  format (json) {
-    if(json != null) {
-      return (
-        JSON.stringify(json, null, 3)
-      )
-    } else {
-      return (
-        "Select a file to view its info."
-      )
-    }
-  }
 
   render () {
 
     return (
       <div className="displayBox">
-        <pre>{this.format(this.props.data)}</pre>
+        <pre> {abbreviate_path(this.props.data)}</pre>
       </div>
     );
   };

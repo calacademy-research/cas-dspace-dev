@@ -3,6 +3,7 @@ import {TreeExample} from './tree.js';
 import {ModeSwitch} from "./modeSwitch.js";
 import {UploadButton} from "./uploadButton.js";
 import {ExitButton} from "./exitButton";
+import {DisplayBox} from "./displayBox";
 import '../css/tableStyle.css';
 import Logger from '../../../logger.js'
 import '../css/ExitButton.css';
@@ -114,6 +115,14 @@ class ButtonBar extends React.Component {
                                 <div className="label">
                                     <h1> Google Drive </h1>
                                 </div>
+                            </th>
+
+                            <th>
+                                <div style={{paddingLeft: "50px"}}/>
+                            </th>
+
+                            <th>
+                                <DisplayBox data={this.state.upload.upload}/>
                             </th>
 
                             <th>
