@@ -6,7 +6,6 @@ method is the preferred method of wrapping components rather
 than simply a div.
  */
 
-import {Header} from './header.js';
 import {ButtonBar} from './buttonBar.js';
 import React, {Fragment} from 'react'
 
