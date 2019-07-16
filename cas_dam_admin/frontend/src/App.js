@@ -1,8 +1,6 @@
 import React from 'react';
 import Papa from 'papaparse';
 import ReactDataSheet from 'react-datasheet';
-import _ from 'lodash'
-import axios from 'axios'
 import TreeModal from './Components/treeviewer/js/TreeModal.js';
 import Logger from './logger.js';
 
@@ -53,12 +51,9 @@ class App extends React.Component {
             {value: 'dc.rights (status)', label: 'dc.rights (status)', readOnly: true},
             {value: 'ibss-library.publish', label: 'ibss-library.publish', readOnly: true}];
 
-        // Add empty row underneath
         this.state = {
             isLoggedIn: false,
             grid: this.createEmptyGrid(),
-            // grid: "",
-            unusedMetadataEntries: "",
             collectionList: {},
             collectionUuid: "",
             collectionName: "",
@@ -71,13 +66,25 @@ class App extends React.Component {
 
     // Return an empty row that's the size of the grid
     generateEmptyGridRow(grid) {
+        /**
+         * Generates an array of objects with empty strings
+         * @param {Object.<string>[][]} grid the grid to match sizes with
+         *
+         * @returns {Object.<string>[]} an array of objects with empty strings
+         */
         return Array(grid[0].length).fill({value: ""});   // Generate an row with the same
 
     }
 
+
     //Creates an empty grid, does not deal with the state object.
     // We need to do this because the grid has data preconditions
     createEmptyGrid() {
+        /**
+         * Creates a new grid that uses all of the metadata fields and an empty row beneath it
+         * @returns {Object.<string>[][]} an array of two rows: the header row and an empty row
+         */
+
         let grid = [];
         let headerRow = [];
 
@@ -104,6 +111,9 @@ class App extends React.Component {
     }
 
     clearGridData() {
+        /**
+         * Resets the grid state to just the metadata header and an empty row
+         */
         this.setState({grid:this.createEmptyGrid()});
     }
 
@@ -130,20 +140,10 @@ class App extends React.Component {
 
     }
 
-    updateUnusedMetadataEntries(headerRow) {
-        /**
-         * Returns list of items that exist in metadataEntries but not in the header row of the grid
-         *
-         * @returns {Array} unused metadata entries
-         */
-        return this.metatadataEntries.filter(item => {
-            return headerRow.findIndex(x => x.value === item.value) === -1
-        });
-    }
 
     handleFileChosen(file) {
         /**
-         * Reads a file and parses it, then sets the grid state to the parsed file and updates unused metadata fields
+         * Reads a file and parses it, then fills in the table with the new data
          *
          * @param {blob} file The file to be read
          */
@@ -154,21 +154,57 @@ class App extends React.Component {
             // reader.onload is called after readAsText and happens after the FileReader is done reading the file
 
             let content = event.target.result;
-            let parsed = Papa.parse(content, {skipEmptyLines: true});
+            let parsed = Papa.parse(content, {skipEmptyLines: true, header: true});
+            let headerRow = Papa.parse(content, {skipEmptyLines: true}).data[0];     // Get list of headers
             let rows = parsed.data;
-            let newGrid = rows.map((row) => row.map(cell => {
+
+            // {dc.title: "all in one test", dc.contributor.author: "not harrison", filename: "/dash/Downloads/cat_photo.jpg", ibss-library.filename: "cat_photo.jpg"}
+            // 1: {dc.title: "second line", dc.contributor.author: "second author", filename: "/Users/Dash/Downloads/cat_photo.jpg"
+
+            let metadataHeaders = this.metatadataEntries.map(entry => entry.value);
+
+            // Merge header rows while keeping order
+            let jointArray = metadataHeaders.concat(headerRow);
+            const combinedHeaderRow = jointArray.filter((item,index) => jointArray.indexOf(item) === index);
+
+            let grid = [combinedHeaderRow];
+
+            let gridHeight = rows.length;
+            let gridWidth = combinedHeaderRow.length;
+
+
+            // Generate empty grid so we can push data to it
+            for (let i = 0; i < gridHeight; i++) {
+                grid.push(Array(gridWidth).fill(""))
+            }
+
+            // Iterate through columns and copy data to grid column by column
+
+            console.log(rows);
+
+            combinedHeaderRow.forEach((columnName, columnIndex) => {
+                rows.forEach((row, rowIndex) => {
+                    if (row[columnName]) {
+                        console.log(row.columnName);
+                        grid[rowIndex + 1][columnIndex] = row[columnName]
+                    }
+                })
+            });
+
+            console.log(grid);
+
+            grid = grid.map((row) => row.map(cell => {
                 // Iterate through grid (represented as array of arrays) and change each cell value to an object
                 return ({value: cell})
             }));
 
-            if (this.isLastGridRowEmpty(newGrid)) {
-                newGrid.push(this.generateEmptyGridRow(newGrid));
+
+            if (this.isLastGridRowEmpty(grid)) {
+                grid.push(this.generateEmptyGridRow(grid));
             }
 
-            // Add header above cells that lists all unused metadata entries
-            // Filter items from metadataEntries if their value is not found in newGrid[0]
 
-            this.setState({grid: newGrid, unusedMetadataEntries: this.updateUnusedMetadataEntries(newGrid[0])})
+            this.setState({grid: grid})
         };
 
 
@@ -246,33 +282,16 @@ class App extends React.Component {
 
     render() {
 
-        console.log(this.state.grid)
-
         let collectionList = this.state.collectionList;
         let collectionOptions = [];
 
-        // TODO: Dash give me a comment saying what object this is operating on/creatring
         // Generates an array of <option> elements that list the available collections that can be selected.
         if (collectionList) {
             Object.keys(collectionList).forEach((key) => {
-                let option = <option key={collectionList[key]} value={collectionList[key]}>{key}</option>
+                let option = <option key={collectionList[key]} value={collectionList[key]}>{key}</option>;
                 collectionOptions.push(option);
             });
         }
-
-        // Don't show unused metadata entries datasheet if there are none
-        let unusedMetadataDataSheet;
-        if (this.state.unusedMetadataEntries !== "") {
-            unusedMetadataDataSheet = (
-                <ReactDataSheet
-                    data={[this.state.unusedMetadataEntries]}
-                    valueRenderer={(cell) => cell.value}
-                />
-            )
-        } else {
-            unusedMetadataDataSheet = null
-        }
-
 
         return (
             <div>
@@ -285,7 +304,6 @@ class App extends React.Component {
                     </select>
                     <input type="submit" value="Submit"/>
                 </form>
-                <div>{unusedMetadataDataSheet}</div>
                 <ReactDataSheet
                     data={this.state.grid}
                     valueRenderer={(cell) => cell.value}
@@ -303,7 +321,6 @@ class App extends React.Component {
 
                         this.setState({
                             grid: grid,
-                            unusedMetadataEntries: this.updateUnusedMetadataEntries(grid[0])
                         })
                     }}
                 />
