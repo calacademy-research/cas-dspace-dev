@@ -74,7 +74,7 @@ class Dspace:
         json_metadata = {'metadata': []}
 
         for key, value in json_data.items():
-            if key == "filename":   # filename should not be imported into dSpace, but library.filename should
+            if key == "filename":   # filename should not be imported into dSpace, but ibss-library.filename should
                 continue
             json_metadata['metadata'].append({'key': key, 'value': value})
 
