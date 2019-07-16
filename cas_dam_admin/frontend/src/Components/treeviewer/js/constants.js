@@ -22,7 +22,7 @@ function reverse_str(str){
   let reverseList = list.reverse();
   return reverseList.join("");
 }
-
+//TODO: Harrison, clean this up and add some comments because it makes no sense.
 function abbreviate_path(path){
 
   if(path){
