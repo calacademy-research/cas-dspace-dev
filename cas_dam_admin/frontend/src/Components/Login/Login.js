@@ -46,6 +46,8 @@ export default class Login extends React.Component {
                     this.props.closeModal();
                 }, 1000)
             } else if (response.status === 401){
+                // With Axios, this block is not accessed, as it considers a 401 response to be an error.
+                // Instead, it jumps directly to the catch block.
                 this.setState({isLoggedIn: false})
             }
         }).catch(error => {
