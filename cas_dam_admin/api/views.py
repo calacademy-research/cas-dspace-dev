@@ -125,7 +125,7 @@ def test_login_credentials(request):
     if is_logged_in:
         return HttpResponse(status=status.HTTP_200_OK)
     else:
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse(status=status.HTTP_403_FORBIDDEN)
 
 
 @api_view(['GET'])

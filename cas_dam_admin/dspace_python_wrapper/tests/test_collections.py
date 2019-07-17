@@ -21,6 +21,5 @@ class TestDspaceController(unittest.TestCase):
         self.assertTrue(deleted_item_response)
         self.assertFalse(self.controller.does_item_exist(new_item_uuid))
 
-
     def tearDown(self) -> None:
         self.controller.delete_data_from_dspace('communities', self.community_uuid)
