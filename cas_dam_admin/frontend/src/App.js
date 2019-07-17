@@ -4,6 +4,8 @@ import ReactDataSheet from 'react-datasheet';
 import TreeModal from './Components/treeviewer/js/TreeModal.js';
 import Logger from './logger.js';
 import Sidebar from 'react-sidebar';
+import Dropzone from 'react-dropzone'
+
 
 import LoginModal from './Components/Login/LoginModal';
 
@@ -339,20 +341,55 @@ class App extends React.Component {
             authenticationAction = "Change User";
         }
         let loginArea = (
-            <div>
-                <Button onClick={() => this.setLoginModalStatus(true)}>{authenticationAction}</Button>
-                <p>{loggedInStatus}</p>
+            <div className="sidebar-element">
+                <div className="center-in-div">
+                    <Button onClick={() => this.setLoginModalStatus(true)}>{authenticationAction}</Button>
+                </div>
+                <div className={"center-in-div"}>
+                    <p>{loggedInStatus}</p>
+                </div>
             </div>
         );
 
+        // Generate the folder selector button, list the path to the folder
+        let selectedPath = (
+            <div>
+                <p>Currently selected folder source: </p>
+                <p style={{'fontSize': '12px', 'wordWrap': 'break-word'}}>{this.state.sourcePath}</p>
+            </div>);
+
+        let fileviewerArea = (
+            <div className="sidebar-element">
+                <button onClick={() => this.setTreeModalStatus(true)}>Select a folder</button>
+                {selectedPath}
+            </div>);
+
+
+        // Generate the file upload button and area
+        let fileUploadArea = (
+            <div>
+                <Dropzone
+                    onDrop={acceptedFiles => this.handleFileChosen(acceptedFiles[0])}
+                    accept={'text/csv'}>
+                    {({getRootProps, getInputProps}) => (
+                        <section>
+                            <div className="upload-box" {...getRootProps()}>
+                                <input {...getInputProps()} />
+                                <div className="upload-text">
+                                    <p>Click me or drag CSV file here</p>
+                                </div>
+                            </div>
+                        </section>
+                    )}
+                </Dropzone>
+            </div>
+        );
 
         let sidebar = (
             <div>
                 {loginArea}
-                <button onClick={() => this.setTreeModalStatus(true)}>Select a folder</button>
-                <span>
-                    <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
-                </span>
+                {fileUploadArea}
+                {fileviewerArea}
                 <form onSubmit={this.handleSubmit}>
                     <select name='collection_uuid' onChange={this.handleUuidChange}>
                         {collectionOptions}
@@ -364,12 +401,13 @@ class App extends React.Component {
 
         let sidebarProps = {
             sidebar,
+            width: 200,
             docked: true,
             touch: false,
             shadow: false,
             open: false,
             styles: {
-                sidebar: {background: '#e8e8e8', zIndex: 0},
+                sidebar: {background: '#e8e8e8', zIndex: 0, width: 225},
                 content: {background: 'white'}
             },
             transitions: false

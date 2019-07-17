@@ -1,8 +1,38 @@
 /* */
 .required-column {
-  color: #ff5d5a !important;
+    color: #ff5d5a !important;
 }
+
 .data-grid-container .data-grid .cell.read-only {
-  color: black;
-  text-align: center;
+    color: black;
+    text-align: center;
+}
+
+.sidebar-element {
+    width: 200px;
+    margin: 0 auto;
+}
+
+.center-in-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.upload-box {
+    display: table;
+    width: 200px;
+    min-height: 100px;
+    height: 30%;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.upload-text {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 5px;
+    text-align: center;
 }
