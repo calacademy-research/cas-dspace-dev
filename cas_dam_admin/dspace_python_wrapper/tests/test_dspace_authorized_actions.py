@@ -12,7 +12,3 @@ class TestDspaceController(unittest.TestCase):
 
     def test_user_status(self):
         self.assertTrue(self.controller.user_status()[0])
-
-
-if __name__ == '__main__':
-    unittest.main()

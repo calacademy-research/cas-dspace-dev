@@ -17,6 +17,3 @@ class TestDspaceController(unittest.TestCase):
         self.assertGreater(len(self.controller.jsessionid), 0)
 
 
-if __name__ == '__main__':
-    unittest.main()
-
