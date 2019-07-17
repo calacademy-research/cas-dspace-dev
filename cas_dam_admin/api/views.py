@@ -9,6 +9,7 @@ from django.http import HttpResponse
 import os
 import logging
 import json
+import pprint
 
 from cas_dam_admin import settings
 
@@ -24,12 +25,10 @@ if settings.GOOGLE_DRIVE_ONLY:
 @api_view(['POST'])
 def upload_json(request):
     json_body = request.data
+
     if not json_body:  # If client sends empty array, respond with 204
         return HttpResponse("Error: empty array received", status=status.HTTP_204_NO_CONTENT)
 
-    # Establish dspace controller
-    dspace_controller = Dspace('http://localhost:8080/rest')
-    dspace_controller.login('test@test.edu', 'test')
 
     new_items = []
 
@@ -53,6 +52,19 @@ def upload_json(request):
 
         # Header won't be added to new items, so add all other entries to new_items
         new_items.append(entry)
+
+    # Responds with a 401 auth error if email or password are missing in the request data.
+
+    if 'email' not in upload_header or 'password' not in upload_header:
+        return  HttpResponse("Error: email and/or password are missing.", status=status.HTTP_401_UNAUTHORIZED)
+
+        
+    email = upload_header['email']
+    password = upload_header['password']
+
+    # Establish dspace controller
+    dspace_controller = Dspace('http://localhost:8080/rest')
+    dspace_controller.login(email, password)
 
     # Verify all the headers are present, return 400 if one or more is missing
     if not all(item in upload_header for item in ['collectionUuid', 'folderSource', 'sourcePath']):
@@ -92,7 +104,6 @@ def upload_json(request):
 @api_view(['POST'])
 def test_login_credentials(request):
 
-    print(request.body)
     data = json.loads(request.body)
 
     email = data['email']
