@@ -29,7 +29,6 @@ def upload_json(request):
     if not json_body:  # If client sends empty array, respond with 204
         return HttpResponse("Error: empty array received", status=status.HTTP_204_NO_CONTENT)
 
-
     new_items = []
 
     upload_header = {}
@@ -51,7 +50,6 @@ def upload_json(request):
                 continue
             else:
                 new_items.append(entry)
-
 
         # Header won't be added to new items, so add all other entries to new_items
         new_items.append(entry)
@@ -85,6 +83,10 @@ def upload_json(request):
     for item in new_items:
         response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
                                                                                      upload_header['collectionUuid'])
+
+        if response_uuid is None:  # Empty rows should be ignored and not added to item_responses
+            continue
+
         item_responses.append((item, response_uuid, response_data))
 
     logging.info(json_body)
@@ -111,9 +113,9 @@ def upload_json(request):
 
     return HttpResponse(status=status.HTTP_200_OK)
 
+
 @api_view(['POST'])
 def test_login_credentials(request):
-
     data = json.loads(request.body)
 
     email = data['email']
