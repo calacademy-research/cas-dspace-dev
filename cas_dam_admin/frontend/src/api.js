@@ -8,7 +8,11 @@ function getCollections(url) {
     return axios.get(url)
 }
 
-export {sendJsonAsPost, getCollections};
+function validate_paths(data){
+    return axios.post('http://localhost:8000/api/validate_paths', data)
+}
+
+export {sendJsonAsPost, getCollections, validate_paths};
 // APIcall('/api/local/childrenSearch/', {
 //     name: file.name,
 //     is_folder: file.is_folder,

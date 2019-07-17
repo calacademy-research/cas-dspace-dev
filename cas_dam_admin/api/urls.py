@@ -8,9 +8,8 @@ urlpatterns = [
     path('test_login_credentials', views.test_login_credentials),
     path('get_collections', views.get_collections),
     path('google/childrenSearch/', views.google_get_children, name='gchildSearch'),
-    # path('google/upload/', views.upload_via_gcloud, name='gcloudUpload'),
     path('local/childrenSearch/', views.local_get_children, name='localChildSearch'),
-    # path('local/upload/', views.upload_via_local, name='localUpload'),
+    path('validate_paths', views.validate_paths, name="validate_paths"),
 ]
 
 """

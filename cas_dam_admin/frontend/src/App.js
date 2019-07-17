@@ -7,7 +7,7 @@ import Sidebar from 'react-sidebar';
 
 import LoginModal from './Components/Login/LoginModal';
 
-import {sendJsonAsPost, getCollections} from './api'
+import {sendJsonAsPost, getCollections, validate_paths} from './api'
 
 import 'react-datasheet/lib/react-datasheet.css';
 
@@ -16,6 +16,7 @@ import './bootstrap/custom.scss'
 
 import './App.css';
 import Button from "react-bootstrap/Button";
+import {verify_paths} from './file_verification'
 
 class App extends React.Component {
     constructor(props) {
@@ -31,6 +32,8 @@ class App extends React.Component {
         this.setLoginModalStatus = this.setLoginModalStatus.bind(this);
         this.showLoginModal = this.showLoginModal.bind(this);
         this.setEmailAndPassword = this.setEmailAndPassword.bind(this);
+
+        //this.update_grid_verification = this.update_grid_verification.bind(this);
 
         this.metatadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
@@ -87,7 +90,9 @@ class App extends React.Component {
          *
          * @returns {Object.<string>[]} an array of objects with empty strings
          */
-        return Array(grid[0].length).fill({value: ""});   // Generate an row with the same
+        let newArray = Array(grid[0].length).fill({value: ""});
+        newArray[0].verified = false;
+        return newArray;   // Generate an row with the same
 
     }
 
@@ -369,6 +374,7 @@ class App extends React.Component {
             },
             transitions: false
         };
+        verify_paths(this.state.grid);
 
         return (
             <Sidebar {...sidebarProps}>

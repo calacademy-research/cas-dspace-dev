@@ -252,3 +252,11 @@ def local_get_children(request):
                 responseData['children'].append(childObject)
 
     return JsonResponse(responseData)
+
+@api_view(['POST'])
+def validate_paths(request):
+    paths = request.data
+
+    response = {'validations': [os.path.exists(path['value']) for path in paths]}
+
+    return JsonResponse(response)
