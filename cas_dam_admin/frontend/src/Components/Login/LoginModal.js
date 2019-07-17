@@ -36,7 +36,7 @@ export default class LoginModal extends React.Component {
         return (
             <div>
                 <Modal
-                    isOpen={this.props.showModal}
+                    isOpen={this.props.isModalOpen}
                     onRequestClose={this.closeModal}
                     style={modalStyle}
                     >

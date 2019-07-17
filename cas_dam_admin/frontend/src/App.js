@@ -27,7 +27,7 @@ class App extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setSelection = this.setSelection.bind(this);
         this.clearGridData = this.clearGridData.bind(this);
-        this.setModalStatus = this.setModalStatus.bind(this);
+        this.setTreeModalStatus = this.setTreeModalStatus.bind(this);
         this.setLoginModalStatus = this.setLoginModalStatus.bind(this);
         this.showLoginModal = this.showLoginModal.bind(this);
         this.setEmailAndPassword = this.setEmailAndPassword.bind(this);
@@ -70,8 +70,8 @@ class App extends React.Component {
             collectionName: "",
             sourcePath: "/",
             folderSource: "slevin",
-            isModalOpen: false,
-            showLoginModal: false,
+            isTreeModalOpen: false,
+            isLoginModalOpen: false,
             userEmail: "",
             userPassword: "",
         };
@@ -267,9 +267,11 @@ class App extends React.Component {
         // folderSource defines where the files will come from: gdrive or slevin
         // sourcePath is the path to the closest common directory shared between all the files.
         let dspaceConfig = {
-            'collectionUuid': this.state.collectionUuid,
-            'folderSource': this.state.folderSource,
-            'sourcePath': this.state.sourcePath
+            collectionUuid: this.state.collectionUuid,
+            folderSource: this.state.folderSource,
+            sourcePath: this.state.sourcePath,
+            email: this.state.userEmail,
+            password: this.state.userPassword,
 
         };
 
@@ -290,15 +292,15 @@ class App extends React.Component {
     }
 
     setLoginModalStatus(event) {
-        this.setState({showLoginModal: event})
+        this.setState({isLoginModalOpen: event})
     }
 
     showLoginModal() {
         this.setLoginModalStatus(true);
     }
 
-    setModalStatus(event) {
-        this.setState({isModalOpen: event})
+    setTreeModalStatus(event) {
+        this.setState({isTreeModalOpen: event})
     }
 
     setEmailAndPassword(data) {
@@ -322,6 +324,7 @@ class App extends React.Component {
         let sidebar = (
             <div>
                 <button onClick={() => this.setLoginModalStatus(true)}>Show Login</button>
+                <button onClick={() => this.setTreeModalStatus(true)}>Select a folder</button>
                 <span>
                     <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
                 </span>
@@ -351,7 +354,7 @@ class App extends React.Component {
             <Sidebar {...sidebarProps}>
                 <div>
                     <LoginModal setEmailAndPassword={this.setEmailAndPassword}
-                                showModal={this.state.showLoginModal} setLoginModalStatus={this.setLoginModalStatus}/>
+                                isModalOpen={this.state.isLoginModalOpen} setLoginModalStatus={this.setLoginModalStatus}/>
                     <ReactDataSheet
                         data={this.state.grid}
                         valueRenderer={(cell) => cell.value}
@@ -374,8 +377,8 @@ class App extends React.Component {
                     />
                     {/* This is a debug hook for now*/}
                     <button onClick={this.generateGridJson}>Print current data</button>
-                    <TreeModal isModalOpen={this.state.isModalOpen} setSelection={this.setSelection}
-                               setModalStatus={this.setModalStatus}/>
+                    <TreeModal isModalOpen={this.state.isTreeModalOpen} setSelection={this.setSelection}
+                               setTreeModalStatus={this.setTreeModalStatus}/>
                     <button onClick={this.clearGridData}>Clear data</button>
 
                 </div>

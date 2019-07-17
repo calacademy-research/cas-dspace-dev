@@ -43,7 +43,7 @@ class TreeModal extends React.Component {
 
     openModal() {
         // this.setState({modalIsOpen: true});
-        this.props.setModalStatus(true)
+        this.props.setTreeModalStatus(true)
     }
 
     // afterOpenModal() {
@@ -54,14 +54,13 @@ class TreeModal extends React.Component {
 
     closeModal() {
         // This is a callback function given to a lower component to change the state of this component
-        this.props.setModalStatus(false);
+        this.props.setTreeModalStatus(false);
 
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.openModal}>Open Modal</button>
                 <Modal
                     isOpen={this.props.isModalOpen}
                     // onAfterOpen={this.afterOpenModal}
