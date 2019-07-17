@@ -307,7 +307,7 @@ class App extends React.Component {
     }
 
     setEmailAndPassword(data) {
-        this.setState({userEmail: data.email, userPassword: data.password})
+        this.setState({userEmail: data.email, userPassword: data.password, isLoggedIn: true})
     }
 
 
@@ -324,9 +324,26 @@ class App extends React.Component {
             });
         }
 
+
+        // Generate login button and if authenticated, list the current email that's logged in
+        let loggedInStatus = null;
+        let authenticationAction = "Log in";
+
+        if (this.state.isLoggedIn) {
+            loggedInStatus = "Logged in as: " + this.state.userEmail;
+            authenticationAction = "Change User";
+        }
+        let loginArea = (
+            <div>
+                <Button onClick={() => this.setLoginModalStatus(true)}>{authenticationAction}</Button>
+                <p>{loggedInStatus}</p>
+            </div>
+        );
+
+
         let sidebar = (
             <div>
-                <button onClick={() => this.setLoginModalStatus(true)}>Show Login</button>
+                {loginArea}
                 <button onClick={() => this.setTreeModalStatus(true)}>Select a folder</button>
                 <span>
                     <input type="file" accept="text/csv" onChange={e => this.handleFileChosen(e.target.files[0])}/>
@@ -357,7 +374,8 @@ class App extends React.Component {
             <Sidebar {...sidebarProps}>
                 <div>
                     <LoginModal setEmailAndPassword={this.setEmailAndPassword}
-                                isModalOpen={this.state.isLoginModalOpen} setLoginModalStatus={this.setLoginModalStatus}/>
+                                isModalOpen={this.state.isLoginModalOpen}
+                                setLoginModalStatus={this.setLoginModalStatus}/>
                     <ReactDataSheet
                         data={this.state.grid}
                         valueRenderer={(cell) => cell.value}
