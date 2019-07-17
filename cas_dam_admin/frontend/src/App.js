@@ -263,6 +263,9 @@ class App extends React.Component {
             jsonData.push(result)
         });
 
+        // The last row will always be an empty, so we remove it before sending to the backend
+        jsonData.pop();
+
         // dspaceConfig is the header that contains properties that apply to every item in the array.
         // folderSource defines where the files will come from: gdrive or slevin
         // sourcePath is the path to the closest common directory shared between all the files.

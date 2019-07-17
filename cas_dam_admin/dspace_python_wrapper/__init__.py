@@ -81,9 +81,15 @@ class Dspace:
         json_metadata = {'metadata': []}
 
         for key, value in json_data.items():
-            if key == "filename":   # filename should not be imported into dSpace, but ibss-library.filename should
+            if key == "filename":  # filename should not be imported into dSpace, but ibss-library.filename should
+                continue
+
+            if value == "":  # empty values should not be send to dSpace
                 continue
             json_metadata['metadata'].append({'key': key, 'value': value})
+
+        if not json_metadata['metadata']:
+            return None, None
 
         new_item_response = requests.post(self.rest_base_url + '/collections/' + collection_uuid + '/items',
                                           cookies={'JSESSIONID': self.jsessionid},
@@ -201,7 +207,7 @@ class Dspace:
 
         """
 
-        delete_response = requests.delete(self.rest_base_url + '/'+data_type+'/' + data_uuid,
+        delete_response = requests.delete(self.rest_base_url + '/' + data_type + '/' + data_uuid,
                                           cookies={'JSESSIONID': self.jsessionid},
                                           headers={"Accept": "application/json"})
         return delete_response.ok
