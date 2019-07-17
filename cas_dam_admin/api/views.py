@@ -48,7 +48,10 @@ def upload_json(request):
                 for key, value in entry.items():  # Iterate through header properties, add them to upload_header
                     # Fields are: collectionUuid, folderSource, sourcePath
                     upload_header[key] = value
-            continue
+                continue
+            else:
+                new_items.append(entry)
+
 
         # Header won't be added to new items, so add all other entries to new_items
         new_items.append(entry)
@@ -56,13 +59,11 @@ def upload_json(request):
     # Responds with a 401 auth error if email or password are missing in the request data.
 
     if 'email' not in upload_header or 'password' not in upload_header:
-        return  HttpResponse("Error: email and/or password are missing.", status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse("Error: email and/or password are missing.", status=status.HTTP_401_UNAUTHORIZED)
 
-        
     email = upload_header['email']
     password = upload_header['password']
 
-    # Establish dspace controller
     dspace_controller = Dspace('http://localhost:8080/rest')
     dspace_controller.login(email, password)
 
@@ -72,6 +73,15 @@ def upload_json(request):
                             status=status.HTTP_400_BAD_REQUEST)
 
     item_responses = []
+
+    # If new items are empty, else code block is run.
+
+    if not new_items:
+        if header_seen:
+            return HttpResponse("Error: header received, but no data sent.", status=status.HTTP_204_NO_CONTENT)
+        else:
+            return HttpResponse("Error: header and data not received", status=status.HTTP_204_NO_CONTENT)
+
     for item in new_items:
         response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
                                                                                      upload_header['collectionUuid'])

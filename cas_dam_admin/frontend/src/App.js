@@ -242,7 +242,7 @@ class App extends React.Component {
         // TODO give feedback that the submission went through
         // Right now, the promise returned from sendJson is ignored, we should use the promise to give feedback
         let gridJson = this.generateGridJson();
-        return sendJsonAsPost('http://localhost:8000/api/upload_json', gridJson)
+        return sendJsonAsPost('http://localhost:8000/api/upload_json', gridJson).then(response => console.log(response))
 
     }
 
