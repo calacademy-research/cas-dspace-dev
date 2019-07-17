@@ -90,6 +90,9 @@ class App extends React.Component {
          *
          * @returns {Object.<string>[]} an array of objects with empty strings
          */
+
+
+        // TODO: Currently sets all columns to verified false. Not super important but unneeded.
         let newArray = Array(grid[0].length).fill({value: ""});
         newArray[0].verified = false;
         return newArray;   // Generate an row with the same
@@ -374,7 +377,6 @@ class App extends React.Component {
             },
             transitions: false
         };
-        verify_paths(this.state.grid);
 
         return (
             <Sidebar {...sidebarProps}>
@@ -391,6 +393,7 @@ class App extends React.Component {
                             changes.forEach(({cell, row, col, value}) => {
                                 grid[row][col] = {...grid[row][col], value}
                             });
+                            verify_paths(grid);
 
                             // Add a new row to the bottom of the array if the current last one has data in it
                             if (this.isLastGridRowEmpty(grid)) {
