@@ -1,7 +1,7 @@
 import {validate_paths} from "./api";
 
 let i;
-// TODO; Currently edits grid directly. It would be much safer to make a copy and return the copy. 
+// TODO; Currently edits grid directly. It would be much safer to make a copy and return the copy.
 function verify_paths(grid){
     let filenames = [];
     for(i = 1; i < grid.length-1; i++) {
