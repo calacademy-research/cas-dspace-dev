@@ -75,7 +75,7 @@ class App extends React.Component {
             collectionList: {},
             collectionUuid: "",
             collectionName: "",
-            sourcePath: "/",
+            sourcePath: "",
             folderSource: "slevin",
             isTreeModalOpen: false,
             isLoginModalOpen: false,
