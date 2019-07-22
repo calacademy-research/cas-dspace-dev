@@ -13,6 +13,7 @@ export default class Login extends React.Component {
             password: "",
             isLoading: false,
             isLoggedIn: null,
+            dSpaceConnected: null,
         };
     }
 
@@ -35,24 +36,24 @@ export default class Login extends React.Component {
     };
 
     testLoginCredentials() {
-        axios.post('http://localhost:8000/api/test_login_credentials', {
+        axios.post('/api/test_login_credentials', {
             email: this.state.email,
             password: this.state.password
         }).then((response) => {
-            this.setState({isLoading: false});
-            if (response.status === 200) {
-                this.setState({isLoggedIn: true})
+            this.setState({isLoading: false, dSpaceConnected: true});
+            if (response.data === 'True') {
+                this.setState({isLoggedIn: true});
                 this.props.setEmailAndPassword({email: this.state.email, password: this.state.password});
                 setTimeout(() => {
                     this.props.closeModal();
                 }, 1000)
-            } else if (response.status === 401) {
+            } else if (response.data === 'False') {
                 // With Axios, this block is not accessed, as it considers a 401 response to be an error.
                 // Instead, it jumps directly to the catch block.
                 this.setState({isLoggedIn: false})
             }
         }).catch(error => {
-            this.setState({isLoading: false, isLoggedIn: false});
+            this.setState({isLoading: null, isLoggedIn: false, dSpaceConnected: false});
         })
     }
 
@@ -60,10 +61,12 @@ export default class Login extends React.Component {
     render() {
         let loginMessage;
 
-        if (this.state.isLoggedIn) {
-            loginMessage = <p>Success! You've been logged in</p>
+        if (this.state.dSpaceConnected === false) {
+            loginMessage = <p style={{color: 'red'}}>Error: Failed to Connect to Dspace</p>;
         } else if (this.state.isLoggedIn === false) {
-            loginMessage = <p>Error! Email/password combination are incorrect</p>
+            loginMessage = <p style={{color: 'red'}}>Error: Email/password combination are incorrect</p>
+        } else if(this.state.isLoggedIn) {
+            loginMessage = <p style={{color: 'green'}}>Success! You've been logged in</p>
         } else {
             loginMessage = null;
         }

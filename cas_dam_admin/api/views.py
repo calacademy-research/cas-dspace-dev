@@ -124,10 +124,8 @@ def test_login_credentials(request):
     dspace_controller = Dspace('http://localhost:8080/rest')
     is_logged_in = dspace_controller.login(email, password)
 
-    if is_logged_in:
-        return HttpResponse(status=status.HTTP_200_OK)
-    else:
-        return HttpResponse(status=status.HTTP_403_FORBIDDEN)
+    return HttpResponse(is_logged_in, status=status.HTTP_200_OK)
+
 
 
 @api_view(['GET'])
