@@ -4,6 +4,7 @@ from googleapiclient.http import MediaIoBaseDownload
 
 from .gcloud_browser import GcloudBrowser
 from .storage import TempStorage
+from dspace_python_wrapper import Dspace
 
 """
 In Order to Refresh Scope During Testing,
@@ -107,8 +108,6 @@ if __name__ == '__main__':
 
     import pprint
 
-    TEST_EMAIL = 'test@test.edu'
-    TEST_PASS = 'admin'
 
 
     def print_tree(tree, indent=''):
@@ -143,20 +142,7 @@ if __name__ == '__main__':
     # file_name = 'santa-koala-christmas-illustration-cartoon-bear-s-hat-glass-bowl-46924918.jpg'
     # folder_id = g.ID_from_name(file_name)
     # file = g.get_metadata(folder_id)
-    g.dspace.login(TEST_EMAIL, TEST_PASS)
 
-
-    def delete_test_data():
-        items = g.dspace.get_data_from_dspace('items')
-
-        if 'test' in items:
-            g.dspace.delete_data_from_dspace('items', items['test'])
-            delete_test_data()
-        else:
-            return
-
-
-    delete_test_data()
 
     """
     Potential Dspace Function
