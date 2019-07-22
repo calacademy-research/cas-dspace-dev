@@ -58,7 +58,6 @@ class ButtonBar extends React.Component {
         } else {
             type = 'local';
             path_or_id = newState.cursor.filepath
-            console.log(path_or_id);
         }
 
         if(newState.cursor.is_folder){
