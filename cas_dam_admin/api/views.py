@@ -251,10 +251,10 @@ def local_get_children(request):
 
     return JsonResponse(responseData)
 
+
 @api_view(['POST'])
 def validate_paths(request):
-    paths = request.data
-
-    response = {'validations': [os.path.exists(path['value']) for path in paths]}
-
+    paths = request.data['filenames']
+    source = request.data['source']
+    response = {'validations': [os.path.isfile(source + '/'+path['value']) for path in paths]}
     return JsonResponse(response)

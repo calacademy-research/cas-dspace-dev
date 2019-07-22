@@ -5,6 +5,7 @@ import TreeModal from './Components/treeviewer/js/TreeModal.js';
 import Logger from './logger.js';
 import Sidebar from 'react-sidebar';
 import Dropzone from 'react-dropzone'
+import customCellRenderer from './cellRenderer.js'
 
 
 import LoginModal from './Components/Login/LoginModal';
@@ -19,6 +20,7 @@ import './bootstrap/custom.scss'
 import './App.css';
 import Button from "react-bootstrap/Button";
 import {verify_paths} from './file_verification'
+import cellRenderer from "./cellRenderer";
 
 class App extends React.Component {
     constructor(props) {
@@ -425,13 +427,14 @@ class App extends React.Component {
                     <ReactDataSheet
                         data={this.state.grid}
                         valueRenderer={(cell) => cell.value}
+                        cellRenderer={customCellRenderer}
                         onCellsChanged={changes => {
                             // Duplicate the grid, and then apply each change to the new grid
                             let grid = this.state.grid.map(row => [...row]);
                             changes.forEach(({cell, row, col, value}) => {
                                 grid[row][col] = {...grid[row][col], value}
                             });
-                            verify_paths(grid);
+                            verify_paths(grid, this.state.sourcePath);
 
                             // Add a new row to the bottom of the array if the current last one has data in it
                             if (this.isLastGridRowEmpty(grid)) {
