@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'frontend',
     'api',
     'fileviewer.apps.FileviewerConfig',
     'django.contrib.admin',

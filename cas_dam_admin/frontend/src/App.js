@@ -148,7 +148,7 @@ class App extends React.Component {
     // We should mark this required and display a modal error
     componentDidMount() {
         // Get collections
-        getCollections('http://localhost:8000/api/get_collections').then(response => {
+        getCollections('/api/get_collections').then(response => {
             let collectionList = response.data;
             this.setState({collectionList: collectionList});
 
