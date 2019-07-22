@@ -133,7 +133,8 @@ class App extends React.Component {
             sourcePath: newSelection.path,
             folderSource: newSelection.source,
         }, () => {
-            Logger.info([this.state.sourcePath, this.state.folderSource]);
+            Logger.info({'this.state.sourcePath': this.state.sourcePath,
+                                    'this.state.folderSource': this.state.folderSource});
         })
     }
 
@@ -207,7 +208,7 @@ class App extends React.Component {
 
             // Iterate through columns and copy data to grid column by column
 
-            console.log(rows);
+            Logger.info({'rows': rows});
 
             combinedHeaderRow.forEach((columnName, columnIndex) => {
                 rows.forEach((row, rowIndex) => {
@@ -217,7 +218,7 @@ class App extends React.Component {
                 })
             });
 
-            console.log(grid);
+            Logger.info({'grid': grid});
 
             grid = grid.map((row) => row.map(cell => {
                 // Iterate through grid (represented as array of arrays) and change each cell value to an object
@@ -238,7 +239,7 @@ class App extends React.Component {
     }
 
     handleLogCurrentData() {
-        console.log(this.state.grid);
+        Logger.info({'this.state.grid': this.state.grid});
     }
 
     handleUuidChange(event) {
@@ -254,7 +255,8 @@ class App extends React.Component {
         // TODO give feedback that the submission went through
         // Right now, the promise returned from sendJson is ignored, we should use the promise to give feedback
         let gridJson = this.generateGridJson();
-        return sendJsonAsPost('http://localhost:8000/api/upload_json', gridJson).then(response => console.log(response))
+        return sendJsonAsPost('http://localhost:8000/api/upload_json', gridJson)
+            .then(response => Logger.info({'SendJsonAsPostResponse':response}))
 
     }
 
