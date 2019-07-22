@@ -7,6 +7,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('browser', views.browser, name='browser'),
     path('getfilesystem', GetFilesystem.as_view()),
-    path('react/', views.reactFrontendTest, name='react'),
     # path('sendfolders/', views.sendfolders, name='sendfolders'),
 ]
