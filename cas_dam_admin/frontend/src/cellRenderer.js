@@ -13,10 +13,11 @@ export default class customCellRenderer extends PureComponent {
     const attributes = attributesRenderer ? attributesRenderer(cell, row, col) : {};
 
     let cellStyle;
-
     if(this.props.cell.verified === true){
         cellStyle = {backgroundColor: '#00c851'}
         //cellStyle = {backgroundColor: '#7befb2'}
+    } else if (this.props.row === 0){
+      cellStyle = {backgroundColor: '#e3e3e3'}
     } else {
         cellStyle = this.props.style;
     }
