@@ -81,6 +81,7 @@ def upload_json(request):
             return HttpResponse("Error: header and data not received", status=status.HTTP_204_NO_CONTENT)
 
     for item in new_items:
+
         response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
                                                                                      upload_header['collectionUuid'])
 
@@ -99,7 +100,7 @@ def upload_json(request):
         elif upload_header['folderSource'] == 'slevin':
             # Set absolute filepath
             filepath = os.path.join(upload_header['sourcePath'],
-                                    item['filename'].strip("/"))  # Remove leading and trailing slashes of the filename
+                                    item['filename'])
 
             # Set filename. If ibss-library.filename exists, use it. Otherwise, use end of filename given in csv
 
@@ -107,7 +108,7 @@ def upload_json(request):
                 filename = item['ibss-library.filename']
 
             else:
-                filename = os.path.basename(item['filenname'])
+                filename = os.path.basename(item['filename'])
 
             dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
 

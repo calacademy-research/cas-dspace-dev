@@ -117,6 +117,7 @@ class Dspace:
         :return: the response as a dict
         :rtype: dict
         """
+
         files = {'file': open(filepath, 'rb')}
         bitstream_response = requests.post(self.rest_base_url + '/items/' + uuid + '/bitstreams',
                                            cookies={'JSESSIONID': self.jsessionid},
