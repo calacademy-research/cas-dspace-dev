@@ -122,8 +122,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "frontend", "build", "static"),
-    # os.path.join(BASE_DIR, "frontend", "build"),
-
 
     # update the STATICFILES_DIRS
 )
@@ -133,6 +131,8 @@ GOOGLE_DRIVE_ONLY = config('google_drive_only', default=False, cast=bool)
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
-       'http://localhost:3000',
+    'http://localhost:3000',
+    'http://127.0.0.1:8000'
+
 )
 
