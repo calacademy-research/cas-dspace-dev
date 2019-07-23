@@ -103,8 +103,7 @@ def upload_json(request):
                                     item['filename'])
 
             # Set filename. If ibss-library.filename exists, use it. Otherwise, use end of filename given in csv
-
-            if 'ibss-library.filename' in item:
+            if 'ibss-library.filename' in item and item['ibss-library.filename'] != '':
                 filename = item['ibss-library.filename']
 
             else:
