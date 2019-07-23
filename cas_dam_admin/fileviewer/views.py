@@ -98,7 +98,6 @@ class GetFilesystem(APIView):
             for f in os.listdir(d):
                 ff = os.path.join(d, f)
                 if os.path.isdir(ff):
-                    # TODO: DRY https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
                     r.append(self.folder_jquery(ff, ff, f))
                 else:
                     e = os.path.splitext(f)[1][1:]  # get .ext and remove dot
