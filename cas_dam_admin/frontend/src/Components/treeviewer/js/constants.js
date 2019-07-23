@@ -18,12 +18,17 @@ const localRootFile = {
 };
 
 function reverse_str(str){
+  /* Helper function for abbreviating path */
   let list = str.split("");
   let reverseList = list.reverse();
   return reverseList.join("");
 }
-//TODO: Harrison, clean this up and add some comments because it makes no sense.
+
 function abbreviate_path(path){
+  /* Takes a full path from the buttonBar and returns an abbreviated version with the middle cut out.
+  EX. /Users/hweinstock/folder --> /Users/.../folder
+  This is needed because otherwise the text wouldn't fit in the display box.
+   */
 
   if(path){
     let new_path = path.slice(1, path.length);
@@ -55,7 +60,7 @@ function abbreviate_path(path){
     if(reverseBack.charAt(0) !== '/'){
       return '/'+frontSection
     }
-    const compoundPath = frontSection+reverseBack.slice(1, reverseBack.length)
+    const compoundPath = frontSection+reverseBack.slice(1, reverseBack.length);
 
     if(compoundPath === new_path) {
       return '/'+compoundPath

@@ -13,7 +13,7 @@ displayBox component displays the metadata of the current file.
 // allows easy tracking of 'cursor' value from the tree component
 
 
-//TODO: Currently shows id with google drive. This should be changed somehow.
+//TODO: Currently shows id with google drive. This should be changed somehow. Problem is, filepath takes too long and is also useless.
 class DisplayBox extends React.Component {
 
   render () {
