@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-// import CellShape from './CellShape'
 
 export default class customCellRenderer extends PureComponent {
   render () {
@@ -12,7 +11,7 @@ export default class customCellRenderer extends PureComponent {
     const {colSpan, rowSpan} = cell;
     const attributes = attributesRenderer ? attributesRenderer(cell, row, col) : {};
 
-    let cellStyle;
+    let cellStyle = style;
     if(this.props.cell.verified === true){
         cellStyle = {backgroundColor: '#00c851'}
         //cellStyle = {backgroundColor: '#7befb2'}

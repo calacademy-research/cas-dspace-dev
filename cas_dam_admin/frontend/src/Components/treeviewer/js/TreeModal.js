@@ -65,7 +65,6 @@ class TreeModal extends React.Component {
                     isOpen={this.props.isModalOpen}
                     // onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
-                    //className="modal"
                     style={modalStyle}
                     >
                     <FileViewer closeModal={this.closeModal} setSelection={this.props.setSelection}/>

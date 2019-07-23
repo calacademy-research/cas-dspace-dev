@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {Treebeard} from "react-treebeard";
 import {API_gcloud_children, API_local_children} from './api.js';
-import {DisplayBox} from './displayBox.js'
 import '../css/treeStyle.scss';
 
 /*

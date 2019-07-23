@@ -6,12 +6,8 @@ import Logger from './logger.js';
 import Sidebar from 'react-sidebar';
 import Dropzone from 'react-dropzone'
 import customCellRenderer from './cellRenderer.js'
-
-
 import LoginModal from './Components/Login/LoginModal';
-
-import {sendJsonAsPost, getCollections, validate_paths} from './api'
-
+import {sendJsonAsPost, getCollections} from './api'
 import 'react-datasheet/lib/react-datasheet.css';
 
 // import './bootstrap/css/bootstrap.min.css'
@@ -20,7 +16,6 @@ import './bootstrap/custom.scss'
 import './App.css';
 import Button from "react-bootstrap/Button";
 import {verify_paths} from './file_verification'
-import cellRenderer from "./cellRenderer";
 
 class App extends React.Component {
     constructor(props) {
