@@ -145,7 +145,7 @@ class App extends React.Component {
         this.setState({grid: this.createEmptyGrid()});
     }
 
-    // TODO: Dash comment this funciton
+    // TODO: Dash comment this function
     // This funciton populates the list in the magic thingy that dash will tell me what it's actually called
     // and then selects the (first?) item so we have a sensible default if the user picks nothing.
     // We should mark this required and display a modal error
@@ -230,8 +230,10 @@ class App extends React.Component {
                 grid.push(this.generateEmptyGridRow(grid));
             }
 
+            verify_paths(grid, this.state.sourcePath)
+            .then(() => this.setState({grid: grid}))
 
-            this.setState({grid: grid})
+
         };
 
 
