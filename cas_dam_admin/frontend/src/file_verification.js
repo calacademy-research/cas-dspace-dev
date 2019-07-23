@@ -12,7 +12,7 @@ function verify_paths(grid, source){
         source: source,
     };
 
-    validate_paths(data).then(response => compare_with_response(response, filenames));
+    return(validate_paths(data).then(response => compare_with_response(response, filenames)));
 }
 
 function compare_with_response(response, filenames){
@@ -21,6 +21,7 @@ function compare_with_response(response, filenames){
     for(i = 0; i < valids.length; i++) {
         filenames[i].verified = valids[i]
     }
+    return(filenames);
 }
 
 export {verify_paths};
