@@ -341,7 +341,7 @@ class App extends React.Component {
 
         // Generate login button and if authenticated, list the current email that's logged in
         let loggedInStatus = null;
-        let authenticationAction = "Log in";
+        let authenticationAction = "DSpace Log In";
 
         if (this.state.isLoggedIn) {
             loggedInStatus = "Logged in as: " + this.state.userEmail;
@@ -436,7 +436,7 @@ class App extends React.Component {
                             changes.forEach(({cell, row, col, value}) => {
                                 grid[row][col] = {...grid[row][col], value}
                             });
-                            verify_paths(grid, this.state.sourcePath);
+                            verify_paths(grid, this.state.sourcePath).then(response => Logger.info({"Updated Grid": response}));
 
                             // Add a new row to the bottom of the array if the current last one has data in it
                             if (this.isLastGridRowEmpty(grid)) {
