@@ -1,6 +1,6 @@
 const winston = require('winston');
 
-const highestLevel = 'debug';
+const highestLevel = 'info';
 
 const Logger = winston.createLogger({
   format: winston.format.combine(

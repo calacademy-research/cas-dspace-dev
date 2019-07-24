@@ -1,0 +1,20 @@
+@media all and (min-width: 480px) {
+    .Login {
+        padding: 60px 0;
+        z-index: 2;
+    }
+
+    .Login form {
+        margin: 0 auto;
+        max-width: 320px;
+    }
+}
+
+.form-control {
+    width: 92.25% !important;
+}
+
+.modal {
+    display: flex !important;
+    align-items: center;
+}

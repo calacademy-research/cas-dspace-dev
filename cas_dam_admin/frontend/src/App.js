@@ -7,6 +7,7 @@ import Sidebar from 'react-sidebar';
 import Dropzone from 'react-dropzone'
 import customCellRenderer from './cellRenderer.js'
 import LoginModal from './Components/Login/LoginModal';
+import ConfirmationModal from './Components/confirmModal/confirmationModal'
 import {sendJsonAsPost, getCollections} from './api'
 import 'react-datasheet/lib/react-datasheet.css';
 
@@ -27,10 +28,15 @@ class App extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setSelection = this.setSelection.bind(this);
         this.clearGridData = this.clearGridData.bind(this);
+
         this.setTreeModalStatus = this.setTreeModalStatus.bind(this);
         this.setLoginModalStatus = this.setLoginModalStatus.bind(this);
+        this.setConfirmationModalStatus = this.setConfirmationModalStatus.bind(this);
+
         this.showLoginModal = this.showLoginModal.bind(this);
         this.setEmailAndPassword = this.setEmailAndPassword.bind(this);
+
+        this.submitJsonToBackend = this.submitJsonToBackend.bind(this);
 
         //this.update_grid_verification = this.update_grid_verification.bind(this);
 
@@ -74,6 +80,7 @@ class App extends React.Component {
             folderSource: "slevin",
             isTreeModalOpen: false,
             isLoginModalOpen: false,
+            isConfirmModalOpen: false,
             userEmail: "",
             userPassword: "",
         };
@@ -246,14 +253,17 @@ class App extends React.Component {
         this.setState({collectionUuid: event.target.value});
     }
 
+    submitJsonToBackend(){
+        let gridJson = this.generateGridJson();
+        return sendJsonAsPost('/api/upload_json', gridJson)
+    }
+
+
     handleSubmit(event) {
         event.preventDefault();
-
         // TODO give feedback that the submission went through
         // Right now, the promise returned from sendJson is ignored, we should use the promise to give feedback
-        let gridJson = this.generateGridJson();
-        return sendJsonAsPost('http://localhost:8000/api/upload_json', gridJson)
-            .then(response => Logger.info({'SendJsonAsPostResponse':response}))
+        this.setConfirmationModalStatus(true);
 
     }
 
@@ -307,6 +317,10 @@ class App extends React.Component {
 
     setLoginModalStatus(event) {
         this.setState({isLoginModalOpen: event})
+    }
+
+    setConfirmationModalStatus(event) {
+        this.setState({isConfirmModalOpen: event})
     }
 
     showLoginModal() {
@@ -394,12 +408,17 @@ class App extends React.Component {
                 {loginArea}
                 {fileUploadArea}
                 {fileviewerArea}
-                <form onSubmit={this.handleSubmit}>
-                    <select name='collection_uuid' onChange={this.handleUuidChange}>
+                <select name='collection_uuid' onChange={this.handleUuidChange}>
                         {collectionOptions}
-                    </select>
-                    <input type="submit" value="Submit"/>
-                </form>
+                </select>
+                <button onClick={this.handleSubmit}> Submit </button>
+
+                {/*<form onSubmit={this.handleSubmit}>*/}
+                {/*    <select name='collection_uuid' onChange={this.handleUuidChange}>*/}
+                {/*        {collectionOptions}*/}
+                {/*    </select>*/}
+                {/*    <input type="submit" value="Submit"/>*/}
+                {/*</form>*/}
             </div>
         );
 
@@ -423,6 +442,13 @@ class App extends React.Component {
                     <LoginModal setEmailAndPassword={this.setEmailAndPassword}
                                 isModalOpen={this.state.isLoginModalOpen}
                                 setLoginModalStatus={this.setLoginModalStatus}/>
+
+                    <ConfirmationModal isModalOpen={this.state.isConfirmModalOpen}
+                                       setConfirmationModalStatus={this.setConfirmationModalStatus}
+                                       submitJson={this.submitJsonToBackend}
+                            />
+
+
                     <ReactDataSheet
                         data={this.state.grid}
                         valueRenderer={(cell) => cell.value}
