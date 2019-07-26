@@ -395,7 +395,6 @@ class App extends React.Component {
         newHeaderIds.splice(source.index, 1);
 
         let sourceName = this.state.grid[0][source.index].value;
-        console.log(result)
 
         if (combine) {
             let destinationName = this.state.draggableData.headers[combine.draggableId].content;
