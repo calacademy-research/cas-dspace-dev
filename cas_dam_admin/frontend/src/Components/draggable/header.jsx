@@ -6,7 +6,7 @@ const Container = styled.div`
     border: 1px solid lightgrey
     padding: 16px;
     margin-right: 8px;
-    background-color: white;
+    background-color: ${props => props.isInSchema ? "green" : "red"};
     userSelect: none;
 `;
 
@@ -16,7 +16,7 @@ export default class Header extends React.Component {
 
             <Draggable draggableId={this.props.header.id} index={this.props.index}>
                 {provided => (
-                    <Container
+                    <Container isInSchema={this.props.isInSchema}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}

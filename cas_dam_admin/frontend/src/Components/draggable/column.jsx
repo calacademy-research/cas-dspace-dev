@@ -14,6 +14,7 @@ const Title = styled.h3`
 const HeaderList = styled.div`
     padding: 8px;
     display: flex;
+    flex-wrap: wrap;
     
 `;
 
@@ -28,8 +29,11 @@ export default class Column extends React.Component {
                             ref={provided.innerRef}
                             {...provided.droppableProps}
                         >
-                            {this.props.headers.map((header, index) => <Header key={header.id} header={header}
-                                                                               index={index}/>)}
+                            {this.props.headers.map((header, index) => {
+
+                                return <Header key={header.id} header={header}
+                                                index={index} isInSchema={this.props.isHeaderInSchema(header.content)}/>
+                            })}
                             {provided.placeholder}
                         </HeaderList>
                     )}

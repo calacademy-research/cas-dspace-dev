@@ -40,6 +40,8 @@ class App extends React.Component {
 
         this.submitJsonToBackend = this.submitJsonToBackend.bind(this);
 
+        this.isHeaderInSchema = this.isHeaderInSchema.bind(this);
+
         //this.update_grid_verification = this.update_grid_verification.bind(this);
 
         this.metatadataEntries = [
@@ -243,7 +245,7 @@ class App extends React.Component {
             verify_paths(grid, this.state.sourcePath)
                 .then(() => this.setState({grid: grid}));
 
-            this.setState({draggableData: this.generateDraggableData()});
+            this.setState({draggableData: this.generateDraggableData(grid)});
         };
 
 
@@ -465,6 +467,13 @@ class App extends React.Component {
 
     }
 
+    isHeaderInSchema(name) {
+        if (this.metatadataEntries.findIndex(item => item.value === name) != -1) {
+            return true
+        }
+        return false;
+    }
+
 
     render() {
         let draggableZone = (
@@ -474,7 +483,7 @@ class App extends React.Component {
                 {this.state.draggableData.columnOrder.map(columnId => {
                     const column = this.state.draggableData.columns[columnId];
                     const headers = column.headerIds.map(headerId => this.state.draggableData.headers[headerId]);
-                    return <Column key={column.id} column={column} headers={headers}/>;
+                    return <Column key={column.id} column={column} headers={headers} isHeaderInSchema={this.isHeaderInSchema}/>;
                 })}
             </DragDropContext>);
 
