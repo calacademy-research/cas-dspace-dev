@@ -10,6 +10,8 @@ import LoginModal from './Components/Login/LoginModal';
 import ConfirmationModal from './Components/confirmModal/confirmationModal'
 import {sendJsonAsPost, getCollections} from './api'
 import 'react-datasheet/lib/react-datasheet.css';
+import {DragDropContext} from 'react-beautiful-dnd';
+import Column from './Components/draggable/column'
 
 // import './bootstrap/css/bootstrap.min.css'
 import './bootstrap/custom.scss'
@@ -70,9 +72,13 @@ class App extends React.Component {
             {value: 'dc.rights (status)', label: 'dc.rights (status)', readOnly: true},
             {value: 'ibss-library.publish', label: 'ibss-library.publish', readOnly: true}];
 
+        // Generate grid before setting state, as we need to generate draggable data from the grid.
+        // JS won't reference state while it is being created.
+        let grid = this.createEmptyGrid()
+
         this.state = {
             isLoggedIn: false,
-            grid: this.createEmptyGrid(),
+            grid: grid,
             collectionList: {},
             collectionUuid: "",
             collectionName: "",
@@ -81,6 +87,7 @@ class App extends React.Component {
             isTreeModalOpen: false,
             isLoginModalOpen: false,
             isConfirmModalOpen: false,
+            draggableData: this.generateDraggableData(grid),
             userEmail: "",
             userPassword: "",
         };
@@ -98,7 +105,7 @@ class App extends React.Component {
          */
 
 
-        // TODO: Currently sets all columns to verified false. Not super important but unneeded.
+            // TODO: Currently sets all columns to verified false. Not super important but unneeded.
         let newArray = Array(grid[0].length).fill({value: ""});
         newArray[0].verified = false;
         return newArray;   // Generate an row with the same
@@ -135,8 +142,10 @@ class App extends React.Component {
             sourcePath: newSelection.path,
             folderSource: newSelection.source,
         }, () => {
-            Logger.info({'this.state.sourcePath': this.state.sourcePath,
-                                    'this.state.folderSource': this.state.folderSource});
+            Logger.info({
+                'this.state.sourcePath': this.state.sourcePath,
+                'this.state.folderSource': this.state.folderSource
+            });
         })
     }
 
@@ -167,7 +176,6 @@ class App extends React.Component {
             }
 
         });
-
     }
 
 
@@ -233,9 +241,9 @@ class App extends React.Component {
             }
 
             verify_paths(grid, this.state.sourcePath)
-            .then(() => this.setState({grid: grid}))
+                .then(() => this.setState({grid: grid}));
 
-
+            this.setState({draggableData: this.generateDraggableData()});
         };
 
 
@@ -253,11 +261,11 @@ class App extends React.Component {
         this.setState({collectionUuid: event.target.value});
     }
 
-    submitJsonToBackend(){
+
+    submitJsonToBackend() {
         let gridJson = this.generateGridJson();
         return sendJsonAsPost('/api/upload_json', gridJson)
     }
-
 
     handleSubmit(event) {
         event.preventDefault();
@@ -335,8 +343,142 @@ class App extends React.Component {
         this.setState({userEmail: data.email, userPassword: data.password, isLoggedIn: true})
     }
 
+    generateDraggableData(grid = this.state.grid) {
+        /**
+         * Generates a pair of objects: one contains the name and id of the header items, the other keeps track of their order
+         */
+        let headers = {};
+        let columns = {
+            'column-1': {
+                id: 'column-1',
+                title: 'Column headers',
+                headerIds: []
+            }
+        };
+        let columnOrder = ['column-1'];
+
+        grid[0].forEach((item, index) => {
+            let content = item.value;
+            let itemId = 'item-' + index.toString();
+
+            headers[itemId] = {
+                id: itemId,
+                content: content
+            };
+            columns["column-1"].headerIds.push(itemId);
+
+        });
+
+        return {headers, columns, columnOrder}
+    }
+
+
+    onDragEnd = result => {
+        const {destination, source, draggableId, combine} = result;
+
+        if (!destination && !combine) {
+            return;
+        }
+
+        if (combine || (destination.droppableId === source.droppableId &&
+            destination.index === source.index)) {
+            if (!combine) {
+
+                return;
+            }
+
+        }
+
+        const column = this.state.draggableData.columns[source.droppableId];
+        const newHeaderIds = Array.from(column.headerIds);
+
+        newHeaderIds.splice(source.index, 1);
+
+        let sourceName = this.state.grid[0][source.index].value;
+        console.log(result)
+
+        if (combine) {
+            let destinationName = this.state.draggableData.headers[combine.draggableId].content;
+            this.mergeColumns(sourceName, destinationName);
+
+        } else {
+            // Move old item to new position
+            let destinationName = this.state.grid[0][destination.index].value;
+            newHeaderIds.splice(destination.index, 0, draggableId);
+            this.moveColumn(sourceName, destinationName)
+        }
+
+        // Update state of column
+        const newColumn = {
+            ...column,
+            headerIds: newHeaderIds,
+        };
+        const newDraggableData = {
+            ...this.state.draggableData,
+            columns: {
+                ...this.state.draggableData.columns,
+                [newColumn.id]: newColumn,
+            }
+        };
+        this.setState({draggableData: newDraggableData});
+
+    };
+
+
+    getColumnIndexFromName(columnName) {
+        return this.state.grid[0].findIndex(item => item.value === columnName);
+    }
+
+    moveColumn(source, destination) {
+        let sourceIndex = this.getColumnIndexFromName(source);
+        let destinationIndex = this.getColumnIndexFromName(destination);
+
+        let newGrid = this.state.grid;
+
+        let cell;
+        newGrid.forEach((row, rowIndex) => {
+
+            cell = newGrid[rowIndex][sourceIndex]
+            // remove cell at index, then insert it at new index
+            newGrid[rowIndex].splice(sourceIndex, 1);
+            newGrid[rowIndex].splice(destinationIndex, 0, cell)
+        })
+
+        this.setState({grid: newGrid})
+
+    }
+
+    mergeColumns(source, destination) {
+        let sourceIndex = this.getColumnIndexFromName(source);
+        let destinationIndex = this.getColumnIndexFromName(destination);
+
+        let newGrid = this.state.grid;
+
+        newGrid.forEach((row, rowIndex) => {
+            // overwrite destination cell, then Remove value from source cell
+            if (rowIndex !== 0) {
+                newGrid[rowIndex][destinationIndex] = newGrid[rowIndex][sourceIndex];
+            }
+            newGrid[rowIndex].splice(sourceIndex, 1);
+        })
+
+        this.setState({grid: newGrid})
+
+    }
+
 
     render() {
+        let draggableZone = (
+            <DragDropContext
+                onDragEnd={this.onDragEnd}
+            >
+                {this.state.draggableData.columnOrder.map(columnId => {
+                    const column = this.state.draggableData.columns[columnId];
+                    const headers = column.headerIds.map(headerId => this.state.draggableData.headers[headerId]);
+                    return <Column key={column.id} column={column} headers={headers}/>;
+                })}
+            </DragDropContext>);
+
 
         let collectionList = this.state.collectionList;
         let collectionOptions = [];
@@ -409,9 +551,9 @@ class App extends React.Component {
                 {fileUploadArea}
                 {fileviewerArea}
                 <select name='collection_uuid' onChange={this.handleUuidChange}>
-                        {collectionOptions}
+                    {collectionOptions}
                 </select>
-                <button onClick={this.handleSubmit}> Submit </button>
+                <button onClick={this.handleSubmit}> Submit</button>
 
                 {/*<form onSubmit={this.handleSubmit}>*/}
                 {/*    <select name='collection_uuid' onChange={this.handleUuidChange}>*/}
@@ -446,9 +588,9 @@ class App extends React.Component {
                     <ConfirmationModal isModalOpen={this.state.isConfirmModalOpen}
                                        setConfirmationModalStatus={this.setConfirmationModalStatus}
                                        submitJson={this.submitJsonToBackend}
-                            />
+                    />
 
-
+                    {draggableZone}
                     <ReactDataSheet
                         data={this.state.grid}
                         valueRenderer={(cell) => cell.value}
