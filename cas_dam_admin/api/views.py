@@ -84,13 +84,17 @@ def upload_json(request):
 
         response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
                                                                                      upload_header['collectionUuid'])
-
+        print(response_uuid)
         if response_uuid is None:  # Empty rows should be ignored and not added to item_responses
             continue
 
         item_responses.append((item, response_uuid, response_data))
 
+
     logging.info(json_body)
+
+    if item_responses == []:
+        return HttpResponse("Error: none of the rows were valid.", status=status.HTTP_204_NO_CONTENT)
 
     for item, response_uuid, response_data in item_responses:
         if upload_header['folderSource'] == 'gdrive':
@@ -109,7 +113,7 @@ def upload_json(request):
             else:
                 filename = os.path.basename(item['filename'])
 
-            dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
+            response = dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
 
     return HttpResponse(status=status.HTTP_200_OK)
 

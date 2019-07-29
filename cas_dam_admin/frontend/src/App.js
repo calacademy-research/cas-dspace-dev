@@ -97,6 +97,29 @@ class App extends React.Component {
         // https://stackoverflow.com/questions/30568796/how-to-store-configuration-file-and-read-it-using-react
     }
 
+    getHoverText(){
+        let msg = 'Before submitting, please ';
+        let loginMsg = 'login';
+        let emptyMsg = 'fill in at least 1 row';
+
+        let empty = calculate_non_empty_rows(this.state.grid) === 0;
+        let notLoggedIn = !this.state.isLoggedIn;
+
+        if(empty){
+            msg += emptyMsg;
+            if(notLoggedIn){
+                msg += ' and ';
+                msg += loginMsg
+            }
+        } else if (notLoggedIn){
+            msg += loginMsg
+        }
+
+        msg += '.';
+
+        return msg
+    }
+
     // Return an empty row that's the size of the grid
     generateEmptyGridRow(grid) {
         /**
@@ -564,7 +587,8 @@ class App extends React.Component {
                 </select>
                 <Button style={{display: 'inline-block', float: 'left'}}
                         onClick={this.handleSubmit}
-                        disabled={calculate_non_empty_rows(this.state.grid) === 0 || !this.state.isLoggedIn}>
+                        disabled={calculate_non_empty_rows(this.state.grid) === 0 || !this.state.isLoggedIn}
+                        title={this.getHoverText()}>
 
                     Submit {non_empty_rows} {non_empty_rows > 1 ? 'rows' : 'row'}
 

@@ -3,6 +3,10 @@ import Modal from 'react-modal';
 import Logger from '../../logger.js';
 import {Button, Form} from "react-bootstrap";
 
+/*
+Look into thumbnails
+Round the draggables edges.
+ */
 const modalStyle = {
     content: {
         top: '15%',
@@ -38,6 +42,7 @@ export default class ConfirmModal extends React.Component {
     }
 
     verify_response(response){
+        console.log(response);
         switch(response.status){
             case 204 || 401 || 400:
                 Logger.warn({"statusText": response.statusText});
