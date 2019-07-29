@@ -11,7 +11,8 @@ import ConfirmationModal from './Components/confirmModal/confirmationModal'
 import {sendJsonAsPost, getCollections} from './api'
 import 'react-datasheet/lib/react-datasheet.css';
 import {DragDropContext} from 'react-beautiful-dnd';
-import Column from './Components/draggable/column'
+import Column from './Components/draggable/column';
+import Instructions from './instructions'
 
 // import './bootstrap/css/bootstrap.min.css'
 import './bootstrap/custom.scss'
@@ -599,6 +600,7 @@ class App extends React.Component {
                 {/*    </select>*/}
                 {/*    <input type="submit" value="Submit"/>*/}
                 {/*</form>*/}
+                <Instructions/>
             </div>
         );
 
