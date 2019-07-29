@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-
+// Make empty cells grey
 export default class customCellRenderer extends PureComponent {
   render () {
     const {
@@ -10,15 +10,17 @@ export default class customCellRenderer extends PureComponent {
 
     const {colSpan, rowSpan} = cell;
     const attributes = attributesRenderer ? attributesRenderer(cell, row, col) : {};
-
     let cellStyle = style;
     if(this.props.cell.verified === true){
-        cellStyle = {backgroundColor: '#00c851'}
-        //cellStyle = {backgroundColor: '#7befb2'}
-    } else if (this.props.row === 0){
+        //cellStyle = {backgroundColor: 'green'}
+        //cellStyle = {backgroundColor: '#00c851'}
+        cellStyle = {backgroundColor: '#28a745'}
+    } else if (this.props.row === 0) {
       cellStyle = {backgroundColor: '#e3e3e3'}
+    } else if (cell.value === '') {
+      cellStyle = {backgroundColor: '#d7d7b2'}
     } else {
-        cellStyle = this.props.style;
+      cellStyle = this.props.style;
     }
 
     return (
