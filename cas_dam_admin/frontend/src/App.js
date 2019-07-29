@@ -354,7 +354,7 @@ class App extends React.Component {
             'column-1': {
                 id: 'column-1',
                 title: 'Column headers',
-                headerIds: []
+                headerIds: [],
             }
         };
         let columnOrder = ['column-1'];
