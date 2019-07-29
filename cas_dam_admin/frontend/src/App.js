@@ -18,7 +18,7 @@ import './bootstrap/custom.scss'
 
 import './App.css';
 import Button from "react-bootstrap/Button";
-import {verify_paths} from './file_verification'
+import {verify_paths, calculate_non_empty_rows} from './file_verification'
 
 class App extends React.Component {
     constructor(props) {
@@ -483,11 +483,12 @@ class App extends React.Component {
                 {this.state.draggableData.columnOrder.map(columnId => {
                     const column = this.state.draggableData.columns[columnId];
                     const headers = column.headerIds.map(headerId => this.state.draggableData.headers[headerId]);
-                    return <Column key={column.id} column={column} headers={headers} isHeaderInSchema={this.isHeaderInSchema}/>;
+                    return <Column key={column.id} column={column} headers={headers}
+                                   isHeaderInSchema={this.isHeaderInSchema}/>;
                 })}
             </DragDropContext>);
 
-
+        let non_empty_rows = calculate_non_empty_rows(this.state.grid)
         let collectionList = this.state.collectionList;
         let collectionOptions = [];
 
@@ -561,8 +562,13 @@ class App extends React.Component {
                 <select name='collection_uuid' onChange={this.handleUuidChange}>
                     {collectionOptions}
                 </select>
-                <button onClick={this.handleSubmit}> Submit</button>
+                <Button style={{display: 'inline-block', float: 'left'}}
+                        onClick={this.handleSubmit}
+                        disabled={calculate_non_empty_rows(this.state.grid) === 0 || !this.state.isLoggedIn}>
 
+                    Submit {non_empty_rows} {non_empty_rows > 1 ? 'rows' : 'row'}
+
+                </Button>
                 {/*<form onSubmit={this.handleSubmit}>*/}
                 {/*    <select name='collection_uuid' onChange={this.handleUuidChange}>*/}
                 {/*        {collectionOptions}*/}
@@ -585,7 +591,6 @@ class App extends React.Component {
             },
             transitions: false
         };
-
         return (
             <Sidebar {...sidebarProps}>
                 <div>
@@ -596,6 +601,7 @@ class App extends React.Component {
                     <ConfirmationModal isModalOpen={this.state.isConfirmModalOpen}
                                        setConfirmationModalStatus={this.setConfirmationModalStatus}
                                        submitJson={this.submitJsonToBackend}
+                                       numberOfRows={non_empty_rows}
                     />
 
                     {draggableZone}
