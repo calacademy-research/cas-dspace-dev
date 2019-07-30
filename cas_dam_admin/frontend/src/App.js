@@ -553,10 +553,10 @@ class App extends React.Component {
 
         let fileviewerArea = (
             <div className="sidebar-element">
-                <button onClick={() => this.setTreeModalStatus(true)}>Select a folder</button>
+                <button onClick={() => this.setTreeModalStatus(true)} title={"Select a root folder that contains all the files listed in the csv"}>Select a folder</button>
                 {selectedPath}
             </div>);
-
+        
 
         // Generate the file upload button and area
         let fileUploadArea = (
