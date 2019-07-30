@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details about submission #{{ submission.pk }}</title>
+</head>
+<body>
+<form action="{% url 'undo' submission.id %}" method="POST">
+    {% csrf_token %}
+    <button>Undo!</button>
+</form>
+</body>
+</html>

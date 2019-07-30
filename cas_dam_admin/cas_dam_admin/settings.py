@@ -30,11 +30,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'rest_framework',
     'frontend',
     'api',
-    'fileviewer.apps.FileviewerConfig',
-    'django.contrib.admin',
+    'history',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -135,4 +135,3 @@ CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:8000'
 
 )
-

@@ -6,6 +6,8 @@ from rest_framework import status
 from django.http import JsonResponse
 from django.http import HttpResponse
 
+from .models import Item, SubmittedData
+
 import os
 import logging
 import json
@@ -38,7 +40,6 @@ def upload_json(request):
     # Iterate through json body, set collection UUID if it is found. If it is not found, return 400 bad request
     # Searches for the property collectionUuid: it is unique to the header, so it identifies the header compared to the
     # rest of the uploaded items
-    # TODO: Dash - make this not suck.
     for entry in json_body:
         if not header_seen:  # While the header item has not been seen, search for it in each item.
             # Once it has, don't bother
@@ -80,6 +81,9 @@ def upload_json(request):
         else:
             return HttpResponse("Error: header and data not received", status=status.HTTP_204_NO_CONTENT)
 
+    submitted_data = SubmittedData(upload_user=email, collection_uuid=upload_header['collectionUuid'])
+    submitted_data.save()
+
     for item in new_items:
 
         response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
@@ -90,6 +94,8 @@ def upload_json(request):
 
         item_responses.append((item, response_uuid, response_data))
 
+        item_model = Item(source_submission=submitted_data, uuid=response_uuid, metadata=json.dumps(item))
+        item_model.save()
 
     logging.info(json_body)
 
@@ -113,7 +119,10 @@ def upload_json(request):
             else:
                 filename = os.path.basename(item['filename'])
 
-            response = dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
+            dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
+            # Update each item with the filepath.
+            # We can't do this earlier, as we generate the filepath when uploading the bitstream.
+            Item.objects.filter(pk=response_uuid).update(filepath=filepath)
 
     return HttpResponse(status=status.HTTP_200_OK)
 
@@ -129,7 +138,6 @@ def test_login_credentials(request):
     is_logged_in = dspace_controller.login(email, password)
 
     return HttpResponse(is_logged_in, status=status.HTTP_200_OK)
-
 
 
 @api_view(['GET'])
