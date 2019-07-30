@@ -14,6 +14,7 @@ export default class Instructions extends React.Component {
                         and yellow means valid, but unneeded.
                     </li>
                     <li>Once you are ready, click submit and confirm your submission.</li>
+                    <li>Note: If any button of piece of this page is confusing, hover over it with your mouse for more information.</li>
                 </ul>
             </div>
         );
