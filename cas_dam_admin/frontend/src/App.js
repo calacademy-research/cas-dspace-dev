@@ -492,7 +492,7 @@ class App extends React.Component {
     }
 
     isHeaderInSchema(name) {
-        if (this.metatadataEntries.findIndex(item => item.value === name) != -1) {
+        if (this.metatadataEntries.findIndex(item => item.value === name) >= 0) {
             return true
         }
         return false;
@@ -647,6 +647,7 @@ class App extends React.Component {
                             if (this.isLastGridRowEmpty(grid)) {
                                 grid.push(this.generateEmptyGridRow(grid));
                             }
+                            this.generateDraggableData(grid);
 
                             this.setState({
                                 grid: grid,

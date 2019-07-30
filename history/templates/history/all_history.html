@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Submission History</title>
+</head>
+<body>
+<ul>
+{#    {% for item_uuids in submission_uuids %}#}
+{#    <li><a href="{% url 'detail' submission.id %}">{{ item_uuids }}</li>#}
+{#    {% endfor %}#}
+    {% for submission in list_of_submissions %}
+    <li><a href="{% url 'detail' submission.id %}">{{ submission }}</a></li>
+    {% endfor %}
+</ul>
+</body>
+</html>
