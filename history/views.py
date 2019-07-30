@@ -59,5 +59,7 @@ def delete_uuids_from_dspace(list_of_uuids):
     delete_responses = []
 
     for uuid in list_of_uuids:
-        response = dspace_controller.delete_data_from_dspace('item', uuid)
+        response = dspace_controller.delete_data_from_dspace('items', uuid)
         delete_responses.append(response)
+
+    print(delete_responses)
