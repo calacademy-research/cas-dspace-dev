@@ -131,7 +131,7 @@ export default class ConfirmModal extends React.Component {
             case 'confirmation':
                 block = (
                     <div>
-                        <h2 ref={subtitle => this.subtitle = subtitle}>Are you sure you want to submit {this.props.numberOfRows} rows?</h2>
+                        <h2 ref={subtitle => this.subtitle = subtitle}>Are you sure you want to submit {this.props.numberOfRows} {this.props.numberOfRows === 1 ? 'row' : 'rows'}?</h2>
                         <Button onClick={this.onConfirmation}
                                 style={{display: 'inline-block', float: 'left'}}>
                             Confirm

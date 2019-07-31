@@ -4,17 +4,12 @@ export default class Instructions extends React.Component {
     render() {
         return (
             <div>
-                <h3>Instructions</h3>
+                <h3>Information</h3>
                 <ul>
-                    <li>First, login to DSpace using the blue button up top.</li>
-                    <li>Next, drag/select a csv file to upload.</li>
-                    <li>Use the select folder button above to select the root folder of the photos.</li>
-                    <li>Edit the data in the spreadsheet as needed.</li>
-                    <li>The Column headers above the spreadsheet are draggable. Red means invalid, green means valid,
-                        and yellow means valid, but unneeded.
-                    </li>
-                    <li>Once you are ready, click submit and confirm your submission.</li>
-                    <li>Note: If any button of piece of this page is confusing, hover over it with your mouse for more information.</li>
+                    <li>Before Submitting, you must have at least 1 row filled in and be logged in to DSpace.</li>
+                    <li>If a filename cell highlights in green, we were able to locate your file. </li>
+                    <li>In the draggable Column headers, you may reorder columns, combine columns, or delete them.</li>
+                    <li>If a draggable Column is green, it is in our schema and it was included in your csv. If it is grey, it is included in our scheme, but not your csv. And finally, if it is red, it is included in your csv, but not our schema. </li>
                 </ul>
             </div>
         );

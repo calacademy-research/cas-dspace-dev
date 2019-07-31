@@ -31,8 +31,11 @@ export default class Column extends React.Component {
                         >
                             {this.props.headers.map((header, index) => {
 
-                                return <Header key={header.id} header={header}
-                                                index={index} isInSchema={this.props.isHeaderInSchema(header.content)}/>
+                                return <Header key={header.id}
+                                               header={header}
+                                               index={index}
+                                               isInSchema={this.props.isHeaderInSchema(header.content)}
+                                               grid={this.props.grid}/>
                             })}
                             {provided.placeholder}
                         </HeaderList>

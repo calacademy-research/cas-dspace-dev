@@ -13,6 +13,7 @@ import 'react-datasheet/lib/react-datasheet.css';
 import {DragDropContext} from 'react-beautiful-dnd';
 import Column from './Components/draggable/column';
 import Instructions from './instructions'
+import uploadIcon from './assets/uploadIcon.png'
 
 // import './bootstrap/css/bootstrap.min.css'
 import './bootstrap/custom.scss'
@@ -77,7 +78,7 @@ class App extends React.Component {
 
         // Generate grid before setting state, as we need to generate draggable data from the grid.
         // JS won't reference state while it is being created.
-        let grid = this.createEmptyGrid()
+        let grid = this.createEmptyGrid();
 
         this.state = {
             isLoggedIn: false,
@@ -114,6 +115,9 @@ class App extends React.Component {
             }
         } else if (notLoggedIn){
             msg += loginMsg
+        } else {
+            msg = 'You may now submit!';
+            return msg
         }
 
         msg += '.';
@@ -467,7 +471,7 @@ class App extends React.Component {
             // remove cell at index, then insert it at new index
             newGrid[rowIndex].splice(sourceIndex, 1);
             newGrid[rowIndex].splice(destinationIndex, 0, cell)
-        })
+        });
 
         this.setState({grid: newGrid})
 
@@ -485,7 +489,7 @@ class App extends React.Component {
                 newGrid[rowIndex][destinationIndex] = newGrid[rowIndex][sourceIndex];
             }
             newGrid[rowIndex].splice(sourceIndex, 1);
-        })
+        });
 
         this.setState({grid: newGrid})
 
@@ -507,12 +511,15 @@ class App extends React.Component {
                 {this.state.draggableData.columnOrder.map(columnId => {
                     const column = this.state.draggableData.columns[columnId];
                     const headers = column.headerIds.map(headerId => this.state.draggableData.headers[headerId]);
-                    return <Column key={column.id} column={column} headers={headers}
-                                   isHeaderInSchema={this.isHeaderInSchema}/>;
+                    return <Column key={column.id}
+                                   column={column}
+                                   headers={headers}
+                                   isHeaderInSchema={this.isHeaderInSchema}
+                                   grid={this.state.grid}/>;
                 })}
             </DragDropContext>);
 
-        let non_empty_rows = calculate_non_empty_rows(this.state.grid)
+        let non_empty_rows = calculate_non_empty_rows(this.state.grid);
         let collectionList = this.state.collectionList;
         let collectionOptions = [];
 
@@ -526,7 +533,7 @@ class App extends React.Component {
 
 
         // Generate login button and if authenticated, list the current email that's logged in
-        let loggedInStatus = null;
+        let loggedInStatus = "Currently not logged in.";
         let authenticationAction = "DSpace Log In";
 
         if (this.state.isLoggedIn) {
@@ -534,29 +541,74 @@ class App extends React.Component {
             authenticationAction = "Change User";
         }
         let loginArea = (
-            <div className="sidebar-element">
-                <div className="center-in-div">
-                    <Button onClick={() => this.setLoginModalStatus(true)}>{authenticationAction}</Button>
-                </div>
-                <div className={"center-in-div"}>
+            <div>
+                <div className='display-box'>
                     <p>{loggedInStatus}</p>
+                    <div className="default-button-container">
+                    <Button onClick={() => this.setLoginModalStatus(true)}
+                            variant='info'
+                            className='default-button'>
+                        {authenticationAction}
+                    </Button>
                 </div>
+                </div>
+            </div>
+
+        );
+
+        let header = (
+            <div className='sidebar-element'>
+                <h2> DSpace Uploader </h2>
+                <h6> Upload a CSV to begin </h6>
             </div>
         );
 
+        let clearButton = (
+            <div className='default-button-container'>
+                <Button onClick={this.clearGridData}
+                        variant='danger'
+                        className='default-button'>
+
+                    Clear data
+                </Button>
+            </div>
+        );
+
+        let filepathText = 'Currently selected folder source: ';
+        let filepathButtonText = 'Change Folder';
+
+
+        if(this.state.sourcePath === '') {
+            filepathText = 'No folder currently selected';
+            filepathButtonText = "Select a Folder"
+        }
+
         // Generate the folder selector button, list the path to the folder
         let selectedPath = (
-            <div>
-                <p>Currently selected folder source: </p>
-                <p style={{'fontSize': '12px', 'wordWrap': 'break-word'}}>{this.state.sourcePath}</p>
+            <div className= 'display-box'>
+                <p>{filepathText}</p>
+                <p style={{fontSize: '12px', wordWrap: 'break-word'}}>{this.state.sourcePath}</p>
             </div>);
+
+        let pathButton = (
+            <div className="default-button-container">
+                    <Button onClick={() => this.setTreeModalStatus(true)}
+                            title={"Select a root folder that contains all the files listed in the csv"}
+                            variant='info'
+                            className='default-button'>
+
+                        {filepathButtonText}
+                    </Button>
+                </div>
+        );
 
         let fileviewerArea = (
-            <div className="sidebar-element">
-                <button onClick={() => this.setTreeModalStatus(true)} title={"Select a root folder that contains all the files listed in the csv"}>Select a folder</button>
-                {selectedPath}
-            </div>);
 
+            <div className= 'display-box'>
+                <p>{filepathText}</p>
+                <p style={{fontSize: '12px', wordWrap: 'break-word'}}>{this.state.sourcePath}</p>
+                {pathButton}
+            </div>);
 
         // Generate the file upload button and area
         let fileUploadArea = (
@@ -569,6 +621,7 @@ class App extends React.Component {
                             <div className="upload-box" {...getRootProps()}>
                                 <input {...getInputProps()} />
                                 <div className="upload-text">
+                                    <img className="Img" src={uploadIcon} alt="upload" />
                                     <p>Click me or drag CSV file here</p>
                                 </div>
                             </div>
@@ -578,29 +631,57 @@ class App extends React.Component {
             </div>
         );
 
-        let sidebar = (
-            <div>
-                {loginArea}
-                {fileUploadArea}
-                {fileviewerArea}
-                <select name='collection_uuid' onChange={this.handleUuidChange}>
-                    {collectionOptions}
-                </select>
-                <Button style={{display: 'inline-block', float: 'left'}}
-                        onClick={this.handleSubmit}
-                        disabled={calculate_non_empty_rows(this.state.grid) === 0 || !this.state.isLoggedIn}
-                        title={this.getHoverText()}>
+        let submitButtonDisabled = calculate_non_empty_rows(this.state.grid) === 0 || !this.state.isLoggedIn;
 
-                    Submit {non_empty_rows} {non_empty_rows > 1 ? 'rows' : 'row'}
+        let collectionSelector = (
+            <div className='display-box collection-box'>
+                <p>Collection: &nbsp; </p>
+                <select name='collection_uuid' onChange={this.handleUuidChange} style={{width: '50%'}}>
+                        {collectionOptions}
+                </select>
+            </div>
+        );
+
+        let submitButton = (
+            <div className='default-button-container'>
+                <Button variant={!submitButtonDisabled ? 'success' : 'secondary'}
+                            onClick={this.handleSubmit}
+                            disabled={submitButtonDisabled}
+                            title={this.getHoverText()}
+                            className='default-button'>
+
+                        Submit {non_empty_rows} {non_empty_rows === 1 ? 'row' : 'rows'}
 
                 </Button>
-                {/*<form onSubmit={this.handleSubmit}>*/}
-                {/*    <select name='collection_uuid' onChange={this.handleUuidChange}>*/}
-                {/*        {collectionOptions}*/}
-                {/*    </select>*/}
-                {/*    <input type="submit" value="Submit"/>*/}
-                {/*</form>*/}
+            </div>
+        );
+
+        let instructionBox = (
+            <div className='display-box'>
                 <Instructions/>
+            </div>
+        );
+
+        let buffer = (
+            <div style={{paddingTop: '12.5px'}}/>
+        );
+
+        let sidebar = (
+            <div>
+                {buffer}
+                {header}
+                {loginArea}
+                {buffer}
+                {fileUploadArea}
+                {buffer}
+                {fileviewerArea}
+                {buffer}
+                {collectionSelector}
+                {buffer}
+                {submitButton}
+                {clearButton}
+                {buffer}
+                {instructionBox}
             </div>
         );
 
@@ -655,10 +736,10 @@ class App extends React.Component {
                         }}
                     />
                     {/* This is a debug hook for now*/}
-                    <button onClick={this.generateGridJson}>Print current data</button>
+                    {/*<button onClick={this.generateGridJson}>Print current data</button>*/}
                     <TreeModal isModalOpen={this.state.isTreeModalOpen} setSelection={this.setSelection}
                                setTreeModalStatus={this.setTreeModalStatus}/>
-                    <button onClick={this.clearGridData}>Clear data</button>
+                    {/*<Button onClick={this.clearGridData}>Clear data</Button>*/}
 
                 </div>
             </Sidebar>

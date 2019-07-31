@@ -22,11 +22,12 @@
 
 .upload-box {
     display: table;
-    width: 200px;
+    width: 198px;
     min-height: 100px;
     height: 30%;
     background-color: white;
     margin: 0 auto;
+    border: 1px dashed grey;
     border-radius: 5px;
 }
 
@@ -34,5 +35,39 @@
     display: table-cell;
     vertical-align: middle;
     padding: 5px;
+    text-align: center;
+}
+
+.display-box {
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 198px;
+    height: 30%;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+.collection-box {
+    display: flex;
+}
+
+.Img {
+    max-width: 20%;
+}
+
+.default-button {
+    width: 75%;
+    height: 100%;
+    border-radius: 25px !important;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+
+.default-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }
