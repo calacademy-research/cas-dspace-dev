@@ -23,7 +23,7 @@ export default class Column extends React.Component {
         return (
             <Container>
                 <Title>{this.props.column.title}</Title>
-                <Droppable droppableId={this.props.column.id} isCombineEnabled direction='horizontal'>
+                <Droppable droppableId={this.props.column.id} isCombineEnabled={true} direction='horizontal'>
                     {provided => (
                         <HeaderList
                             ref={provided.innerRef}
