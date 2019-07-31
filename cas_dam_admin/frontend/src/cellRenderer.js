@@ -10,18 +10,34 @@ export default class customCellRenderer extends PureComponent {
 
     const {colSpan, rowSpan} = cell;
     const attributes = attributesRenderer ? attributesRenderer(cell, row, col) : {};
-    let cellStyle = style;
+    let cellcolor = 'white';
+
+    let borderRight = '0';
+
     if(this.props.cell.verified === true){
         //cellStyle = {backgroundColor: 'green'}
-        //cellStyle = {backgroundColor: '#00c851'}
-        cellStyle = {backgroundColor: '#28a745'}
+        //cellcolor = '#e8ffde'
+
+        cellcolor ='#28a745';
     } else if (this.props.row === 0) {
-      cellStyle = {backgroundColor: '#e3e3e3'}
+      //cellcolor = '#e3e3e3';
+
+      cellcolor = '#deeaff';
+      // borderRight = '1px solid black'
+
     } else if (cell.value === '') {
-      cellStyle = {backgroundColor: '#d7d7b2'}
-    } else {
-      cellStyle = this.props.style;
+      cellcolor ='white';
+
+      //cellcolor = '#d7d7b2'
     }
+
+    let cellStyle = {
+      backgroundColor: cellcolor,
+      boxSizing: 'border-box',
+      paddingLeft: '10px',
+      paddingRight: '10px',
+      borderRight: '1px solid black',
+    };
 
     return (
       <td
