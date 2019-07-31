@@ -16,7 +16,7 @@ function isColumnEmpty(col, grid){
 
 function determineColor(isInSchema, grid, index){
     if(isColumnEmpty(index, grid)){
-        return '#dedede'
+        return '#e8e8e8'
     }
 
     if(isInSchema){
@@ -30,6 +30,7 @@ const Container = styled.div`
     border: 1px solid lightgrey
     padding: 16px;
     margin-right: 8px;
+    border-radius: 25px;
     background-color: ${props => determineColor(props.isInSchema, props.grid, props.index)};
     userSelect: none;
     margin: 5px
