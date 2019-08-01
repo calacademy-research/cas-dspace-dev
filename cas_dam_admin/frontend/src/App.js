@@ -162,6 +162,15 @@ class App extends React.Component {
         return grid
     }
 
+    verify_grid(){
+        let newGrid = JSON.parse(JSON.stringify(this.state.grid));
+        let response = verify_paths(newGrid, this.state.sourcePath)
+            .then(() => this.setState({
+                 grid: newGrid,
+            },
+                () => console.log(this.state.grid)));
+    }
+
     setSelection(newSelection) {
         /**
          * Callback function to update the source path and folder source given to a lower component
@@ -172,11 +181,9 @@ class App extends React.Component {
             sourcePath: newSelection.path,
             folderSource: newSelection.source,
         }, () => {
-            Logger.info({
-                'this.state.sourcePath': this.state.sourcePath,
-                'this.state.folderSource': this.state.folderSource
-            });
-        })
+            this.verify_grid()
+        });
+
     }
 
     clearGridData() {
