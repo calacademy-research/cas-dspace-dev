@@ -241,7 +241,7 @@ class App extends React.Component {
             // Merge header rows while keeping order
             let jointArray = metadataHeaders.concat(headerRow);
             const combinedHeaderRow = jointArray.filter((item, index) => jointArray.indexOf(item) === index);
-
+            // TODO: Dash - split out all the grid init stuff into its own function
             let grid = [combinedHeaderRow];
 
             let gridHeight = rows.length;
@@ -312,6 +312,7 @@ class App extends React.Component {
 
     }
 
+    // TODO: Dash belongs in a file dedicated to grid stuff
     generateGridJson() {
         // Convert cell structure to proper JSON
         let grid = this.state.grid;
@@ -349,6 +350,7 @@ class App extends React.Component {
         return jsonData
     }
 
+    // TODO: Dash belongs in a file dedicated to grid stuff
     isLastGridRowEmpty(grid) {
         /**
          * Sees if the last row in the grid is empty (contains only empty strings)
@@ -380,6 +382,7 @@ class App extends React.Component {
         this.setState({userEmail: data.email, userPassword: data.password, isLoggedIn: true})
     }
 
+    // TODO: Dash belongs in a file dedicated to either grid stuff or drag and drop alone. IDeally the latter.
     generateDraggableData(grid = this.state.grid) {
         /**
          * Generates a pair of objects: one contains the name and id of the header items, the other keeps track of their order
@@ -409,7 +412,7 @@ class App extends React.Component {
         return {headers, columns, columnOrder}
     }
 
-
+    // TODO: Dash put this in a file dedicated to drag and drop
     onDragEnd = result => {
         const {destination, source, draggableId, combine} = result;
 
@@ -460,11 +463,12 @@ class App extends React.Component {
 
     };
 
-
+    // TODO: Grid file?
     getColumnIndexFromName(columnName) {
         return this.state.grid[0].findIndex(item => item.value === columnName);
     }
 
+    // TODO: Dash put this in a file dedicated to drag and drop
     moveColumn(source, destination) {
         let sourceIndex = this.getColumnIndexFromName(source);
         let destinationIndex = this.getColumnIndexFromName(destination);
@@ -484,6 +488,7 @@ class App extends React.Component {
 
     }
 
+    // TODO: Dash put this in a file dedicated to drag and drop
     mergeColumns(source, destination) {
         let sourceIndex = this.getColumnIndexFromName(source);
         let destinationIndex = this.getColumnIndexFromName(destination);
@@ -502,6 +507,7 @@ class App extends React.Component {
 
     }
 
+
     isHeaderInSchema(name) {
         if (this.metatadataEntries.findIndex(item => item.value === name) >= 0) {
             return true
@@ -509,6 +515,8 @@ class App extends React.Component {
         return false;
     }
 
+    // TODO: This is long enough to be broken up into multiple peices. Create
+    // functions for each piece so it can be clearly seen what the top level blocks are, etc.
 
     render() {
         let draggableZone = (
@@ -547,6 +555,7 @@ class App extends React.Component {
             loggedInStatus = "Logged in as: " + this.state.userEmail;
             authenticationAction = "Change User";
         }
+        // TODO: e.g.: This is "createLoginArea".
         let loginArea = (
             <div>
                 <div className='display-box'>
