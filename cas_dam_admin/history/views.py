@@ -3,7 +3,12 @@ from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from api.models import SubmittedData, Item
 
+import configparser
 from dspace_python_wrapper import Dspace
+
+config = configparser.ConfigParser()
+config.read('settings.ini')
+dspace_url = config['dSpace']['url']
 
 
 # Create your views here.
@@ -53,7 +58,7 @@ def undo_submission(request, submission_id):
 def delete_uuids_from_dspace(list_of_uuids):
     email = 'test@test.edu'
     password = 'admin'
-    dspace_controller = Dspace('http://localhost:8080/rest')
+    dspace_controller = Dspace(dspace_url)
     dspace_controller.login(email, password)
 
     delete_responses = []

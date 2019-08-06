@@ -11,7 +11,7 @@ from .models import Item, SubmittedData
 import os
 import logging
 import json
-import pprint
+import configparser
 
 from cas_dam_admin import settings
 
@@ -19,6 +19,10 @@ from gcloud_interface.gcloud import Gcloud
 from dspace_python_wrapper import Dspace
 
 # Create your views here.
+config = configparser.ConfigParser()
+config.read('settings.ini')
+dspace_url = config['dSpace']['url']
+
 if settings.GOOGLE_DRIVE_ONLY:
     google = Gcloud('gcloud_interface/gcloudAuth/')
 
@@ -63,7 +67,7 @@ def upload_json(request):
     email = upload_header['email']
     password = upload_header['password']
 
-    dspace_controller = Dspace('http://localhost:8080/rest')
+    dspace_controller = Dspace(dspace_url)
     dspace_controller.login(email, password)
 
     # Verify all the headers are present, return 400 if one or more is missing
@@ -134,7 +138,7 @@ def test_login_credentials(request):
     email = data['email']
     password = data['password']
 
-    dspace_controller = Dspace('http://localhost:8080/rest')
+    dspace_controller = Dspace(dspace_url)
     is_logged_in = dspace_controller.login(email, password)
 
     return HttpResponse(is_logged_in, status=status.HTTP_200_OK)
@@ -142,7 +146,7 @@ def test_login_credentials(request):
 
 @api_view(['GET'])
 def get_collections(request):
-    dspace_controller = Dspace('http://localhost:8080/rest')
+    dspace_controller = Dspace(dspace_url)
     collections = dspace_controller.get_data_from_dspace('collections')
     return Response(collections, status=status.HTTP_200_OK)
 

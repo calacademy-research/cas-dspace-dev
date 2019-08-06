@@ -1,13 +1,16 @@
 from dspace_python_wrapper import Dspace
-
+import configparser
 
 if __name__ == "__main__":
 
     TEST_EMAIL = "test@test.edu"
     TEST_PASS = "admin"
 
+    config = configparser.ConfigParser()
+    config.read('../settings.ini')
+    dspace_url = config['dSpace']['url']
 
-    dspace = Dspace('http://localhost:8080/rest')
+    dspace = Dspace(dspace_url)
     dspace.login(TEST_EMAIL, TEST_PASS)
 
     TEST_EMAIL = 'test@test.edu'

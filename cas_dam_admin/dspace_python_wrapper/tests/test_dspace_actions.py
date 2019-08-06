@@ -1,8 +1,14 @@
 import unittest
+import configparser
 
 from .. import Dspace
 
-API_URL = 'http://localhost:8080/rest'
+config = configparser.ConfigParser()
+config.read('../settings.ini')
+dspace_url = config['dSpace']['url']
+
+
+API_URL = dspace_url
 
 
 class TestDspaceController(unittest.TestCase):

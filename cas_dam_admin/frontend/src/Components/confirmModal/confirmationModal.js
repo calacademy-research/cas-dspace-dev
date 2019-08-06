@@ -113,7 +113,7 @@ export default class ConfirmModal extends React.Component {
                 block = (
                     <div>
                         <h2>Successfully Submitted to DSpace!</h2>
-                        <a href="http://localhost:8080/xmlui/">
+                        <a href={process.env.REACT_APP_DSPACE_XMLUI_URL}>
                             <h2>Check out your submission here.</h2>
                         </a>
                         {exitButton}

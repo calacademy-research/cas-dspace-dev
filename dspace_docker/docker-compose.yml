@@ -50,7 +50,7 @@ services:
     volumes:
       #- /Users/hweinstock/dpsace-outlet:/outlet
       - "../dspace_local:/local"
-      - "assetstore:/dspace/assetstore"
+      #- "assetstore:/dspace/assetstore"
       - "./add-ons/dspace-docker-tools:/dspace-docker-tools"
     entrypoint: /dspace-docker-tools/ingestAIP.sh
     networks:
