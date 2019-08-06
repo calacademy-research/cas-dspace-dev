@@ -14,7 +14,10 @@ function isColumnEmpty(col, grid){
 
 }
 
-function determineColor(isInSchema, grid, index){
+function determineColor(isInSchema, isCombineTargetFor, grid, index){
+    if (isCombineTargetFor) {
+        return 'red'
+    }
     if(isColumnEmpty(index, grid)){
         return '#e8e8e8'
     }
@@ -31,7 +34,7 @@ const Container = styled.div`
     padding: 16px;
     margin-right: 8px;
     border-radius: 25px;
-    background-color: ${props => determineColor(props.isInSchema, props.grid, props.index)};
+    background-color: ${props => determineColor(props.isInSchema, props.isCombineTargetFor, props.grid, props.index)};
     userSelect: none;
     margin: 5px
 `;
@@ -41,8 +44,9 @@ export default class Header extends React.Component {
         return (
 
             <Draggable draggableId={this.props.header.id} index={this.props.index}>
-                {provided => (
+                {(provided, snapshot) => (
                     <Container isInSchema={this.props.isInSchema}
+                               isCombineTargetFor={snapshot.combineTargetFor}
                                grid={this.props.grid}
                                index={this.props.index}
                                {...provided.draggableProps}

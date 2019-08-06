@@ -325,7 +325,9 @@ class App extends React.Component {
         grid.forEach((row) => {
             let result = {};
             headerRow.forEach((item, itemIndex) => {
-                result[item.value] = row[itemIndex].value
+                if (this.metatadataEntries.findIndex(metadata => metadata.value === item))
+                {
+                    result[item.value] = row[itemIndex].value}
             });
             jsonData.push(result)
         });

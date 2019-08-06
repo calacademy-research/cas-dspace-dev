@@ -74,6 +74,7 @@ class Dspace:
         :param json_data: json metadata of the item
         :param collection_uuid: the uuid of the collection
         :type json_data: dict
+        :type collection_uuid: str
         :return: a tuple of the uuid and a dict of the response text
         :rtype: tuple(str, dict)
         """
