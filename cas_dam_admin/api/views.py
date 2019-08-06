@@ -242,6 +242,7 @@ def local_get_children(request):
         responseData['is_folder'] = True
         responseData['children'] = []
         children = os.listdir(filepath)
+        children.sort()
 
         for child in children:
             childObject = {}
