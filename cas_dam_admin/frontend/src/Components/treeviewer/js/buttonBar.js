@@ -57,17 +57,23 @@ class ButtonBar extends React.Component {
             path_or_id = newState.cursor.id
         } else {
             type = 'local';
-            path_or_id = newState.cursor.filepath +'/'
+            
+            // Prevents showing a double slash when the root folder is selected
+            if (newState.cursor.filepath === '/') {
+                path_or_id = newState.cursor.filepath
+            } else {
+                path_or_id = newState.cursor.filepath + '/'
+            }
         }
 
-        if(newState.cursor.is_folder){
+        if (newState.cursor.is_folder) {
             this.setState({
-            upload: {
-                uploadType: type,
-                upload: path_or_id,
-                uploadName: newState.name,
-            }
-        });
+                upload: {
+                    uploadType: type,
+                    upload: path_or_id,
+                    uploadName: newState.name,
+                }
+            });
 
         } else {
             Logger.info("File Was Selected");
