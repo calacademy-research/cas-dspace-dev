@@ -675,7 +675,7 @@ class App extends React.Component {
         );
 
         let instructionBox = (
-            <div className='display-box'>
+            <div className='display-box-text'>
                 <Instructions/>
             </div>
         );

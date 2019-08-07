@@ -16,16 +16,16 @@ function isColumnEmpty(col, grid){
 
 function determineColor(isInSchema, isCombineTargetFor, grid, index){
     if (isCombineTargetFor) {
-        return 'red'
+        return '#B0DBAF'
     }
     if(isColumnEmpty(index, grid)){
         return '#e8e8e8'
     }
 
     if(isInSchema){
-        return "#28a745"
+        return "#B0DBAF"
     } else {
-        return "#dc3545"
+        return "#E8A2A2"
     }
 }
 

@@ -4,15 +4,14 @@ export default class Instructions extends React.Component {
     render() {
         return (
             <div>
-                <h3>Information</h3>
-                <ul>
-                    <li>Before Submitting, you must have at least 1 row filled in and be logged in to DSpace.</li>
-                    <li>If a filename cell highlights in green, we were able to locate your file. </li>
-                    <li>In the draggable Column headers, you may reorder columns, combine columns, or delete them.</li>
-                    <li>If a draggable Column is green, it is in our schema and it was included in your csv. If it is grey, it is included in our scheme, but not your csv. And finally, if it is red, it is included in your csv, but not our schema. </li>
-                </ul>
+                <h3>Notes</h3>
+                <p>You must be logged in to Submit items to DSpace. </p>
+                <p>When a CSV file is loaded, its column names are displayed with red or green labels. </p>
+                <p>Green labels will be submitted to Dspace. </p>
+                <p>Red labels will not.</p>
+                <p>Dragging a red label over its grey counterpart will turn it green. </p>
+                <p>Files listed in green have been located on the server and are ready to be submitted.</p>
             </div>
         );
     }
-
 }

@@ -49,6 +49,12 @@
     border: 1px solid black;
 }
 
+.display-box-text {
+    width: 198px;
+    margin: 0 auto;
+    height: 30%;
+}
+
 .collection-box {
     display: flex;
 }
