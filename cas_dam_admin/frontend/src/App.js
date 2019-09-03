@@ -327,6 +327,7 @@ class App extends React.Component {
             headerRow.forEach((item, itemIndex) => {
                 if (~this.metatadataEntries.findIndex(metadata => metadata.value === item.value)) {
                     // Ignore empty cells
+                    console.log(item);
                     if (row[itemIndex].value !== "") {
                         result[item.value] = row[itemIndex].value
                     }
