@@ -325,9 +325,13 @@ class App extends React.Component {
         grid.forEach((row) => {
             let result = {};
             headerRow.forEach((item, itemIndex) => {
-                if (this.metatadataEntries.findIndex(metadata => metadata.value === item))
-                {
-                    result[item.value] = row[itemIndex].value}
+                if (~this.metatadataEntries.findIndex(metadata => metadata.value === item.value)) {
+                    // Ignore empty cells
+                    console.log(item);
+                    if (row[itemIndex].value !== "") {
+                        result[item.value] = row[itemIndex].value
+                    }
+                }
             });
             jsonData.push(result)
         });

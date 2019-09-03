@@ -113,6 +113,8 @@ def upload_json(request):
             pass
         elif upload_header['folderSource'] == 'slevin':
             # Set absolute filepath
+            if upload_header['sourcePath'] is None:
+                upload_header['sourcePath'] = ""
             filepath = os.path.join(upload_header['sourcePath'],
                                     item['filename'])
 
