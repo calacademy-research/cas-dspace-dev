@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import {Draggable} from 'react-beautiful-dnd';
 
 
-function isColumnEmpty(col, grid){
+function isColumnEmpty(col, grid) {
     let i;
-    for(i = 1; i < grid.length-1; i++){
-        if(grid[i][col].value !== ''){
+    for (i = 1; i < grid.length - 1; i++) {
+        if (grid[i][col].value !== '') {
             return false
         }
     }

@@ -440,6 +440,12 @@ class App extends React.Component {
 
         if (combine) {
             let destinationName = this.state.draggableData.headers[combine.draggableId].content;
+
+            // Don't combine if source and destination are both part of the schema
+            if (this.isHeaderInSchema(sourceName) && this.isHeaderInSchema(destinationName)){
+                return
+            }
+
             this.mergeColumns(sourceName, destinationName);
 
         } else {
