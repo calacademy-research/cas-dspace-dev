@@ -325,7 +325,6 @@ class App extends React.Component {
         grid.forEach((row) => {
             let result = {};
             headerRow.forEach((item, itemIndex) => {
-                if (this.metatadataEntries.findIndex(metadata => metadata.value === item))
                 if (~this.metatadataEntries.findIndex(metadata => metadata.value === item.value)) {
                     // Ignore empty cells
                     if (row[itemIndex].value !== "") {
