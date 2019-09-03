@@ -326,8 +326,12 @@ class App extends React.Component {
             let result = {};
             headerRow.forEach((item, itemIndex) => {
                 if (this.metatadataEntries.findIndex(metadata => metadata.value === item))
-                {
-                    result[item.value] = row[itemIndex].value}
+                if (~this.metatadataEntries.findIndex(metadata => metadata.value === item.value)) {
+                    // Ignore empty cells
+                    if (row[itemIndex].value !== "") {
+                        result[item.value] = row[itemIndex].value
+                    }
+                }
             });
             jsonData.push(result)
         });
