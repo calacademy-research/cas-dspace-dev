@@ -10,10 +10,10 @@ import LoginModal from './Components/Login/LoginModal';
 import ConfirmationModal from './Components/confirmModal/confirmationModal'
 import {sendJsonAsPost, getCollections} from './api'
 import 'react-datasheet/lib/react-datasheet.css';
-import {DragDropContext} from 'react-beautiful-dnd';
-import Column from './Components/draggable/column';
 import Instructions from './instructions'
 import uploadIcon from './assets/uploadIcon.png'
+import DragAndDrop from './Components/draggable/DragAndDrop.js'
+import {generateDraggableData} from './Components/draggable/DragAndDropHelper'
 
 // import './bootstrap/css/bootstrap.min.css'
 import './bootstrap/custom.scss'
@@ -42,11 +42,12 @@ class App extends React.Component {
 
         this.submitJsonToBackend = this.submitJsonToBackend.bind(this);
 
-        this.isHeaderInSchema = this.isHeaderInSchema.bind(this);
+        this.setGrid = this.setGrid.bind(this);
+        this.setDraggableData = this.setDraggableData.bind(this);
 
         //this.update_grid_verification = this.update_grid_verification.bind(this);
 
-        this.metatadataEntries = [
+        this.metadataEntries = [
             {value: 'filename', label: 'filename', readOnly: true, className: "required-column"},
             {value: 'dc.title', label: 'dc.title', readOnly: true, className: "required-column"},
             {value: 'dc.identifier (other)', label: 'dc.identifier (other)', readOnly: true},
@@ -91,15 +92,16 @@ class App extends React.Component {
             isTreeModalOpen: false,
             isLoginModalOpen: false,
             isConfirmModalOpen: false,
-            draggableData: this.generateDraggableData(grid),
             userEmail: "",
             userPassword: "",
+            draggableData: generateDraggableData(grid),
+
         };
         // TODO: Dash - let's pull this into a config file
         // https://stackoverflow.com/questions/30568796/how-to-store-configuration-file-and-read-it-using-react
     }
 
-    getHoverText(){
+    getHoverText() {
         let msg = 'Before submitting, please ';
         let loginMsg = 'login';
         let emptyMsg = 'fill in at least 1 row';
@@ -107,13 +109,13 @@ class App extends React.Component {
         let empty = calculate_non_empty_rows(this.state.grid) === 0;
         let notLoggedIn = !this.state.isLoggedIn;
 
-        if(empty){
+        if (empty) {
             msg += emptyMsg;
-            if(notLoggedIn){
+            if (notLoggedIn) {
                 msg += ' and ';
                 msg += loginMsg
             }
-        } else if (notLoggedIn){
+        } else if (notLoggedIn) {
             msg += loginMsg
         } else {
             msg = 'You may now submit!';
@@ -155,19 +157,19 @@ class App extends React.Component {
         let headerRow = [];
 
         // Populate first row of grid with value of each metadata entry
-        this.metatadataEntries.forEach(entry => headerRow.push({value: entry.value}));
+        this.metadataEntries.forEach(entry => headerRow.push({value: entry.value}));
 
         grid.push(headerRow);
         grid.push(this.generateEmptyGridRow(grid));
         return grid
     }
 
-    verify_grid(){
+    verify_grid() {
         let newGrid = JSON.parse(JSON.stringify(this.state.grid));
         let response = verify_paths(newGrid, this.state.sourcePath)
             .then(() => this.setState({
-                 grid: newGrid,
-            },
+                    grid: newGrid,
+                },
                 () => console.log(this.state.grid)));
     }
 
@@ -236,7 +238,7 @@ class App extends React.Component {
             // {dc.title: "all in one test", dc.contributor.author: "not harrison", filename: "/dash/Downloads/cat_photo.jpg", ibss-library.filename: "cat_photo.jpg"}
             // 1: {dc.title: "second line", dc.contributor.author: "second author", filename: "/Users/Dash/Downloads/cat_photo.jpg"
 
-            let metadataHeaders = this.metatadataEntries.map(entry => entry.value);
+            let metadataHeaders = this.metadataEntries.map(entry => entry.value);
 
             // Merge header rows while keeping order
             let jointArray = metadataHeaders.concat(headerRow);
@@ -280,7 +282,7 @@ class App extends React.Component {
             verify_paths(grid, this.state.sourcePath)
                 .then(() => this.setState({grid: grid}));
 
-            this.setState({draggableData: this.generateDraggableData(grid)});
+            this.setState({draggableData: generateDraggableData(grid)});
         };
 
 
@@ -325,7 +327,7 @@ class App extends React.Component {
         grid.forEach((row) => {
             let result = {};
             headerRow.forEach((item, itemIndex) => {
-                if (~this.metatadataEntries.findIndex(metadata => metadata.value === item.value)) {
+                if (~this.metadataEntries.findIndex(metadata => metadata.value === item.value)) {
                     // Ignore empty cells
                     console.log(item);
                     if (row[itemIndex].value !== "") {
@@ -388,163 +390,28 @@ class App extends React.Component {
         this.setState({userEmail: data.email, userPassword: data.password, isLoggedIn: true})
     }
 
-    // TODO: Dash belongs in a file dedicated to either grid stuff or drag and drop alone. IDeally the latter.
-    generateDraggableData(grid = this.state.grid) {
-        /**
-         * Generates a pair of objects: one contains the name and id of the header items, the other keeps track of their order
-         */
-        let headers = {};
-        let columns = {
-            'column-1': {
-                id: 'column-1',
-                title: 'Column headers',
-                headerIds: [],
-            }
-        };
-        let columnOrder = ['column-1'];
-
-        grid[0].forEach((item, index) => {
-            let content = item.value;
-            let itemId = 'item-' + index.toString();
-
-            headers[itemId] = {
-                id: itemId,
-                content: content
-            };
-            columns["column-1"].headerIds.push(itemId);
-
-        });
-
-        return {headers, columns, columnOrder}
-    }
-
-    // TODO: Dash put this in a file dedicated to drag and drop
-    onDragEnd = result => {
-        const {destination, source, draggableId, combine} = result;
-
-        if (!destination && !combine) {
-            return;
-        }
-
-        if (combine || (destination.droppableId === source.droppableId &&
-            destination.index === source.index)) {
-            if (!combine) {
-
-                return;
-            }
-
-        }
-
-        const column = this.state.draggableData.columns[source.droppableId];
-        const newHeaderIds = Array.from(column.headerIds);
-
-        newHeaderIds.splice(source.index, 1);
-
-        let sourceName = this.state.grid[0][source.index].value;
-
-        if (combine) {
-            let destinationName = this.state.draggableData.headers[combine.draggableId].content;
-
-            // Don't combine if source and destination are both part of the schema
-            if (this.isHeaderInSchema(sourceName) && this.isHeaderInSchema(destinationName)){
-                return
-            }
-
-            this.mergeColumns(sourceName, destinationName);
-
-        } else {
-            // Move old item to new position
-            let destinationName = this.state.grid[0][destination.index].value;
-            newHeaderIds.splice(destination.index, 0, draggableId);
-            this.moveColumn(sourceName, destinationName)
-        }
-
-        // Update state of column
-        const newColumn = {
-            ...column,
-            headerIds: newHeaderIds,
-        };
-        const newDraggableData = {
-            ...this.state.draggableData,
-            columns: {
-                ...this.state.draggableData.columns,
-                [newColumn.id]: newColumn,
-            }
-        };
-        this.setState({draggableData: newDraggableData});
-
-    };
 
     // TODO: Grid file?
-    getColumnIndexFromName(columnName) {
-        return this.state.grid[0].findIndex(item => item.value === columnName);
+
+
+    setGrid(newGrid) {
+        this.setState({grid: newGrid});
     }
 
-    // TODO: Dash put this in a file dedicated to drag and drop
-    moveColumn(source, destination) {
-        let sourceIndex = this.getColumnIndexFromName(source);
-        let destinationIndex = this.getColumnIndexFromName(destination);
-
-        let newGrid = this.state.grid;
-
-        let cell;
-        newGrid.forEach((row, rowIndex) => {
-
-            cell = newGrid[rowIndex][sourceIndex]
-            // remove cell at index, then insert it at new index
-            newGrid[rowIndex].splice(sourceIndex, 1);
-            newGrid[rowIndex].splice(destinationIndex, 0, cell)
-        });
-
-        this.setState({grid: newGrid})
-
+    setDraggableData(draggableData) {
+        this.setState({draggableData: draggableData})
     }
 
-    // TODO: Dash put this in a file dedicated to drag and drop
-    mergeColumns(source, destination) {
-        let sourceIndex = this.getColumnIndexFromName(source);
-        let destinationIndex = this.getColumnIndexFromName(destination);
-
-        let newGrid = this.state.grid;
-
-        newGrid.forEach((row, rowIndex) => {
-            // overwrite destination cell, then Remove value from source cell
-            if (rowIndex !== 0) {
-                newGrid[rowIndex][destinationIndex] = newGrid[rowIndex][sourceIndex];
-            }
-            newGrid[rowIndex].splice(sourceIndex, 1);
-        });
-
-        this.setState({grid: newGrid})
-
-    }
-
-
-    isHeaderInSchema(name) {
-        if (this.metatadataEntries.findIndex(item => item.value === name) >= 0) {
-            return true
-        }
-        return false;
-    }
 
     // TODO: This is long enough to be broken up into multiple peices. Create
     // functions for each piece so it can be clearly seen what the top level blocks are, etc.
 
     render() {
-        let draggableZone = (
-            <DragDropContext
-                onDragEnd={this.onDragEnd}
-            >
-                {this.state.draggableData.columnOrder.map(columnId => {
-                    const column = this.state.draggableData.columns[columnId];
-                    const headers = column.headerIds.map(headerId => this.state.draggableData.headers[headerId]);
-                    return <Column key={column.id}
-                                   column={column}
-                                   headers={headers}
-                                   isHeaderInSchema={this.isHeaderInSchema}
-                                   grid={this.state.grid}/>;
-                })}
-            </DragDropContext>);
+        let draggableZone = <DragAndDrop grid={this.state.grid} setGrid={this.setGrid}
+                                         metadataEntries={this.metadataEntries}
+                                         draggableData={this.state.draggableData}
+                                         generateDraggableData={generateDraggableData}
+                                         setDraggableData={this.setDraggableData}/>;
 
         let non_empty_rows = calculate_non_empty_rows(this.state.grid);
         let collectionList = this.state.collectionList;
@@ -573,12 +440,12 @@ class App extends React.Component {
                 <div className='display-box'>
                     <p>{loggedInStatus}</p>
                     <div className="default-button-container">
-                    <Button onClick={() => this.setLoginModalStatus(true)}
-                            variant='info'
-                            className='default-button'>
-                        {authenticationAction}
-                    </Button>
-                </div>
+                        <Button onClick={() => this.setLoginModalStatus(true)}
+                                variant='info'
+                                className='default-button'>
+                            {authenticationAction}
+                        </Button>
+                    </div>
                 </div>
             </div>
 
@@ -606,33 +473,33 @@ class App extends React.Component {
         let filepathButtonText = 'Change Folder';
 
 
-        if(this.state.sourcePath === '') {
+        if (this.state.sourcePath === '') {
             filepathText = 'No folder currently selected';
             filepathButtonText = "Select a Folder"
         }
 
         // Generate the folder selector button, list the path to the folder
         let selectedPath = (
-            <div className= 'display-box'>
+            <div className='display-box'>
                 <p>{filepathText}</p>
                 <p style={{fontSize: '12px', wordWrap: 'break-word'}}>{this.state.sourcePath}</p>
             </div>);
 
         let pathButton = (
             <div className="default-button-container">
-                    <Button onClick={() => this.setTreeModalStatus(true)}
-                            title={"Select a root folder that contains all the files listed in the csv"}
-                            variant='info'
-                            className='default-button'>
+                <Button onClick={() => this.setTreeModalStatus(true)}
+                        title={"Select a root folder that contains all the files listed in the csv"}
+                        variant='info'
+                        className='default-button'>
 
-                        {filepathButtonText}
-                    </Button>
-                </div>
+                    {filepathButtonText}
+                </Button>
+            </div>
         );
 
         let fileviewerArea = (
 
-            <div className= 'display-box'>
+            <div className='display-box'>
                 <p>{filepathText}</p>
                 <p style={{fontSize: '12px', wordWrap: 'break-word'}}>{this.state.sourcePath}</p>
                 {pathButton}
@@ -649,7 +516,7 @@ class App extends React.Component {
                             <div className="upload-box" {...getRootProps()}>
                                 <input {...getInputProps()} />
                                 <div className="upload-text">
-                                    <img className="Img" src={uploadIcon} alt="upload" />
+                                    <img className="Img" src={uploadIcon} alt="upload"/>
                                     <p>Click me or drag CSV file here</p>
                                 </div>
                             </div>
@@ -665,7 +532,7 @@ class App extends React.Component {
             <div className='display-box collection-box'>
                 <p>Collection: &nbsp; </p>
                 <select name='collection_uuid' onChange={this.handleUuidChange} style={{width: '50%'}}>
-                        {collectionOptions}
+                    {collectionOptions}
                 </select>
             </div>
         );
@@ -673,12 +540,12 @@ class App extends React.Component {
         let submitButton = (
             <div className='default-button-container'>
                 <Button variant={!submitButtonDisabled ? 'success' : 'secondary'}
-                            onClick={this.handleSubmit}
-                            disabled={submitButtonDisabled}
-                            title={this.getHoverText()}
-                            className='default-button'>
+                        onClick={this.handleSubmit}
+                        disabled={submitButtonDisabled}
+                        title={this.getHoverText()}
+                        className='default-button'>
 
-                        Submit {non_empty_rows} {non_empty_rows === 1 ? 'row' : 'rows'}
+                    Submit {non_empty_rows} {non_empty_rows === 1 ? 'row' : 'rows'}
 
                 </Button>
             </div>
@@ -756,7 +623,7 @@ class App extends React.Component {
                             if (this.isLastGridRowEmpty(grid)) {
                                 grid.push(this.generateEmptyGridRow(grid));
                             }
-                            this.generateDraggableData(grid);
+                            generateDraggableData(grid);
 
                             this.setState({
                                 grid: grid,
