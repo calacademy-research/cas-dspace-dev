@@ -1,6 +1,5 @@
 import React from 'react';
 import Papa from 'papaparse';
-import ReactDataSheet from 'react-datasheet';
 import TreeModal from './Components/treeviewer/js/TreeModal.js';
 import Logger from './logger.js';
 import Sidebar from 'react-sidebar';
@@ -14,20 +13,23 @@ import Instructions from './instructions'
 import uploadIcon from './assets/uploadIcon.png'
 import DragAndDrop from './Components/draggable/DragAndDrop.js'
 import {generateDraggableData} from './Components/draggable/DragAndDropHelper'
+import * as gridHelper from './Components/grid/gridHelper'
+
 
 // import './bootstrap/css/bootstrap.min.css'
 import './bootstrap/custom.scss'
 
 import './App.css';
 import Button from "react-bootstrap/Button";
-import {verify_paths, calculate_non_empty_rows} from './file_verification'
+import {verify_paths} from './file_verification'
+import {calculateNonEmptyRows} from "./Components/grid/gridHelper";
+import Grid from "./Components/grid/Grid";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.handleFileChosen = this.handleFileChosen.bind(this);
         this.handleLogCurrentData = this.handleLogCurrentData.bind(this);
-        this.generateGridJson = this.generateGridJson.bind(this);
         this.handleUuidChange = this.handleUuidChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setSelection = this.setSelection.bind(this);
@@ -79,7 +81,7 @@ class App extends React.Component {
 
         // Generate grid before setting state, as we need to generate draggable data from the grid.
         // JS won't reference state while it is being created.
-        let grid = this.createEmptyGrid();
+        let grid = gridHelper.createEmptyGrid(this.metadataEntries);
 
         this.state = {
             isLoggedIn: false,
@@ -106,7 +108,7 @@ class App extends React.Component {
         let loginMsg = 'login';
         let emptyMsg = 'fill in at least 1 row';
 
-        let empty = calculate_non_empty_rows(this.state.grid) === 0;
+        let empty = calculateNonEmptyRows(this.state.grid) === 0;
         let notLoggedIn = !this.state.isLoggedIn;
 
         if (empty) {
@@ -125,43 +127,6 @@ class App extends React.Component {
         msg += '.';
 
         return msg
-    }
-
-    // Return an empty row that's the size of the grid
-    generateEmptyGridRow(grid) {
-        /**
-         * Generates an array of objects with empty strings
-         * @param {Object.<string>[][]} grid the grid to match sizes with
-         *
-         * @returns {Object.<string>[]} an array of objects with empty strings
-         */
-
-
-            // TODO: Currently sets all columns to verified false. Not super important but unneeded.
-        let newArray = Array(grid[0].length).fill({value: ""});
-        newArray[0].verified = false;
-        return newArray;   // Generate an row with the same
-
-    }
-
-
-    //Creates an empty grid, does not deal with the state object.
-    // We need to do this because the grid has data preconditions
-    createEmptyGrid() {
-        /**
-         * Creates a new grid that uses all of the metadata fields and an empty row beneath it
-         * @returns {Object.<string>[][]} an array of two rows: the header row and an empty row
-         */
-
-        let grid = [];
-        let headerRow = [];
-
-        // Populate first row of grid with value of each metadata entry
-        this.metadataEntries.forEach(entry => headerRow.push({value: entry.value}));
-
-        grid.push(headerRow);
-        grid.push(this.generateEmptyGridRow(grid));
-        return grid
     }
 
     verify_grid() {
@@ -275,8 +240,8 @@ class App extends React.Component {
             }));
 
 
-            if (this.isLastGridRowEmpty(grid)) {
-                grid.push(this.generateEmptyGridRow(grid));
+            if (gridHelper.isLastGridRowEmpty(grid)) {
+                grid.push(gridHelper.generateEmptyGridRow(grid));
             }
 
             verify_paths(grid, this.state.sourcePath)
@@ -302,7 +267,7 @@ class App extends React.Component {
 
 
     submitJsonToBackend() {
-        let gridJson = this.generateGridJson();
+        let gridJson = gridHelper.generateGridJson();
         return sendJsonAsPost('/api/upload_json', gridJson)
     }
 
@@ -312,62 +277,6 @@ class App extends React.Component {
         // Right now, the promise returned from sendJson is ignored, we should use the promise to give feedback
         this.setConfirmationModalStatus(true);
 
-    }
-
-    // TODO: Dash belongs in a file dedicated to grid stuff
-    generateGridJson() {
-        // Convert cell structure to proper JSON
-        let grid = this.state.grid;
-        let jsonData = [];
-        let headerRow = grid.shift();   // Remove header row, as we will be applying it to each of the subsequent rows
-
-        // We convert from a grid format where the headers are one row and the data is in rows below it to an array
-        // of objects. In each object, the header for the column is they key, and the cell data is the value.
-
-        grid.forEach((row) => {
-            let result = {};
-            headerRow.forEach((item, itemIndex) => {
-                if (~this.metadataEntries.findIndex(metadata => metadata.value === item.value)) {
-                    // Ignore empty cells
-                    console.log(item);
-                    if (row[itemIndex].value !== "") {
-                        result[item.value] = row[itemIndex].value
-                    }
-                }
-            });
-            jsonData.push(result)
-        });
-
-        // The last row will always be an empty, so we remove it before sending to the backend
-        jsonData.pop();
-
-        // dspaceConfig is the header that contains properties that apply to every item in the array.
-        // folderSource defines where the files will come from: gdrive or slevin
-        // sourcePath is the path to the closest common directory shared between all the files.
-        let dspaceConfig = {
-            collectionUuid: this.state.collectionUuid,
-            folderSource: this.state.folderSource,
-            sourcePath: this.state.sourcePath,
-            email: this.state.userEmail,
-            password: this.state.userPassword,
-
-        };
-
-        // Insert the config at the beginning of the array to be sent to the server
-        jsonData.unshift(dspaceConfig);
-        return jsonData
-    }
-
-    // TODO: Dash belongs in a file dedicated to grid stuff
-    isLastGridRowEmpty(grid) {
-        /**
-         * Sees if the last row in the grid is empty (contains only empty strings)
-         *
-         * @returns {bool} True if the last row is empty, false if there is a non-empty string
-         */
-        let lastRow = grid[grid.length - 1];
-
-        return (lastRow.some(cell => cell.value !== ""))
     }
 
     setLoginModalStatus(event) {
@@ -413,7 +322,7 @@ class App extends React.Component {
                                          generateDraggableData={generateDraggableData}
                                          setDraggableData={this.setDraggableData}/>;
 
-        let non_empty_rows = calculate_non_empty_rows(this.state.grid);
+        let non_empty_rows = gridHelper.calculateNonEmptyRows(this.state.grid);
         let collectionList = this.state.collectionList;
         let collectionOptions = [];
 
@@ -526,7 +435,7 @@ class App extends React.Component {
             </div>
         );
 
-        let submitButtonDisabled = calculate_non_empty_rows(this.state.grid) === 0 || !this.state.isLoggedIn;
+        let submitButtonDisabled = calculateNonEmptyRows(this.state.grid) === 0 || !this.state.isLoggedIn;
 
         let collectionSelector = (
             <div className='display-box collection-box'>
@@ -561,6 +470,7 @@ class App extends React.Component {
             <div style={{paddingTop: '12.5px'}}/>
         );
 
+        // TODO: Move sidebar into separate component
         let sidebar = (
             <div>
                 {buffer}
@@ -607,29 +517,7 @@ class App extends React.Component {
                     />
 
                     {draggableZone}
-                    <ReactDataSheet
-                        data={this.state.grid}
-                        valueRenderer={(cell) => cell.value}
-                        cellRenderer={customCellRenderer}
-                        onCellsChanged={changes => {
-                            // Duplicate the grid, and then apply each change to the new grid
-                            let grid = this.state.grid.map(row => [...row]);
-                            changes.forEach(({cell, row, col, value}) => {
-                                grid[row][col] = {...grid[row][col], value}
-                            });
-                            verify_paths(grid, this.state.sourcePath).then(response => Logger.info({"Updated Grid": response}));
-
-                            // Add a new row to the bottom of the array if the current last one has data in it
-                            if (this.isLastGridRowEmpty(grid)) {
-                                grid.push(this.generateEmptyGridRow(grid));
-                            }
-                            generateDraggableData(grid);
-
-                            this.setState({
-                                grid: grid,
-                            })
-                        }}
-                    />
+                    <Grid grid={this.state.grid} setGrid={this.setGrid} sourcePath={this.state.sourcePath}/>
                     {/* This is a debug hook for now*/}
                     {/*<button onClick={this.generateGridJson}>Print current data</button>*/}
                     <TreeModal isModalOpen={this.state.isTreeModalOpen} setSelection={this.setSelection}

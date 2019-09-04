@@ -24,19 +24,4 @@ function compare_with_response(response, filenames){
     return(filenames);
 }
 
-function calculate_non_empty_rows(grid){
-    let row, item;
-    let result = 0;
-    for(row = 1; row < grid.length; row++) {
-        for(item = 0; item < grid[row].length; item++){
-            if(grid[row][item].value !== '') {
-                result++;
-                break;
-            }
-        }
-    }
-
-    return result
-}
-
-export {verify_paths, calculate_non_empty_rows};
+export {verify_paths};
