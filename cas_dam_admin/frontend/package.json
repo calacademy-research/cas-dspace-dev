@@ -8,7 +8,7 @@
     "bootstrap": "^4.3.1",
     "downshift": "^3.2.10",
     "jquery": "^3.4.1",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
     "papaparse": "^5.0.0",
     "react": "^16.8.6",
@@ -26,6 +26,7 @@
     "react-sidebar": "^3.0.2",
     "react-treebeard": "^3.2.4",
     "styled-components": "^4.3.2",
+    "typescript": "^3.6.2",
     "winston": "^3.2.1"
   },
   "scripts": {
@@ -36,6 +37,9 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "globals": {
+    "_": true
   },
   "browserslist": {
     "production": [

@@ -300,9 +300,6 @@ class App extends React.Component {
     }
 
 
-    // TODO: Grid file?
-
-
     setGrid(newGrid) {
         this.setState({grid: newGrid});
     }

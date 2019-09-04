@@ -16,7 +16,7 @@ function isColumnEmpty(col, grid) {
 
 function determineColor(isInSchema, isCombineTargetFor, grid, index){
     if (isCombineTargetFor) {
-        return '#B0DBAF'
+        return '#9abf99'
     }
     if(isColumnEmpty(index, grid)){
         return '#e8e8e8'
@@ -30,7 +30,7 @@ function determineColor(isInSchema, isCombineTargetFor, grid, index){
 }
 
 const Container = styled.div`
-    border: 1px solid lightgrey
+    // border: 1px solid lightgrey
     padding: 16px;
     margin-right: 8px;
     border-radius: 25px;
