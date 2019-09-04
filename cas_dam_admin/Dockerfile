@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.7
 
 ADD . /cas_dam_admin
 
@@ -10,6 +10,6 @@ WORKDIR /cas_dam_admin/frontend
 RUN npm install
 RUN npm rebuild node-sass
 RUN npm run build
-WORKDIR /django-project
+WORKDIR /cas_dam_admin
 #CMD [ "echo" ]
-CMD [ "python", "/django-project/manage.py runserver 0:8000" ]
+CMD [ "python3", "manage.py", "runserver", "0:8000" ]
