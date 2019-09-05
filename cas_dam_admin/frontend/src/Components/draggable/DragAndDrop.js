@@ -2,6 +2,7 @@ import React from 'react'
 import {DragDropContext} from "react-beautiful-dnd";
 import Column from "./column";
 import _ from 'lodash'
+import {generateDraggableData} from "./DragAndDropHelper";
 
 export default class DragAndDrop extends React.Component {
     constructor(props) {
@@ -51,12 +52,12 @@ export default class DragAndDrop extends React.Component {
 
         this.props.setGrid(newGrid);
 
+        return newGrid;
     }
 
 
     onDragEnd = result => {
-        console.log(result)
-        const {destination, source, draggableId, combine} = result;
+        const {source, combine} = result;
 
         if (!combine) {
             return;
@@ -72,17 +73,12 @@ export default class DragAndDrop extends React.Component {
             return
         }
 
+        let newGrid = this.mergeColumns(sourceName, destinationName);
 
-        let newDraggableData = this.props.draggableData;
 
-        // Remove references to the source column
-        newDraggableData.columnOrder.splice(source.index, 1);
-        delete newDraggableData.columns[source.droppableId];
-        delete newDraggableData.headers[source.draggableId];
-
-        this.mergeColumns(sourceName, destinationName);
-
-        this.props.setDraggableData(newDraggableData);
+        // Regenerate draggable data from merged grid
+        // Yes, we are changing the ids of the items, but I don't think it matters since we are not allowing reordering
+        this.props.setDraggableData(generateDraggableData(newGrid));
 
     };
 
@@ -97,6 +93,7 @@ export default class DragAndDrop extends React.Component {
 
     render() {
         let columns = this.props.draggableData.columnOrder.map((columnId, index) => {
+            console.log(columnId);
             const column = this.props.draggableData.columns[columnId];
             const headers = column.headerIds.map(headerId => this.props.draggableData.headers[headerId]);
             return <Column key={column.id}

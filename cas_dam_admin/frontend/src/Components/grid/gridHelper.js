@@ -11,7 +11,7 @@ export function createEmptyGrid(metadataEntries) {
     metadataEntries.forEach(entry => headerRow.push({value: entry.value}));
 
     grid.push(headerRow);
-    grid.push(this.generateEmptyGridRow(grid));
+    grid.push(generateEmptyGridRow(grid));
     return grid
 }
 
