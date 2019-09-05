@@ -1,11 +1,9 @@
 import unittest
-import configparser
+from cas_dam_admin import settings
 
 from .. import Dspace
 
-config = configparser.ConfigParser()
-config.read('../settings.ini')
-dspace_url = config['dSpace']['url']
+dspace_url = settings.DSPACE_URL
 
 
 API_URL = dspace_url

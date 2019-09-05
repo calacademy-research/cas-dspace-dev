@@ -135,3 +135,8 @@ CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:8000'
 
 )
+
+DSPACE_URL = os.environ.get('DSPACE_URL')
+
+if DSPACE_URL is None:
+    raise NameError("DSPACE_URL environment variable not defined.")

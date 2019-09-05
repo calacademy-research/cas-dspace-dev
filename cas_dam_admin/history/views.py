@@ -3,12 +3,10 @@ from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from api.models import SubmittedData, Item
 
-import configparser
 from dspace_python_wrapper import Dspace
+from cas_dam_admin import settings
 
-config = configparser.ConfigParser()
-config.read('settings.ini')
-dspace_url = config['dSpace']['url']
+dspace_url = settings.DSPACE_URL
 
 
 # Create your views here.

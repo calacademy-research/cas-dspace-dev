@@ -1,20 +1,19 @@
 from dspace_python_wrapper import Dspace
-import configparser
+from cas_dam_admin import settings
 
 if __name__ == "__main__":
 
     TEST_EMAIL = "test@test.edu"
     TEST_PASS = "admin"
 
-    config = configparser.ConfigParser()
-    config.read('../settings.ini')
-    dspace_url = config['dSpace']['url']
+    dspace_url = settings.DSPACE_URL
 
     dspace = Dspace(dspace_url)
     dspace.login(TEST_EMAIL, TEST_PASS)
 
     TEST_EMAIL = 'test@test.edu'
     TEST_PASS = 'admin'
+
 
     def clear_test_data():
 
@@ -33,5 +32,6 @@ if __name__ == "__main__":
         else:
 
             return
+
 
     clear_test_data()

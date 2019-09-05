@@ -11,7 +11,6 @@ from .models import Item, SubmittedData
 import os
 import logging
 import json
-import configparser
 
 from cas_dam_admin import settings
 
@@ -19,9 +18,7 @@ from gcloud_interface.gcloud import Gcloud
 from dspace_python_wrapper import Dspace
 
 # Create your views here.
-config = configparser.ConfigParser()
-config.read('settings.ini')
-dspace_url = config['dSpace']['url']
+dspace_url = settings.DSPACE_URL
 
 if settings.GOOGLE_DRIVE_ONLY:
     google = Gcloud('gcloud_interface/gcloudAuth/')
