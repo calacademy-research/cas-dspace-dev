@@ -2,10 +2,18 @@
 Replace `DSPACE_URL=http://dspace:8080/rest` with the url for your instance of dSpace
 ```
 docker run -p 8000:8000 
-    --env DSPACE_URL=http://dspace:8080/rest 
-    --name django_docker 
-    cas_dam_docker
+--env DSPACE_URL=http://dspace:8080/rest 
+--name django_docker 
+-h=`hostname`
+cas_dam_docker
 ```
+
+If you are running dSpace in a docker container, you will need to add this container to the dspace network by adding: 
+`--net=d6_dspacenet`
+
+## Running without docker:
+You need to set the environment variable to the url of dspace
+`export DSPACE_URL=http://localhost:8080/rest`
 
 #Getting started for development:
 
