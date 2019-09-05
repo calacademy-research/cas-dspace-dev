@@ -66,6 +66,7 @@ export default class DragAndDrop extends React.Component {
 
         let destinationName = this.props.draggableData.headers[combine.draggableId].content;
 
+
         // Don't combine if source and destination are both part of the schema
         if (this.isHeaderInSchema(sourceName) && this.isHeaderInSchema(destinationName)) {
             return
@@ -73,7 +74,6 @@ export default class DragAndDrop extends React.Component {
 
 
         let newDraggableData = this.props.draggableData;
-
 
         // Remove references to the source column
         newDraggableData.columnOrder.splice(source.index, 1);
@@ -105,13 +105,13 @@ export default class DragAndDrop extends React.Component {
                            isHeaderInSchema={this.isHeaderInSchema}
                            grid={this.props.grid}/>;
         });
-        columns = _.chunk(columns, 5).map((rows, index) => {
+        columns = _.chunk(columns, 6).map((rows, index) => {
             return (<tr key={index} style={{width: '20%'}}>
                 {rows.map(item => {
                     return <td key={item.key} style={{overflow: 'hidden'}}>{item}</td>
                 })}
             </tr>)
-        })
+        });
 
         return <DragDropContext
             onDragEnd={this.onDragEnd}>
