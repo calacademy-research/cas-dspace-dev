@@ -1,6 +1,13 @@
-Initial commit for project
+# Running the server in Docker
+Replace `DSPACE_URL=http://dspace:8080/rest` with the url for your instance of dSpace
+```
+docker run -p 8000:8000 
+    --env DSPACE_URL=http://dspace:8080/rest 
+    --name django_docker 
+    cas_dam_docker
+```
 
-#Getting started:
+#Getting started for development:
 
 Create virtual env:
 
@@ -27,24 +34,27 @@ This file is only necessary for the first run, after which, a token.pickle file 
 
 In order to kick off the React frontend app and have it display the spreadsheet/fileviewer, run the following commands. 
  
-`cd cas_dam_admin/frontend`  
-`npm install`  
-`npm run build`  
+```
+cd cas_dam_admin/frontend
+npm install
+npm start
+```
 
-This process should have created a build file within the current directory. 
-Do not commit this build file, it should already be in `.gitignore`. Any time changes are made 
-to the React App, the `npm run build` command will have to be re-run. 
+This will open your browser to the React App site.
 
-Now, start the Django server and check the `/home` url for the React App. 
+## Generating Static Files for Django
+
+`cd cas_dam_admin/frontend`
+
+`npm run build`
+
+This process should have created a build folder within the current directory. 
+Do not commit this build folder, it should already be in `.gitignore`. Any time changes are made 
+to the React App, the `npm run build` command will have to be re-run in order to display them with Django. 
+
+Now, start the Django server and check the url to view the site.
 
 Note: If Google Cloud is disabled in the `setting.ini` file, switching to Google Cloud in the filebrowing modal will throw an error. 
-
-
-#Third Party code
-We're currently using Cory S.N. LaViska's jQuery file browser plugin (https://www.abeautifulsite.net/jquery-file-tree)
-to manage browsing paths on slevin. (MIT License)
-
-We are also using Lea Verou http://lea.verou.me's Stretchy.js to handle flexible text box sizes, using an MIT License
 
 #Known issues:
 
