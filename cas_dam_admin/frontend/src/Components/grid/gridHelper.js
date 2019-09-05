@@ -30,7 +30,7 @@ export function generateEmptyGridRow(grid) {
 
 }
 
-export function generateGridJson(grid, collectionUuid, folderSource, sourcePath, email, password) {
+export function generateGridJson(grid, metadataEntries, collectionUuid, folderSource, sourcePath, email, password) {
     // Convert cell structure to proper JSON
     let jsonData = [];
     let headerRow = grid.shift();   // Remove header row, as we will be applying it to each of the subsequent rows
@@ -41,7 +41,7 @@ export function generateGridJson(grid, collectionUuid, folderSource, sourcePath,
     grid.forEach((row) => {
         let result = {};
         headerRow.forEach((item, itemIndex) => {
-            if (~this.metadataEntries.findIndex(metadata => metadata.value === item.value)) {
+            if (~metadataEntries.findIndex(metadata => metadata.value === item.value)) {
                 // Ignore empty cells
                 console.log(item);
                 if (row[itemIndex].value !== "") {

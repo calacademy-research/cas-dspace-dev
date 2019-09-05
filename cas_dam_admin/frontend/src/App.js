@@ -267,7 +267,7 @@ class App extends React.Component {
 
 
     submitJsonToBackend() {
-        let gridJson = gridHelper.generateGridJson();
+        let gridJson = gridHelper.generateGridJson(this.state.grid, this.metadataEntries, this.state.collectionUuid, this.state.folderSource, this.state.sourcePath, this.state.userEmail, this.state.userPassword);
         return sendJsonAsPost('/api/upload_json', gridJson)
     }
 
