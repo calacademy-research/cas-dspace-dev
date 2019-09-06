@@ -89,7 +89,7 @@ def upload_json(request):
 
         response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
                                                                                      upload_header['collectionUuid'])
-        print(response_uuid)
+        logging.info(response_uuid)
         if response_uuid is None:  # Empty rows should be ignored and not added to item_responses
             continue
 
@@ -123,6 +123,8 @@ def upload_json(request):
                 filename = os.path.basename(item['filename'])
 
             dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
+            logging.info(filename)
+
             # Update each item with the filepath.
             # We can't do this earlier, as we generate the filepath when uploading the bitstream.
             Item.objects.filter(pk=response_uuid).update(filepath=filepath)
