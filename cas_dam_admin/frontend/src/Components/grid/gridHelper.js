@@ -40,7 +40,9 @@ export function generateGridJson(grid, metadataEntries, collectionUuid, folderSo
 
     grid.forEach((row) => {
         let result = {};
-        if (!row.verified) {
+
+        // Continue to next item if the file is not verified
+        if (!row[0].verified) {
             return;
         }
         headerRow.forEach((item, itemIndex) => {
