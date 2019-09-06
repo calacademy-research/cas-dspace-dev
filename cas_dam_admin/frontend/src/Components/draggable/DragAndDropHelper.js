@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 export function generateDraggableData(grid) {
     /**
      * Generates a pair of objects: one contains the name and id of the header items, the other keeps track of their order
