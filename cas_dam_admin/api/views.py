@@ -6,6 +6,8 @@ from rest_framework import status
 from django.http import JsonResponse
 from django.http import HttpResponse
 
+from django.core.mail import send_mail
+
 from .models import Item, SubmittedData
 
 import os
@@ -128,6 +130,12 @@ def upload_json(request):
             # Update each item with the filepath.
             # We can't do this earlier, as we generate the filepath when uploading the bitstream.
             Item.objects.filter(pk=response_uuid).update(filepath=filepath)
+
+    send_mail('Your submission was a success!',
+              'You have submitted ' + str(len(item_responses)) + ' items to ibss-assets',
+              'ibss.assets@gmail.com',
+              [email],
+              fail_silently=False)
 
     return HttpResponse(status=status.HTTP_200_OK)
 
