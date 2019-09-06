@@ -40,6 +40,9 @@ export function generateGridJson(grid, metadataEntries, collectionUuid, folderSo
 
     grid.forEach((row) => {
         let result = {};
+        if (!row.verified) {
+            return;
+        }
         headerRow.forEach((item, itemIndex) => {
             if (~metadataEntries.findIndex(metadata => metadata.value === item.value)) {
                 // Ignore empty cells
