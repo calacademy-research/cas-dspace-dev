@@ -35,6 +35,9 @@ export function generateGridJson(grid, metadataEntries, collectionUuid, folderSo
     let jsonData = [];
     let headerRow = grid.shift();   // Remove header row, as we will be applying it to each of the subsequent rows
 
+    // The last row will always be an empty, so we remove it before sending to the backend
+    grid.pop();
+
     // We convert from a grid format where the headers are one row and the data is in rows below it to an array
     // of objects. In each object, the header for the column is they key, and the cell data is the value.
 
@@ -56,9 +59,6 @@ export function generateGridJson(grid, metadataEntries, collectionUuid, folderSo
         });
         jsonData.push(result)
     });
-
-    // The last row will always be an empty, so we remove it before sending to the backend
-    jsonData.pop();
 
     // dspaceConfig is the header that contains properties that apply to every item in the array.
     // folderSource defines where the files will come from: gdrive or slevin

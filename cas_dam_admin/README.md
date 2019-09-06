@@ -1,8 +1,14 @@
 # Running the server in Docker
 Replace `DSPACE_URL=http://dspace:8080/rest` with the url for your instance of dSpace
+Also replace `EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD`
 ```
 docker run -p 8000:8000 
 --env DSPACE_URL=http://dspace:8080/rest 
+--env EMAIL_HOST='smtp.gmail.com'
+--env EMAIL_PORT=587
+--env EMAIL_HOST_USER='youremail@example.com'
+--env EMAIL_HOST_PASSWORD='topsecretpassword'
+--env EMAIL_USE_TLS=True
 --name django_docker 
 -h=`hostname`
 cas_dam_docker
