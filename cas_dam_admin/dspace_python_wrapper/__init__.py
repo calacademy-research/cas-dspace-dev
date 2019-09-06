@@ -85,6 +85,8 @@ class Dspace:
             if key == "filename":  # filename should not be imported into dSpace, but ibss-library.filename should
                 continue
 
+            value = value.strip()
+
             if value == "":  # empty values should not be send to dSpace
                 continue
             json_metadata['metadata'].append({'key': key, 'value': value})

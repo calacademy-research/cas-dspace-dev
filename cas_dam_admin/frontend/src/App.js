@@ -57,7 +57,7 @@ class App extends React.Component {
             {value: 'dc.rights.holder', label: 'dc.rights (holder)', readOnly: true},
             {value: 'dc.creator', label: 'dc.creator', readOnly: true, className: "required-column"},
             {value: 'dc.format', label: 'dc.format', readOnly: true},
-            {value: 'dc.coverage (spatial)', label: 'dc.coverage (spatial)', readOnly: true},
+            {value: 'dc.coverage.spatial', label: 'dc.coverage (spatial)', readOnly: true},
             {value: 'dc.subject', label: 'dc.subject', readOnly: true},
             {value: 'dc.date.created', label: 'dc.date (created)', readOnly: true},
             {value: 'dc.description', label: 'dc.description', readOnly: true},
@@ -73,10 +73,10 @@ class App extends React.Component {
                 readOnly: true,
                 className: "required-column"
             },
-            {value: 'dc.identifier (uri)', label: 'dc.identifier (uri)', readOnly: true},
+            {value: 'dc.identifier.uri', label: 'dc.identifier (uri)', readOnly: true},
             {value: 'dc.type', label: 'dc.type', readOnly: true},
-            {value: 'dc.rights (statement)', label: 'dc.rights (statement)', readOnly: true},
-            {value: 'dc.rights (status)', label: 'dc.rights (status)', readOnly: true},
+            {value: 'dc.rights.statement', label: 'dc.rights (statement)', readOnly: true},
+            {value: 'dc.rights.status', label: 'dc.rights (status)', readOnly: true},
             {value: 'ibss-library.publish', label: 'ibss-library.publish', readOnly: true}];
 
         // Generate grid before setting state, as we need to generate draggable data from the grid.
