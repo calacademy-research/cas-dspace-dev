@@ -9,5 +9,10 @@
     {% csrf_token %}
     <button>Undo!</button>
 </form>
+<li>
+    {% for item in list_of_uuids %}
+        <ul>{{ item }}</ul>
+    {% endfor %}
+</li>
 </body>
 </html>
