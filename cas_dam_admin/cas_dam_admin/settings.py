@@ -141,6 +141,7 @@ DSPACE_URL = os.environ.get('DSPACE_URL')
 if DSPACE_URL is None:
     raise NameError("DSPACE_URL environment variable not defined.")
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
