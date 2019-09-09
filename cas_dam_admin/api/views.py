@@ -25,6 +25,8 @@ dspace_url = settings.DSPACE_URL
 if settings.GOOGLE_DRIVE_ONLY:
     google = Gcloud('gcloud_interface/gcloudAuth/')
 
+logging.basicConfig(level=logging.INFO)
+
 
 # TODO: Dash - comment that this is the post to dspace via the api
 @api_view(['POST'])
@@ -87,11 +89,12 @@ def upload_json(request):
     submitted_data = SubmittedData(upload_user=email, collection_uuid=upload_header['collectionUuid'])
     submitted_data.save()
 
-    for item in new_items:
+    for i, item in enumerate(new_items):
 
         response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
                                                                                      upload_header['collectionUuid'])
-        logging.info(response_uuid)
+        logging.info("registered " + str(i) + " of " + str(len(new_items)) + " items")
+        # logging.info(response_uuid)
         if response_uuid is None:  # Empty rows should be ignored and not added to item_responses
             continue
 
@@ -105,7 +108,7 @@ def upload_json(request):
     if item_responses == []:
         return HttpResponse("Error: none of the rows were valid.", status=status.HTTP_204_NO_CONTENT)
 
-    for item, response_uuid, response_data in item_responses:
+    for i, item, response_uuid, response_data in enumerate(item_responses):
         if upload_header['folderSource'] == 'gdrive':
             # Do something
             # google.upload_to_dspace(dspace_controller, , )
@@ -125,11 +128,13 @@ def upload_json(request):
                 filename = os.path.basename(item['filename'])
 
             dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
-            logging.info(filename)
+            # logging.info(filename)
 
             # Update each item with the filepath.
             # We can't do this earlier, as we generate the filepath when uploading the bitstream.
             Item.objects.filter(pk=response_uuid).update(filepath=filepath)
+
+        logging.info("uploaded " + str(i) + " of " + str(len(item_responses)) + " items")
 
     send_mail('Your submission was a success!',
               'You have submitted ' + str(len(item_responses)) + ' items to ibss-assets',
