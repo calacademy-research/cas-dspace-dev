@@ -108,7 +108,7 @@ def upload_json(request):
     if item_responses == []:
         return HttpResponse("Error: none of the rows were valid.", status=status.HTTP_204_NO_CONTENT)
 
-    for i, item, response_uuid, response_data in enumerate(item_responses):
+    for i, (item, response_uuid, response_data) in enumerate(item_responses):
         if upload_header['folderSource'] == 'gdrive':
             # Do something
             # google.upload_to_dspace(dspace_controller, , )

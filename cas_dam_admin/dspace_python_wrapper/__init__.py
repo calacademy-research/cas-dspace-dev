@@ -101,7 +101,11 @@ class Dspace:
 
         if new_item_response.status_code == 500:
             print("dspace threw 500 error")
-            return
+            return None, None
+
+        if new_item_response.status_code != 200:
+            print(new_item_response.content)
+            return None, None
 
 
         # TODO catch 401, 404, 405, 415, 500 errors
