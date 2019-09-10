@@ -50,12 +50,13 @@ def undo_submission(request, submission_id):
 
     delete_uuids_from_dspace(list_of_uuids)
 
+    delete_uuids_from_dspace(list_of_uuids, request.POST['email'], request.POST['password'])
+
     return redirect('index')
 
 
-def delete_uuids_from_dspace(list_of_uuids):
-    email = 'test@test.edu'
-    password = 'admin'
+def delete_uuids_from_dspace(list_of_uuids, email, password):
+
     dspace_controller = Dspace(dspace_url)
     dspace_controller.login(email, password)
 
