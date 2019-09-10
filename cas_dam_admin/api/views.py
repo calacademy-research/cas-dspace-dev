@@ -99,7 +99,7 @@ def upload_json(request):
             continue
 
         item_responses.append((item, response_uuid, response_data))
-
+        dspace_controller.add_policy_to_bitstream()
         item_model = Item(source_submission=submitted_data, uuid=response_uuid, metadata=json.dumps(item))
         item_model.save()
 
@@ -127,7 +127,12 @@ def upload_json(request):
             else:
                 filename = os.path.basename(item['filename'])
 
-            dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
+            json_response = dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
+            # TODO:
+            # bitstream_id = json_response.magic
+            # dspace_controller.add_policy_to_bitstream(bitstream_id,policy_id):
+
+            #
             # logging.info(filename)
 
             # Update each item with the filepath.
