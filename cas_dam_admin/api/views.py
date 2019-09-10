@@ -130,7 +130,7 @@ def upload_json(request):
             json_response = dspace_controller.add_bitstream_to_item(filepath, filename, response_uuid)
             # TODO:
             # bitstream_id = json_response.magic
-            # dspace_controller.add_policy_to_bitstream(bitstream_id,policy_id):
+            # dspace_controller.clear_policy_from_bitstream(bitstream_id,policy_id):
 
             #
             # logging.info(filename)
