@@ -48,8 +48,6 @@ def get_item_uuids_from_submission_pk(pk):
 def undo_submission(request, submission_id):
     list_of_uuids = get_item_uuids_from_submission_pk(submission_id)
 
-    delete_uuids_from_dspace(list_of_uuids)
-
     delete_uuids_from_dspace(list_of_uuids, request.POST['email'], request.POST['password'])
 
     return redirect('index')

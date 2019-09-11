@@ -68,18 +68,6 @@ class Dspace:
 
         return response_text['uuid']
 
-    def clear_policy_from_bitstream(self,bitstream_id,policy_id):
-        raise NotImplementedError
-
-    def add_policy_to_bitstream(self,bitstream_id,policy_id):
-        # from docs:
-        #  Looks like this is the generic "add policy"
-        # ResourcePolicy Object
-        # [{"id":317127,"action":"READ","epersonId":-1,"groupId":0,"resourceId":47166,"resourceType":"bitstream","rpDescription":null,"rpName":null,"rpType":"TYPE_INHERITED","startDate":null,"endDate":
-        # resource: https://groups.google.com/forum/#!searchin/dspace-tech/ResourcePolicy$20add$20rest%7Csort:date/dspace-tech/5uPhsbNkWek/R41VSkSdCAAJ
-
-        raise NotImplementedError
-
 
 
     def register_new_item_from_json(self, json_data, collection_uuid):

@@ -11,6 +11,7 @@ docker run -p 8000:8000
 --env EMAIL_USE_TLS=True
 --name django_docker 
 -h=`hostname`
+-v db.sqlite3:/cas_dam_admin/database/db.sqlite
 cas_dam_docker
 ```
 

@@ -11,5 +11,9 @@ RUN npm install
 RUN npm rebuild node-sass
 RUN npm run build
 WORKDIR /cas_dam_admin
+
+RUN rm db.sqlite3
+#RUN python3 manage.py migrate
+
 #CMD [ "echo" ]
 CMD [ "python3", "manage.py", "runserver", "0:8000" ]
