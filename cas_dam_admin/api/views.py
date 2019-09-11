@@ -82,8 +82,10 @@ def upload_json(request):
 
     if not new_items:
         if header_seen:
+            logging.warning("Error: header received, but no data sent.")
             return HttpResponse("Error: header received, but no data sent.", status=status.HTTP_204_NO_CONTENT)
         else:
+            logging.warning("Error: header and data not received")
             return HttpResponse("Error: header and data not received", status=status.HTTP_204_NO_CONTENT)
 
     submitted_data = SubmittedData(upload_user=email, collection_uuid=upload_header['collectionUuid'])
@@ -105,6 +107,7 @@ def upload_json(request):
     logging.info(json_body)
 
     if item_responses == []:
+        logging.warning("Error: none of the rows were valid.")
         return HttpResponse("Error: none of the rows were valid.", status=status.HTTP_204_NO_CONTENT)
 
     for i, (item, response_uuid, response_data) in enumerate(item_responses):
