@@ -95,10 +95,11 @@ def upload_json(request):
 
         response_uuid, response_data = dspace_controller.register_new_item_from_json(item,
                                                                                      upload_header['collectionUuid'])
-        logging.info("registered " + str(i) + " of " + str(len(new_items)) + " items")
         # logging.info(response_uuid)
         if response_uuid is None:  # Empty rows should be ignored and not added to item_responses
             continue
+
+        logging.info("registered " + str(i + 1) + " of " + str(len(new_items)) + " items")
 
         item_responses.append((item, response_uuid, response_data))
         item_model = Item(source_submission=submitted_data, uuid=response_uuid, metadata=json.dumps(item))
@@ -141,7 +142,7 @@ def upload_json(request):
             # We can't do this earlier, as we generate the filepath when uploading the bitstream.
             Item.objects.filter(pk=response_uuid).update(filepath=filepath)
 
-        logging.info("uploaded " + str(i) + " of " + str(len(item_responses)) + " items")
+        logging.info("uploaded " + str(i + 1) + " of " + str(len(item_responses)) + " items")
 
     send_mail('Your submission was a success!',
               'You have submitted ' + str(len(item_responses)) + ' items to ibss-assets',

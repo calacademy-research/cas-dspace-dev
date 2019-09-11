@@ -75,8 +75,8 @@ class App extends React.Component {
             },
             {value: 'dc.identifier.uri', label: 'dc.identifier (uri)', readOnly: true},
             {value: 'dc.type', label: 'dc.type', readOnly: true},
-            {value: 'dc.rights.statement', label: 'dc.rights (statement)', readOnly: true},
-            {value: 'dc.rights.status', label: 'dc.rights (status)', readOnly: true},
+            {value: 'ibss-library.rights.statement', label: 'ibss-library.rights (statement)', readOnly: true},
+            {value: 'ibss-library.rights.status', label: 'ibss-library.rights (status)', readOnly: true},
             {value: 'ibss-library.publish', label: 'ibss-library.publish', readOnly: true}];
 
         // Generate grid before setting state, as we need to generate draggable data from the grid.
